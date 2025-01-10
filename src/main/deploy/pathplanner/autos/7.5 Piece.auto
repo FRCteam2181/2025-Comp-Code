@@ -1,0 +1,141 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 1 - A"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 3"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": null
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Part 1 - A"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
