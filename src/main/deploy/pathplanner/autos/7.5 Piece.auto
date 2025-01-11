@@ -7,19 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Part 1 - A"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Part 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Part 3"
+            "pathName": "Part 1 - B"
           }
         },
         {
@@ -95,41 +83,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": null
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": null
-                }
-              }
-            ]
+            "pathName": "Part 4"
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Part 1 - A"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": null
-                }
-              }
-            ]
+            "pathName": "Part 3"
           }
         }
       ]
