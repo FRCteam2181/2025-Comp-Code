@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -31,6 +32,122 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
+  
+  
+  
+//       //Attempt at adding Switchable cases for buttons
+//       private OperatorDesiredReefBranchSide currentOperatorDesiredReefBranchSide = OperatorDesiredReefBranchSide.FULL_REEFSIDE_MANUAL;
+//       private OperatorDesiredReefLevel currentOperatorDesiredReefLevel = OperatorDesiredReefLevel.FULL_REEFLEVEL_MANUAL;
+//       private OperatorDesiredReefHexSide currentOperatorDesiredReefHexSide = OperatorDesiredReefHexSide.FULL_REEF_HEX_SIDE_MANUAL;
+  
+
+//       private boolean isUpdated = false;
+  
+//       public enum OperatorDesiredReefBranchSide {
+//         AUTO_LEFT,
+//         AUTO_RIGHT,
+//         MANUAL_LEFT,
+//         MANUAL_RIGHT,
+//         FULL_REEFSIDE_MANUAL
+//         }
+
+
+//     public enum OperatorDesiredReefLevel {
+//         AUTO_REEF_L1,
+//         AUTO_REEF_L2,
+//         AUTO_REEF_L3,
+//         AUTO_REEF_L4,
+//         MANUAL_REEF_L1,
+//         MANUAL_REEF_L2,
+//         MANUAL_REEF_L3,
+//         MANUAL_REEF_L4,
+//         FULL_REEFLEVEL_MANUAL
+//         }
+
+//     public enum OperatorDesiredReefHexSide{
+//         AUTO_REEF_HEX_SIDE_11,
+//         AUTO_REEF_HEX_SIDE_10,
+//         AUTO_REEF_HEX_SIDE_9,
+//         AUTO_REEF_HEX_SIDE_8,
+//         AUTO_REEF_HEX_SIDE_7,
+//         AUTO_REEF_HEX_SIDE_6,
+
+//         AUTO_REEF_HEX_SIDE_17,
+//         AUTO_REEF_HEX_SIDE_18,
+//         AUTO_REEF_HEX_SIDE_19,
+//         AUTO_REEF_HEX_SIDE_20,
+//         AUTO_REEF_HEX_SIDE_21,
+//         AUTO_REEF_HEX_SIDE_22,
+
+//         MANUAL_REEF_HEX_SIDE_11,
+//         MANUAL_REEF_HEX_SIDE_10,
+//         MANUAL_REEF_HEX_SIDE_9,
+//         MANUAL_REEF_HEX_SIDE_8,
+//         MANUAL_REEF_HEX_SIDE_7,
+//         MANUAL_REEF_HEX_SIDE_6,
+
+//         MANUAL_REEF_HEX_SIDE_17,
+//         MANUAL_REEF_HEX_SIDE_18,
+//         MANUAL_REEF_HEX_SIDE_19,
+//         MANUAL_REEF_HEX_SIDE_20,
+//         MANUAL_REEF_HEX_SIDE_21,
+//         MANUAL_REEF_HEX_SIDE_22,
+
+//         FULL_REEF_HEX_SIDE_MANUAL
+//         }
+  
+          
+
+//       public void setOperatorDesiredReefBranchSide(OperatorDesiredReefBranchSide pOperatorDesiredReefBranchSide) {
+//           currentOperatorDesiredReefBranchSide = pOperatorDesiredReefBranchSide;
+//           setUpdated(false);
+//       }
+//       public OperatorDesiredReefBranchSide getOperatorDesiredReefBranchSide() {
+//           return currentOperatorDesiredReefBranchSide;
+//       }
+      
+      
+//       public void setOperatorDesiredReefLevel(OperatorDesiredReefLevel pOperatorDesiredReefLevel) {
+//           currentOperatorDesiredReefLevel = pOperatorDesiredReefLevel;
+//       }
+//       public OperatorDesiredReefLevel getOperatorDesiredReefLevel() {
+//           return currentOperatorDesiredReefLevel;
+//       }
+
+
+//       public void setOperatorDesiredReefHexSide(OperatorDesiredReefHexSide pOperatorDesiredReefHexSide) {
+//           currentOperatorDesiredReefHexSide = pOperatorDesiredReefHexSide;
+//           setUpdated(false);
+//       }
+//       public OperatorDesiredReefHexSide getOperatorDesiredReefHexSide() {
+//           return currentOperatorDesiredReefHexSide;
+//       }
+  
+//       public boolean isUpdated() {
+//         return isUpdated;
+//     }
+
+//     public void setUpdated(boolean updated) {
+//         isUpdated = updated;
+//     }
+  
+  
+
+//     switch (this.getOperatorDesiredReefHexSide()) {
+//       case AUTO_REEF_HEX_SIDE_11 -> {
+        
+//     }
+//       case AUTO_REEF_HEX_SIDE_10 -> {
+        
+
+//     }
+//     case AUTO_REEF_HEX_SIDE_9 -> {
+        
+//     }
+// }
+
+
+
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/maxSwerve"));
@@ -108,6 +225,8 @@ public class RobotContainer
 
   Command driveFieldOrientedDirectAngleSim = drivebase.driveFieldOriented(driveDirectAngleSim);
 
+  Command driveFieldOrientedAnglularVelocitySim = drivebase.driveFieldOriented(driveAngularVelocitySim);
+
   Command driveSetpointGenSim = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
 
   /**
@@ -117,6 +236,8 @@ public class RobotContainer
   {
     // Configure the trigger bindings
     configureBindings();
+    DriverStation.silenceJoystickConnectionWarning(true);
+    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
   }
 
   /**
@@ -130,18 +251,19 @@ public class RobotContainer
   {
     // (Condition) ? Return-On-True : Return-on-False
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ?
-                                driveFieldOrientedDirectAngle :
-                                driveFieldOrientedDirectAngleSim);
+                                driveFieldOrientedAnglularVelocity :
+                                driveFieldOrientedAnglularVelocitySim);
 
     if (Robot.isSimulation())
     {
       driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
+      driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
+
     }
     if (DriverStation.isTest())
     {
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-      driverXbox.b().whileTrue(drivebase.sysIdDriveMotorCommand());
       driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
       driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
@@ -156,11 +278,25 @@ public class RobotContainer
           drivebase.driveToPose(
               new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                               );
-      driverXbox.y().whileTrue(drivebase.aimAtSpeaker(2));
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
+    
+    
+    
+    
+    
+        //Testing for Auto Switching
+    
+    
+    
+    
+    
+    
+    
+    
+    
     }
 
   }
@@ -174,11 +310,6 @@ public class RobotContainer
   {
     // An example command will be run in autonomous
     return drivebase.getAutonomousCommand("New Auto");
-  }
-
-  public void setDriveMode()
-  {
-    configureBindings();
   }
 
   public void setMotorBrake(boolean brake)
