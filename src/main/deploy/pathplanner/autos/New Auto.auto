@@ -7,7 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "Start to mid reef"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "middle to stations "
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pickup to 17 - Left"
           }
         }
       ]
