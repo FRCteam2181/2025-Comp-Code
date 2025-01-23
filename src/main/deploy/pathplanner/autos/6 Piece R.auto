@@ -7,25 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start to 21 - Left"
+            "pathName": "Start to 20 - Right"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "21 - Left to LPickup"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LPickup to 21 - Right"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "21 - Right to LPickup"
+            "pathName": "20 - Right to LPickup"
           }
         },
         {
@@ -43,37 +31,49 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LPickup to 20 - Right"
+            "pathName": "LPickup to 21 - Left"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "20 - Right to LPickup"
+            "pathName": "21 - Left to LPickup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LPickup to 19 - Left"
+            "pathName": "LPickup to 21 - Right"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "19 - Left to LPickup"
+            "pathName": "21 - Right to Pickup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LPickup to 19 - Right"
+            "pathName": "Pickup to 22 - Right"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "19 - Right to LPickup"
+            "pathName": "22 - Right to Pickup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pickup to 22 - Left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "22 - Left to Pickup"
           }
         }
       ]
