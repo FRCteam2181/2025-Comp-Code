@@ -7,67 +7,73 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start to 22 - Right"
+            "pathName": "Start to 21 - Left"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "22 - Right to Pickup"
+            "pathName": "21 - Left to LPickup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pickup to 22 - Left"
+            "pathName": "LPickup to 21 - Right"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "22 - Left to Pickup"
+            "pathName": "21 - Right to LPickup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pickup to 17 - Right"
+            "pathName": "LPickup to 20 - Left"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "17 - Right to Pickup"
+            "pathName": "20 - Left to LPickup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pickup to 17 - Left"
+            "pathName": "LPickup to 20 - Right"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "17 - Left to Pickup"
+            "pathName": "20 - Right to LPickup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pickup to 18 - Right"
+            "pathName": "LPickup to 19 - Left"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "18 - Right to Pickup"
+            "pathName": "19 - Left to LPickup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pickup to 18 - Left"
+            "pathName": "LPickup to 19 - Right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "19 - Right to LPickup"
           }
         }
       ]
