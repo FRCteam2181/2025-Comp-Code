@@ -1,0 +1,79 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Start to 20 - Left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "20 - Left to LPickup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LPickup to 20 - Right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "20 - Right to LPickup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LPickup to 19 - Left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "19 - Left to LPickup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LPickup to 19 - Right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "19 - Right to LPickup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LPickup to 18 - Left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "18 - Left to LPickup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LPickup to 18 - Right"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
