@@ -48,4 +48,10 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+
+  public static class ElevatorConstants {
+    public static final int k_ElevatorLeftID = 17;
+    public static final int k_ElevatorRightID = 16;
+    
+  }
 }
