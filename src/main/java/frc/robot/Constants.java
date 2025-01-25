@@ -50,8 +50,21 @@ public final class Constants
   }
 
   public static class ElevatorConstants {
+
     public static final int k_ElevatorLeftID = 17;
     public static final int k_ElevatorRightID = 16;
+
+    public static final int k_FeederStation = 0;
+    public static final int k_L1 = 0;
+    public static final int k_L2 = 15;
+    public static final int k_L3 = 100;
+    public static final int k_L4 = 150;
+
+    public static final int k_Processor = 0;
+    public static final int k_AGround = 0;
+    public static final int k_A1 = 0;
+    public static final int k_A2 = 0;
+    public static final int k_Net = 0;
     
   }
 }

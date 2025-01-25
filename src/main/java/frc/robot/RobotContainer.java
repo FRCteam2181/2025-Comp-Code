@@ -13,9 +13,12 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.swervedrive.Elevator;
+import frc.robot.subsystems.swervedrive.Elevator.Setpoint;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -29,12 +32,13 @@ public class RobotContainer
 {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final CommandXboxController driverXbox = new CommandXboxController(0);
+  final CommandXboxController opperatorXbox = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+  private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/maxSwerve"));
 
-
+  private final Elevator s_Elevator = new Elevator();
 
 
 //       //Attempt at adding Switchable cases for buttons
@@ -270,6 +274,14 @@ public class RobotContainer
       driverXbox.rightBumper().onTrue(Commands.none());
     }
 
+    // A Button -> Elevator/Arm to level 2 position
+    opperatorXbox.a().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L2));
+
+    // X Button -> Elevator/Arm to level 3 position
+    opperatorXbox.x().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L3));
+
+    // Y Button -> Elevator/Arm to level 4 position
+    opperatorXbox.y().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L4));
   }
 
   /**
