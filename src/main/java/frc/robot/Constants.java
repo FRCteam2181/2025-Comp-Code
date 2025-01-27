@@ -48,4 +48,71 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+
+  public static class ElevatorConstants {
+
+    public static final int k_ElevatorLeftID = 17;
+    public static final int k_ElevatorRightID = 16;
+
+    public static final int k_FeederStation = 0;
+    public static final int k_L1 = 0;
+    public static final int k_L2 = 15;
+    public static final int k_L3 = 100;
+    public static final int k_L4 = 150;
+
+    public static final int k_Processor = 0;
+    public static final int k_AGround = 0;
+    public static final int k_A1 = 0;
+    public static final int k_A2 = 0;
+    public static final int k_Net = 0;
+    
+  }
+
+
+  public static class CoralPlacerConstants {
+    public static final int k_CoralWheelLeftID = 11;
+    public static final int k_CoralWheelRightID = 15;
+    //TODO this ID is the same as Coralfunnel ID. Make sure this is fixed
+
+    public static final double k_CoralPlacerSpeedL1 = .4;
+    public static final double k_CoralPlacerSpeedGen = 0.6;
+    
+    public static final int k_CoralPlacerVoltageLimit = 20;
+  }
+
+  
+  public static class AlgaeClawConstants {
+
+    public static final int k_AlgaeClawTopID = 10;
+    public static final int k_AlgaeClawBottomID = 9;
+
+    public static final double k_AlgaeClawIntakeSpeed = 0.1;
+    public static final double k_AlgaeClawProcessorSpeed = 0.5;
+    public static final double k_AlgaeClawBargeSpeed = 0.25;
+
+
+    public static final int k_AlgaeClawVoltageLimit = 80;
+
+  }
+  
+  public static class CoralFunnelConstants {
+    //TODO this ID is the same as Coralplacer ID. Make sure this is fixed
+    public static final int k_CoralFunnelWheelID = 15;
+    
+    public static final double k_CoralFunnelSpeed = .25;
+    
+    public static final int k_CoralFunnelVoltageLimit = 80;
+  
+  }
+
+
+
+
+
+
+
+
+
+
+
 }

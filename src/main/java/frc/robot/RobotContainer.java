@@ -13,9 +13,17 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+//import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Elevator.Setpoint;
+import frc.robot.subsystems.CoralFunnel;
+import frc.robot.subsystems.CoralPlacer;
+import frc.robot.subsystems.AlgaeClaw;
+
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -29,12 +37,18 @@ public class RobotContainer
 {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final CommandXboxController driverXbox = new CommandXboxController(0);
+  final CommandXboxController opperatorXbox = new CommandXboxController(1);
+  
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/maxSwerve"));
 
 
+  private final Elevator s_Elevator = new Elevator();
+  private final CoralFunnel s_CoralFunnel = new CoralFunnel();
+  private final CoralPlacer s_CoralPlacer = new CoralPlacer();
+  private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
 
 
 //       //Attempt at adding Switchable cases for buttons
@@ -269,6 +283,36 @@ public class RobotContainer
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
     }
+
+
+        // A Button -> Elevator/Arm to level 2 position
+        opperatorXbox.a().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L2));
+
+        // X Button -> Elevator/Arm to level 3 position
+        opperatorXbox.x().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L3));
+    
+        // Y Button -> Elevator/Arm to level 4 position
+        opperatorXbox.y().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L4));
+
+
+        // Old prototype commands, 
+        // *TODO* either reconfigure or adjust to be used. Disabled so buttons don't interfere
+
+      //CoralFunnel
+      //opperatorXbox.b().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
+
+      //CoralPlacer 
+      //opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
+      //opperatorXbox.a().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
+      
+      //AlgaeClaw 
+      //opperatorXbox.leftBumper().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
+      //opperatorXbox.rightBumper().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
+      //opperatorXbox.leftTrigger().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
+  
+  
+  
+
 
   }
 
