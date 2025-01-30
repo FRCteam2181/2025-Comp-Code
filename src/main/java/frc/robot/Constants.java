@@ -56,7 +56,7 @@ public final class Constants
 
     public static final int k_FeederStation = 0;
     public static final int k_L1 = 0;
-    public static final int k_L2 = 15;
+    public static final int k_L2 = 1;
     public static final int k_L3 = 100;
     public static final int k_L4 = 150;
 
@@ -71,8 +71,7 @@ public final class Constants
 
   public static class CoralPlacerConstants {
     public static final int k_CoralWheelLeftID = 11;
-    public static final int k_CoralWheelRightID = 15;
-    //TODO this ID is the same as Coralfunnel ID. Make sure this is fixed
+    public static final int k_CoralWheelRightID = 12;
 
     public static final double k_CoralPlacerSpeedL1 = .4;
     public static final double k_CoralPlacerSpeedGen = 0.6;
@@ -96,7 +95,6 @@ public final class Constants
   }
   
   public static class CoralFunnelConstants {
-    //TODO this ID is the same as Coralplacer ID. Make sure this is fixed
     public static final int k_CoralFunnelWheelID = 15;
     
     public static final double k_CoralFunnelSpeed = .25;
@@ -105,7 +103,43 @@ public final class Constants
   
   }
 
-
+  public static class Colors {
+    public double pat1_larscan = -0.01;
+    public double pat2_larScan = 0.19;
+    public double fix_rain = -0.99;
+    public double fix_rainParty = -0.97;
+    public double fix_ocean = -0.95;
+    public double fix_Lave = -0.93;
+    public double fix_forest = -0.91;
+    public double endToEndBlend = 0.47;
+    public double pat2_lightChase = 0.21;
+    public double pat2_shot = 0.33;
+    
+    public double hotPink = 0.57;
+    public double darkRed = 0.59;
+    public double red = 0.61;
+    public double redOrange = 0.63;
+    public double orange = 0.65;
+    public double gold = 0.67;
+    public double yellow = 0.69;
+    public double lawnGreen = 0.71;
+    public double lime = 0.73;
+    public double darkGreen = 0.75;
+    public double green = 0.77;
+    public double blue_green = 0.79;
+    public double aqua = 0.81;
+    public double skyBlue = 0.83;
+    public double dark_blue = 0.85;
+    public double blue = 0.87;
+    public double blueViolet = 0.89;
+    public double purple = 0.91;
+    public double white = 0.93;
+    public double gray = 0.95;
+    public double dark_gray = 0.97;
+    public double black = 0.99;
+    public double OceanWaves = -0.41;
+    public double RedChase = -0.31;    
+  }
 
 
 

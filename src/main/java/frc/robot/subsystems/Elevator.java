@@ -11,6 +11,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkMaxAlternateEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -25,6 +26,7 @@ public class Elevator extends SubsystemBase {
         private SparkMax m_ElevatorRight;
         private SparkClosedLoopController elevatorClosedLoopController;
         private RelativeEncoder elevatorEncoder;
+
 
         private boolean wasResetByButton = false;
         private boolean wasResetByLimit = false;
@@ -107,16 +109,16 @@ public class Elevator extends SubsystemBase {
         elevatorClosedLoopController.setReference( elevatorCurrentTarget, ControlType.kMAXMotionPositionControl); 
     }
 
-    private void f_zeroElevatorOnLimitSwitch() {
-        if (!wasResetByLimit && m_ElevatorLeft.getReverseLimitSwitch().isPressed()) {
-          // Zero the encoder only when the limit switch is switches from "unpressed" to "pressed" to
-          // prevent constant zeroing while pressed
-          elevatorEncoder.setPosition(0);
-          wasResetByLimit = true;
-        } else if (!m_ElevatorLeft.getReverseLimitSwitch().isPressed()) {
-          wasResetByLimit = false;
-        }
-      }
+    // private void f_zeroElevatorOnLimitSwitch() {
+    //     if (!wasResetByLimit && m_ElevatorLeft.getReverseLimitSwitch().isPressed()) {
+    //       // Zero the encoder only when the limit switch is switches from "unpressed" to "pressed" to
+    //       // prevent constant zeroing while pressed
+    //       elevatorEncoder.setPosition(0);
+    //       wasResetByLimit = true;
+    //     } else if (!m_ElevatorLeft.getReverseLimitSwitch().isPressed()) {
+    //       wasResetByLimit = false;
+    //     }
+    //   }
     
     private void f_zeroOnUserButton() {
     if (!wasResetByButton && RobotController.getUserButton()) {
@@ -132,7 +134,7 @@ public class Elevator extends SubsystemBase {
     @Override
     public void periodic() {
       f_moveToSetpoint();
-      f_zeroElevatorOnLimitSwitch();
+      // f_zeroElevatorOnLimitSwitch();
       f_zeroOnUserButton();
 
       SmartDashboard.putNumber("Elevator Target Position", elevatorCurrentTarget);

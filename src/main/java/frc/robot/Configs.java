@@ -19,16 +19,22 @@ public class Configs {
             .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(50)
             .voltageCompensation(12);
+
+        elevatorConfig
+            .alternateEncoder
+            .setSparkMaxDataPortConfig()
+            .inverted(false)
+            .countsPerRevolution(8192);
     
           /*
            * Configure the reverse limit switch for the elevator. By enabling the limit switch, this
            * will prevent any actuation of the elevator in the reverse direction if the limit switch is
            * pressed.
            */
-          elevatorConfig
-              .limitSwitch
-              .reverseLimitSwitchEnabled(true)
-              .reverseLimitSwitchType(Type.kNormallyOpen);
+        //   elevatorConfig
+        //       .limitSwitch
+        //       .reverseLimitSwitchEnabled(true)
+        //       .reverseLimitSwitchType(Type.kNormallyOpen);
     
           /*
            * Configure the closed loop controller. We want to make sure we set the
@@ -37,6 +43,7 @@ public class Configs {
           elevatorConfig
               .apply(globalConfig)
               .closedLoop
+              
               .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
               // Set PID values for position control
               .p(0.1)
