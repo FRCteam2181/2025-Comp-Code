@@ -54,9 +54,11 @@ public final class Constants
     public static final int k_ElevatorLeftID = 17;
     public static final int k_ElevatorRightID = 16;
 
+    public static final double k_ElevatorSpeed = -0.4;
+
     public static final int k_FeederStation = 0;
     public static final int k_L1 = 0;
-    public static final int k_L2 = 1;
+    public static final int k_L2 = 5;
     public static final int k_L3 = 100;
     public static final int k_L4 = 150;
 
@@ -97,7 +99,8 @@ public final class Constants
   public static class CoralFunnelConstants {
     public static final int k_CoralFunnelWheelID = 15;
     
-    public static final double k_CoralFunnelSpeed = .25;
+    public static final double k_CoralFunnelSpeed = -.15;
+    public static final double k_CoralFunnelSpeedext = -.80;
     
     public static final int k_CoralFunnelVoltageLimit = 80;
   

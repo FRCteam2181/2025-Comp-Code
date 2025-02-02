@@ -44,7 +44,7 @@ public class Configs {
               .apply(globalConfig)
               .closedLoop
               
-              .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+              .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
               // Set PID values for position control
               .p(0.1)
               .outputRange(-1, 1)

@@ -20,8 +20,8 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Blinkin;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Elevator.Setpoint;
-// import frc.robot.subsystems.CoralFunnel;
-// import frc.robot.subsystems.CoralPlacer;
+import frc.robot.subsystems.CoralFunnel;
+import frc.robot.subsystems.CoralPlacer;
 // import frc.robot.subsystems.AlgaeClaw;
 
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -44,8 +44,8 @@ public class RobotContainer
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/maxSwerve"));
   private final Elevator s_Elevator = new Elevator();
-  // private final CoralFunnel s_CoralFunnel = new CoralFunnel();
-  // private final CoralPlacer s_CoralPlacer = new CoralPlacer();
+  private final CoralFunnel s_CoralFunnel = new CoralFunnel();
+  private final CoralPlacer s_CoralPlacer = new CoralPlacer();
   // private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
   private final Blinkin s_Blinkin = new Blinkin();
 
@@ -293,23 +293,28 @@ public class RobotContainer
     // Y Button -> Elevator/Arm to level 4 position
     opperatorXbox.y().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L4).alongWith(Blinkin.setHotPink()));
 
+    //Elevator
+    opperatorXbox.povUp().onTrue(s_Elevator.c_ElevatorUpCommand());
+    opperatorXbox.povDown().onTrue(s_Elevator.c_ElevatorDownCommand());
+
 
     // Old prototype commands, 
     // *TODO* either reconfigure or adjust to be used. Disabled so buttons don't interfere
 
     //CoralFunnel
-    //opperatorXbox.b().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
+    opperatorXbox.rightTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
+    opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandext());
 
     //CoralPlacer 
-    //opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
-    //opperatorXbox.a().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
+    opperatorXbox.leftBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
+    opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
     
     //AlgaeClaw 
     //opperatorXbox.leftBumper().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
     //opperatorXbox.rightBumper().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
     //opperatorXbox.leftTrigger().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
   
-    opperatorXbox.rightTrigger().onTrue(s_Blinkin.setBlue()).onFalse(s_Blinkin.setBlack());
+    
   
 
 

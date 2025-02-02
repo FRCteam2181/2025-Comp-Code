@@ -119,6 +119,34 @@ public class Elevator extends SubsystemBase {
     //       wasResetByLimit = false;
     //     }
     //   }
+
+    public Command c_ElevatorUpCommand () {
+      return this.startEnd(
+        () -> {
+          f_SetElevatorSpeed(ElevatorConstants.k_ElevatorSpeed);
+        }, () -> {
+          f_Stop();
+        });
+    }
+
+    public Command c_ElevatorDownCommand () {
+      return this.startEnd(
+        () -> {
+          f_SetElevatorSpeed(-ElevatorConstants.k_ElevatorSpeed);
+        }, () -> {
+          f_Stop();
+        });
+    }
+
+    private void f_SetElevatorSpeed (double speed) {
+      m_ElevatorLeft.set(speed);
+      m_ElevatorRight.set(speed);
+    }
+
+    private void f_Stop() {
+      m_ElevatorLeft.set(0);
+      m_ElevatorRight.set(0);
+    }
     
     private void f_zeroOnUserButton() {
     if (!wasResetByButton && RobotController.getUserButton()) {
