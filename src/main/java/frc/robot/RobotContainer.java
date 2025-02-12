@@ -270,8 +270,6 @@ public class RobotContainer
       driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
       driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
       driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
@@ -282,8 +280,7 @@ public class RobotContainer
                               );
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.rightBumper().onTrue(Commands.none());
+      driverXbox.y().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
     }
 
 
@@ -301,12 +298,11 @@ public class RobotContainer
     opperatorXbox.povDown().onTrue(s_Elevator.c_ElevatorDownCommand());
 
 
-    // Old prototype commands, 
-    // *TODO* either reconfigure or adjust to be used. Disabled so buttons don't interfere
-
     //CoralFunnel
     opperatorXbox.rightTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
     opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandext());
+    opperatorXbox2.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
+    opperatorXbox2.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
 
     //CoralPlacer 
     opperatorXbox.leftBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
@@ -318,11 +314,8 @@ public class RobotContainer
     opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
     //AlgaeRotator
-    opperatorXbox2.rightTrigger().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
-    opperatorXbox2.leftTrigger().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
-  
-
-
+    driverXbox.leftBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
+    driverXbox.rightBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
   }
 
   /**

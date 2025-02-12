@@ -3,8 +3,10 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.AlgaeClawConstants.*;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -12,16 +14,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class AlgaeClaw extends SubsystemBase {
-    SparkFlex m_AlgaeClawTopWheel;
-    SparkFlex m_AlgaeClawBottomWheel;
+    SparkMax m_AlgaeClawTopWheel;
+    SparkMax m_AlgaeClawBottomWheel;
 
-    SparkFlexConfig config;
+    SparkMaxConfig config;
 
     public AlgaeClaw() {
-        m_AlgaeClawTopWheel = new SparkFlex(k_AlgaeClawTopID, MotorType.kBrushless);
-        m_AlgaeClawBottomWheel = new SparkFlex(k_AlgaeClawBottomID, MotorType.kBrushless);
+        m_AlgaeClawTopWheel = new SparkMax(k_AlgaeClawTopID, MotorType.kBrushless);
+        m_AlgaeClawBottomWheel = new SparkMax(k_AlgaeClawBottomID, MotorType.kBrushless);
 
-        config = new SparkFlexConfig();
+        config = new SparkMaxConfig();
 
         m_AlgaeClawTopWheel.configure(config.smartCurrentLimit(k_AlgaeClawVoltageLimit), null, null);
         m_AlgaeClawBottomWheel.configure(config.smartCurrentLimit(k_AlgaeClawVoltageLimit), null, null);
