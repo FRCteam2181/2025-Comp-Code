@@ -109,6 +109,13 @@ public final class Constants
     public static final int k_CoralFunnelVoltageLimit = 80;
   
   }
+  public static class climberConstants{
+    public static final int m_climberID = 19;
+    public static final double m_climberSpeed = 50;
+    public static final int m_climberVoltageLimit = 80;  
+
+
+  }
 
   public static class Colors {
     public double pat1_larscan = -0.01;
