@@ -22,7 +22,8 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Elevator.Setpoint;
 import frc.robot.subsystems.CoralFunnel;
 import frc.robot.subsystems.CoralPlacer;
-// import frc.robot.subsystems.AlgaeClaw;
+import frc.robot.subsystems.AlgaeClaw;
+import frc.robot.subsystems.AlgaeRotator;
 
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -39,6 +40,7 @@ public class RobotContainer
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final CommandXboxController opperatorXbox = new CommandXboxController(1);
+  final CommandXboxController opperatorXbox2 = new CommandXboxController(2);
   
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -46,8 +48,9 @@ public class RobotContainer
   private final Elevator s_Elevator = new Elevator();
   private final CoralFunnel s_CoralFunnel = new CoralFunnel();
   private final CoralPlacer s_CoralPlacer = new CoralPlacer();
-  // private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
+  private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
   private final Blinkin s_Blinkin = new Blinkin();
+  private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
 
 
 //       //Attempt at adding Switchable cases for buttons
@@ -310,11 +313,13 @@ public class RobotContainer
     opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
     
     //AlgaeClaw 
-    //opperatorXbox.leftBumper().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
-    //opperatorXbox.rightBumper().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
-    //opperatorXbox.leftTrigger().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
-  
-    
+    opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
+    opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
+    opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
+
+    //AlgaeRotator
+    opperatorXbox2.rightTrigger().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
+    opperatorXbox2.leftTrigger().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
   
 
 

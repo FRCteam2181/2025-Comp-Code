@@ -86,10 +86,12 @@ public final class Constants
 
     public static final int k_AlgaeClawTopID = 10;
     public static final int k_AlgaeClawBottomID = 9;
+    public static final int k_AlgaeClawRotator = 13;
 
     public static final double k_AlgaeClawIntakeSpeed = 0.1;
     public static final double k_AlgaeClawProcessorSpeed = 0.5;
     public static final double k_AlgaeClawBargeSpeed = 0.25;
+    public static final double k_AlgaeClawRotateSpeed = .10;
 
 
     public static final int k_AlgaeClawVoltageLimit = 80;
@@ -98,9 +100,11 @@ public final class Constants
   
   public static class CoralFunnelConstants {
     public static final int k_CoralFunnelWheelID = 15;
+    public static final int k_CoralRotator = 14;
     
     public static final double k_CoralFunnelSpeed = -.15;
     public static final double k_CoralFunnelSpeedext = -.80;
+    public static final double k_FunnelRotateSpeed = 0.05;
     
     public static final int k_CoralFunnelVoltageLimit = 80;
   
