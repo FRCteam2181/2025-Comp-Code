@@ -100,7 +100,7 @@ public final class Constants
   
   public static class CoralFunnelConstants {
     public static final int k_CoralFunnelWheelID = 15;
-    public static final int k_CoralRotator = 14;
+    public static final int k_CoralRotatorID = 14;
     
     public static final double k_CoralFunnelSpeed = -.15;
     public static final double k_CoralFunnelSpeedext = -.80;
