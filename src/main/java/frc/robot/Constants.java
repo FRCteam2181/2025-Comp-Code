@@ -5,6 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
@@ -115,6 +118,21 @@ public final class Constants
     public static final int m_climberVoltageLimit = 80;  
 
 
+  }
+
+  public static class ReefPositions{
+    public static final Pose2d spot_A = new Pose2d(new Translation2d(3.175, 4.190238), Rotation2d.fromDegrees(0));
+    public static final Pose2d spot_B = new Pose2d(new Translation2d(3.175, 3.861562), Rotation2d.fromDegrees(0));
+    public static final Pose2d spot_C = new Pose2d(new Translation2d(3.93759741, 5.312537), Rotation2d.fromDegrees(-60));
+    public static final Pose2d spot_D = new Pose2d(new Translation2d(3.65295586, 5.143627), Rotation2d.fromDegrees(-60));
+    public static final Pose2d spot_E = new Pose2d(new Translation2d(5.32569014, 5.143627), Rotation2d.fromDegrees(-120));
+    public static final Pose2d spot_F = new Pose2d(new Translation2d(3.175, 4.190238), Rotation2d.fromDegrees(-120));
+    public static final Pose2d spot_G = new Pose2d(new Translation2d(3.175, 4.190238), Rotation2d.fromDegrees(180));
+    public static final Pose2d spot_H = new Pose2d(new Translation2d(3.175, 4.190238), Rotation2d.fromDegrees(180));
+    public static final Pose2d spot_I = new Pose2d(new Translation2d(3.175, 4.190238), Rotation2d.fromDegrees(120));
+    public static final Pose2d spot_J = new Pose2d(new Translation2d(3.175, 4.190238), Rotation2d.fromDegrees(120));
+    public static final Pose2d spot_K = new Pose2d(new Translation2d(3.175, 4.190238), Rotation2d.fromDegrees(0));
+    public static final Pose2d spot_L = new Pose2d(new Translation2d(3.175, 4.190238), Rotation2d.fromDegrees(0));
   }
 
   public static class Colors {

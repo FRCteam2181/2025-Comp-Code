@@ -4,7 +4,10 @@
 
 package frc.robot;
 
+import java.io.File;
+
 import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -13,20 +16,18 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-//import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.subsystems.Blinkin;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Elevator.Setpoint;
-import frc.robot.subsystems.CoralFunnel;
-import frc.robot.subsystems.CoralPlacer;
 import frc.robot.subsystems.AlgaeClaw;
 import frc.robot.subsystems.AlgaeRotator;
-
+import frc.robot.subsystems.Blinkin;
+import frc.robot.subsystems.CoralFunnel;
+import frc.robot.subsystems.CoralPlacer;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Elevator.Setpoint;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import java.io.File;
 import swervelib.SwerveInputStream;
 
 /**
@@ -41,6 +42,10 @@ public class RobotContainer
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final CommandXboxController opperatorXbox = new CommandXboxController(1);
   final CommandXboxController opperatorXbox2 = new CommandXboxController(2);
+  final CommandGenericHID buttonBoard = new CommandGenericHID(3);
+
+
+
   
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -53,116 +58,194 @@ public class RobotContainer
   private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
 
 
-//       //Attempt at adding Switchable cases for buttons
-//       private OperatorDesiredReefBranchSide currentOperatorDesiredReefBranchSide = OperatorDesiredReefBranchSide.FULL_REEFSIDE_MANUAL;
-//       private OperatorDesiredReefLevel currentOperatorDesiredReefLevel = OperatorDesiredReefLevel.FULL_REEFLEVEL_MANUAL;
-//       private OperatorDesiredReefHexSide currentOperatorDesiredReefHexSide = OperatorDesiredReefHexSide.FULL_REEF_HEX_SIDE_MANUAL;
+      //Attempt at adding Switchable cases for buttons
+      private OperatorDesiredReefBranchSide currentOperatorDesiredReefBranchSide = OperatorDesiredReefBranchSide.FULL_REEFSIDE_MANUAL;
+      private OperatorDesiredReefLevel currentOperatorDesiredReefLevel = OperatorDesiredReefLevel.FULL_REEFLEVEL_MANUAL;
+      private OperatorDesiredReefHexSide currentOperatorDesiredReefHexSide = OperatorDesiredReefHexSide.FULL_REEF_HEX_SIDE_MANUAL;
   
 
-//       private boolean isUpdated = false;
+      private boolean isUpdated = false;
   
-//       public enum OperatorDesiredReefBranchSide {
-//         AUTO_LEFT,
-//         AUTO_RIGHT,
-//         MANUAL_LEFT,
-//         MANUAL_RIGHT,
-//         FULL_REEFSIDE_MANUAL
-//         }
+      public enum OperatorDesiredReefBranchSide {
+        MANUAL_LEFT,
+        MANUAL_RIGHT,
+        FULL_REEFSIDE_MANUAL
+        }
 
 
-//     public enum OperatorDesiredReefLevel {
-//         AUTO_REEF_L1,
-//         AUTO_REEF_L2,
-//         AUTO_REEF_L3,
-//         AUTO_REEF_L4,
-//         MANUAL_REEF_L1,
-//         MANUAL_REEF_L2,
-//         MANUAL_REEF_L3,
-//         MANUAL_REEF_L4,
-//         FULL_REEFLEVEL_MANUAL
-//         }
+    public enum OperatorDesiredReefLevel {
+        MANUAL_REEF_L1,
+        MANUAL_REEF_L2,
+        MANUAL_REEF_L3,
+        MANUAL_REEF_L4,
+        FULL_REEFLEVEL_MANUAL
+        }
 
-//     public enum OperatorDesiredReefHexSide{
-//         AUTO_REEF_HEX_SIDE_11,
-//         AUTO_REEF_HEX_SIDE_10,
-//         AUTO_REEF_HEX_SIDE_9,
-//         AUTO_REEF_HEX_SIDE_8,
-//         AUTO_REEF_HEX_SIDE_7,
-//         AUTO_REEF_HEX_SIDE_6,
+    public enum OperatorDesiredReefHexSide{
 
-//         AUTO_REEF_HEX_SIDE_17,
-//         AUTO_REEF_HEX_SIDE_18,
-//         AUTO_REEF_HEX_SIDE_19,
-//         AUTO_REEF_HEX_SIDE_20,
-//         AUTO_REEF_HEX_SIDE_21,
-//         AUTO_REEF_HEX_SIDE_22,
 
-//         MANUAL_REEF_HEX_SIDE_11,
-//         MANUAL_REEF_HEX_SIDE_10,
-//         MANUAL_REEF_HEX_SIDE_9,
-//         MANUAL_REEF_HEX_SIDE_8,
-//         MANUAL_REEF_HEX_SIDE_7,
-//         MANUAL_REEF_HEX_SIDE_6,
+        MANUAL_REEF_HEX_SIDE_11,
+        MANUAL_REEF_HEX_SIDE_10,
+        MANUAL_REEF_HEX_SIDE_9,
+        MANUAL_REEF_HEX_SIDE_8,
+        MANUAL_REEF_HEX_SIDE_7,
+        MANUAL_REEF_HEX_SIDE_6,
 
-//         MANUAL_REEF_HEX_SIDE_17,
-//         MANUAL_REEF_HEX_SIDE_18,
-//         MANUAL_REEF_HEX_SIDE_19,
-//         MANUAL_REEF_HEX_SIDE_20,
-//         MANUAL_REEF_HEX_SIDE_21,
-//         MANUAL_REEF_HEX_SIDE_22,
+        MANUAL_REEF_HEX_SIDE_17,
+        MANUAL_REEF_HEX_SIDE_18,
+        MANUAL_REEF_HEX_SIDE_19,
+        MANUAL_REEF_HEX_SIDE_20,
+        MANUAL_REEF_HEX_SIDE_21,
+        MANUAL_REEF_HEX_SIDE_22,
 
-//         FULL_REEF_HEX_SIDE_MANUAL
-//         }
+        FULL_REEF_HEX_SIDE_MANUAL
+        }
   
           
 
-//       public void setOperatorDesiredReefBranchSide(OperatorDesiredReefBranchSide pOperatorDesiredReefBranchSide) {
-//           currentOperatorDesiredReefBranchSide = pOperatorDesiredReefBranchSide;
-//           setUpdated(false);
-//       }
-//       public OperatorDesiredReefBranchSide getOperatorDesiredReefBranchSide() {
-//           return currentOperatorDesiredReefBranchSide;
-//       }
+      public void setOperatorDesiredReefBranchSide(OperatorDesiredReefBranchSide pOperatorDesiredReefBranchSide) {
+          currentOperatorDesiredReefBranchSide = pOperatorDesiredReefBranchSide;
+          setUpdated(false);
+      }
+      public OperatorDesiredReefBranchSide getOperatorDesiredReefBranchSide() {
+          return currentOperatorDesiredReefBranchSide;
+      }
       
       
-//       public void setOperatorDesiredReefLevel(OperatorDesiredReefLevel pOperatorDesiredReefLevel) {
-//           currentOperatorDesiredReefLevel = pOperatorDesiredReefLevel;
-//       }
-//       public OperatorDesiredReefLevel getOperatorDesiredReefLevel() {
-//           return currentOperatorDesiredReefLevel;
-//       }
+      public void setOperatorDesiredReefLevel(OperatorDesiredReefLevel pOperatorDesiredReefLevel) {
+          currentOperatorDesiredReefLevel = pOperatorDesiredReefLevel;
+      }
+      public OperatorDesiredReefLevel getOperatorDesiredReefLevel() {
+          return currentOperatorDesiredReefLevel;
+      }
 
 
-//       public void setOperatorDesiredReefHexSide(OperatorDesiredReefHexSide pOperatorDesiredReefHexSide) {
-//           currentOperatorDesiredReefHexSide = pOperatorDesiredReefHexSide;
-//           setUpdated(false);
-//       }
-//       public OperatorDesiredReefHexSide getOperatorDesiredReefHexSide() {
-//           return currentOperatorDesiredReefHexSide;
-//       }
+      public void setOperatorDesiredReefHexSide(OperatorDesiredReefHexSide pOperatorDesiredReefHexSide) {
+          currentOperatorDesiredReefHexSide = pOperatorDesiredReefHexSide;
+          setUpdated(false);
+      }
+      public OperatorDesiredReefHexSide getOperatorDesiredReefHexSide() {
+          return currentOperatorDesiredReefHexSide;
+      }
   
-//       public boolean isUpdated() {
-//         return isUpdated;
-//     }
+      public boolean isUpdated() {
+        return isUpdated;
+    }
 
-//     public void setUpdated(boolean updated) {
-//         isUpdated = updated;
-//     }
+    public void setUpdated(boolean updated) {
+        isUpdated = updated;
+    }
   
   
 
-//     switch (this.getOperatorDesiredReefHexSide()) {
-//       case AUTO_REEF_HEX_SIDE_11 -> {
-        
-//     }
-//       case AUTO_REEF_HEX_SIDE_10 -> {
-        
-
-//     }
-//     case AUTO_REEF_HEX_SIDE_9 -> {
-        
-//     }
+//      switch (this.getOperatorDesiredReefHexSide()) {
+//        case AUTO_REEF_HEX_SIDE_11 -> {
+  
 // }
+//        case AUTO_REEF_HEX_SIDE_10 -> {
+  
+
+//      }
+//      case AUTO_REEF_HEX_SIDE_9 -> {
+  
+//      }
+//  }
+
+private Pose2d desPos = null; 
+public Command abcdefghijklmnopqrstuvwxyznowyouknowyourabcsnexttimewontyousingwithme() {
+  return this.runOnce(
+    () -> {
+    switch(getOperatorDesiredReefBranchSide){
+      case MANUAL_LEFT:
+        switch(this.getOperatorDesiredReefHexSide()){
+          case MANUAL_REEF_HEX_SIDE_11:
+            desPos = spot_J;
+            break;
+          case MANUAL_REEF_HEX_SIDE_10:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_9:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_8:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_7:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_6:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_17:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_18:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_19:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_20:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_21:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_22:
+            //a
+            break;
+
+    
+  }
+          break;
+        
+      case MANUAL_RIGHT:
+        switch(this.getOperatorDesiredReefHexSide()){
+          case MANUAL_REEF_HEX_SIDE_11:
+            desPos = spot_J;
+            break;
+          case MANUAL_REEF_HEX_SIDE_10:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_9:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_8:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_7:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_6:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_17:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_18:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_19:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_20:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_21:
+            //a
+            break;
+          case MANUAL_REEF_HEX_SIDE_22:
+            //a
+            break;
+    
+  }
+        break;
+    }
+
+  }
+  );
+
+}
 
 
 
@@ -316,6 +399,11 @@ public class RobotContainer
     //AlgaeRotator
     driverXbox.leftBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
     driverXbox.rightBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
+
+    //public static double tagMOve(do)
+    buttonBoard.button(2).whileTrue();
+    buttonBoard.button(0).whileTrue(drivebase.driveToPose(x-3));
+    
   }
 
   /**
