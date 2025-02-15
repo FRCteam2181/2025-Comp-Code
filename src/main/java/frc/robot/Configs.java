@@ -20,11 +20,11 @@ public class Configs {
             .smartCurrentLimit(50)
             .voltageCompensation(12);
 
-        elevatorConfig
-            .alternateEncoder
-            .setSparkMaxDataPortConfig()
-            .inverted(false)
-            .countsPerRevolution(8192);
+        // elevatorConfig
+        //     .alternateEncoder
+        //     .setSparkMaxDataPortConfig()
+        //     .inverted(false)
+        //     .countsPerRevolution(8192);
     
           /*
            * Configure the reverse limit switch for the elevator. By enabling the limit switch, this
@@ -44,7 +44,7 @@ public class Configs {
               .apply(globalConfig)
               .closedLoop
               
-              .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+              .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
               // Set PID values for position control
               .p(0.1)
               .outputRange(-1, 1)
