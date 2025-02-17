@@ -54,12 +54,12 @@ public final class Constants
     public static final int k_ElevatorLeftID = 17;
     public static final int k_ElevatorRightID = 16;
 
-    public static final double k_ElevatorSpeed = -0.4;
+    public static final double k_ElevatorSpeed = 0.7;
 
     public static final int k_FeederStation = 0;
     public static final int k_L1 = 0;
     public static final int k_L2 = 5;
-    public static final int k_L3 = 100;
+    public static final int k_L3 = 7;
     public static final int k_L4 = 150;
 
     public static final int k_Processor = 0;
@@ -110,8 +110,12 @@ public final class Constants
   
   }
   public static class climberConstants{
+
     public static final int m_climberID = 18;
-    public static final double m_climberSpeed = .50;
+
+    public static final double m_climberSpeedUp = .750;
+    public static final double k_ClimberSpeedDown = .5;
+
     public static final int m_climberVoltageLimit = 80;  
 
 

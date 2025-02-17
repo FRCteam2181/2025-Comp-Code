@@ -35,7 +35,7 @@ public class Climber extends SubsystemBase {
         return this.startEnd(
             // When the command is initialized, set the wheels to the intake speed values
             () -> {
-              f_setClimberSpeed(m_climberSpeed);
+              f_setClimberSpeed(m_climberSpeedUp);
             },
             // When the command stops, stop the wheels
             () -> {
@@ -47,7 +47,7 @@ public class Climber extends SubsystemBase {
         return this.startEnd(
             // When the command is initialized, set the wheels to the intake speed values
             () -> {
-              f_setClimberSpeed(-m_climberSpeed);
+              f_setClimberSpeed(-k_ClimberSpeedDown);
             },
             // When the command stops, stop the wheels
             () -> {

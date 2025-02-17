@@ -22,8 +22,8 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Elevator.Setpoint;
 import frc.robot.subsystems.CoralFunnel;
 import frc.robot.subsystems.CoralPlacer;
-import frc.robot.subsystems.AlgaeClaw;
-import frc.robot.subsystems.AlgaeRotator;
+// import frc.robot.subsystems.AlgaeClaw;
+// import frc.robot.subsystems.AlgaeRotator;
 import frc.robot.subsystems.Climber;
 
 
@@ -50,9 +50,9 @@ public class RobotContainer
   private final Elevator s_Elevator = new Elevator();
   private final CoralFunnel s_CoralFunnel = new CoralFunnel();
   private final CoralPlacer s_CoralPlacer = new CoralPlacer();
-  private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
-  // private final Blinkin s_Blinkin = new Blinkin();
-  private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
+  // private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
+  // // private final Blinkin s_Blinkin = new Blinkin();
+  // private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
   private final Climber s_climber = new Climber();
 
 //       //Attempt at adding Switchable cases for buttons
@@ -293,44 +293,52 @@ public class RobotContainer
   opperatorXbox.a().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L2));
 
 
-
-  //   // X Button -> Elevator/Arm to level 3 position
-  //   opperatorXbox.x().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L3).alongWith(Blinkin.setPat1LarScan()));
+  // X Button -> Elevator/Arm to level 3 position
+     opperatorXbox.x().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L1));
     
+// X Button -> Elevator/Arm to level 4 position
+      opperatorXbox.y().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L3));
+
+
+
+
+
+
+
   //   // Y Button -> Elevator/Arm to level 4 position
   //   opperatorXbox.y().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L4).alongWith(Blinkin.setHotPink()));
 
     //Elevator
-    opperatorXbox.povUp().onTrue(s_Elevator.c_ElevatorUpCommand());
-    opperatorXbox.povDown().onTrue(s_Elevator.c_ElevatorDownCommand());
+     opperatorXbox.rightBumper().onTrue(s_Elevator.c_ElevatorUpCommand());
+     opperatorXbox.leftBumper().onTrue(s_Elevator.c_ElevatorDownCommand());
 
 
     //CoralFunnel
     opperatorXbox.rightTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
-    opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandext());
+    // opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandext());
     
-    opperatorXbox2.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
-    opperatorXbox2.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
+    //FunnelRotator
+    driverXbox.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
+    driverXbox.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
 
  
 
     //CoralPlacer 
-    opperatorXbox.leftBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
-    opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
+    // opperatorXbox.leftBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
+    opperatorXbox.leftTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
     
     //AlgaeClaw 
-    opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
-    opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
-    opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
+    // opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
+    // opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
+    // opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
-    //AlgaeRotator
-    driverXbox.leftBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
-    driverXbox.rightBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
+    // //AlgaeRotator
+    // opperatorXbox2.rightTrigger().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
+    // opperatorXbox2.leftTrigger().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
 
-
-
-    opperatorXbox2.rightTrigger().whileTrue(s_climber.c_GetClimberUpCommand());
-    opperatorXbox2.leftTrigger().whileTrue(s_climber.c_GetClimberDownCommand());
+    //Climber
+    driverXbox.leftTrigger().whileTrue(s_climber.c_GetClimberUpCommand());
+    driverXbox.rightTrigger().whileTrue(s_climber.c_GetClimberDownCommand());
 
     
   }

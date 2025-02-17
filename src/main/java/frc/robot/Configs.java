@@ -46,12 +46,13 @@ public class Configs {
               
               .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
               // Set PID values for position control
-              .p(0.1)
+              .p(0.007)
+              .d(0.0001)
               .outputRange(-1, 1)
               .maxMotion
               // Set MAXMotion parameters for position control
               .maxVelocity(4200)
-              .maxAcceleration(6000)
+              .maxAcceleration(5000)
               .allowedClosedLoopError(0.5);
     
           elevatorFollowerConfig

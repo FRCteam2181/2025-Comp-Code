@@ -126,7 +126,7 @@ public class Elevator extends SubsystemBase {
           f_SetElevatorSpeed(ElevatorConstants.k_ElevatorSpeed);
         }, () -> {
           f_Stop();
-        });
+        }); 
     }
 
     public Command c_ElevatorDownCommand () {
@@ -163,7 +163,7 @@ public class Elevator extends SubsystemBase {
     public void periodic() {
       f_moveToSetpoint();
       // f_zeroElevatorOnLimitSwitch();
-      f_zeroOnUserButton();
+      //f_zeroOnUserButton();
 
       SmartDashboard.putNumber("Elevator Target Position", elevatorCurrentTarget);
       SmartDashboard.putNumber("Elevator Actual Position", elevatorEncoder.getPosition());
