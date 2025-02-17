@@ -4,13 +4,17 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -18,13 +22,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 // import frc.robot.subsystems.Blinkin;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Elevator.Setpoint;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.CoralFunnel;
 import frc.robot.subsystems.CoralPlacer;
-import frc.robot.subsystems.AlgaeClaw;
-import frc.robot.subsystems.AlgaeRotator;
+//import frc.robot.subsystems.AlgaeClaw;
+//import frc.robot.subsystems.AlgaeRotator;
 import frc.robot.subsystems.Climber;
+import frc.robot.systems.TargetingSystem;
+//import frc.robot.systems.ScoringSystem;
 
 
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -47,126 +52,28 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/maxSwerve"));
-  private final Elevator s_Elevator = new Elevator();
+  private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
   private final CoralFunnel s_CoralFunnel = new CoralFunnel();
   private final CoralPlacer s_CoralPlacer = new CoralPlacer();
-  private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
+  //private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
   // private final Blinkin s_Blinkin = new Blinkin();
-  private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
+  //private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
   private final Climber s_climber = new Climber();
 
-//       //Attempt at adding Switchable cases for buttons
-//       private OperatorDesiredReefBranchSide currentOperatorDesiredReefBranchSide = OperatorDesiredReefBranchSide.FULL_REEFSIDE_MANUAL;
-//       private OperatorDesiredReefLevel currentOperatorDesiredReefLevel = OperatorDesiredReefLevel.FULL_REEFLEVEL_MANUAL;
-//       private OperatorDesiredReefHexSide currentOperatorDesiredReefHexSide = OperatorDesiredReefHexSide.FULL_REEF_HEX_SIDE_MANUAL;
-  
-
-//       private boolean isUpdated = false;
-  
-//       public enum OperatorDesiredReefBranchSide {
-//         AUTO_LEFT,
-//         AUTO_RIGHT,
-//         MANUAL_LEFT,
-//         MANUAL_RIGHT,
-//         FULL_REEFSIDE_MANUAL
-//         }
+  private final TargetingSystem targetingSystem = new TargetingSystem();
+  // private final ScoringSystem   scoringSystem   = new ScoringSystem(s_CoralPlacer,
+  //                                                                   s_Elevator,
+  //                                                                   drivebase,
+  //                                                                   s_AlgaeClaw,
+  //                                                                   s_AlgaeRotator,
+  //                                                                   targetingSystem,
+  //                                                                   s_CoralFunnel,
+  //                                                                   s_climber);
 
 
-//     public enum OperatorDesiredReefLevel {
-//         AUTO_REEF_L1,
-//         AUTO_REEF_L2,
-//         AUTO_REEF_L3,
-//         AUTO_REEF_L4,
-//         MANUAL_REEF_L1,
-//         MANUAL_REEF_L2,
-//         MANUAL_REEF_L3,
-//         MANUAL_REEF_L4,
-//         FULL_REEFLEVEL_MANUAL
-//         }
 
-//     public enum OperatorDesiredReefHexSide{
-//         AUTO_REEF_HEX_SIDE_11,
-//         AUTO_REEF_HEX_SIDE_10,
-//         AUTO_REEF_HEX_SIDE_9,
-//         AUTO_REEF_HEX_SIDE_8,
-//         AUTO_REEF_HEX_SIDE_7,
-//         AUTO_REEF_HEX_SIDE_6,
-
-//         AUTO_REEF_HEX_SIDE_17,
-//         AUTO_REEF_HEX_SIDE_18,
-//         AUTO_REEF_HEX_SIDE_19,
-//         AUTO_REEF_HEX_SIDE_20,
-//         AUTO_REEF_HEX_SIDE_21,
-//         AUTO_REEF_HEX_SIDE_22,
-
-//         MANUAL_REEF_HEX_SIDE_11,
-//         MANUAL_REEF_HEX_SIDE_10,
-//         MANUAL_REEF_HEX_SIDE_9,
-//         MANUAL_REEF_HEX_SIDE_8,
-//         MANUAL_REEF_HEX_SIDE_7,
-//         MANUAL_REEF_HEX_SIDE_6,
-
-//         MANUAL_REEF_HEX_SIDE_17,
-//         MANUAL_REEF_HEX_SIDE_18,
-//         MANUAL_REEF_HEX_SIDE_19,
-//         MANUAL_REEF_HEX_SIDE_20,
-//         MANUAL_REEF_HEX_SIDE_21,
-//         MANUAL_REEF_HEX_SIDE_22,
-
-//         FULL_REEF_HEX_SIDE_MANUAL
-//         }
-  
-          
-
-//       public void setOperatorDesiredReefBranchSide(OperatorDesiredReefBranchSide pOperatorDesiredReefBranchSide) {
-//           currentOperatorDesiredReefBranchSide = pOperatorDesiredReefBranchSide;
-//           setUpdated(false);
-//       }
-//       public OperatorDesiredReefBranchSide getOperatorDesiredReefBranchSide() {
-//           return currentOperatorDesiredReefBranchSide;
-//       }
-      
-      
-//       public void setOperatorDesiredReefLevel(OperatorDesiredReefLevel pOperatorDesiredReefLevel) {
-//           currentOperatorDesiredReefLevel = pOperatorDesiredReefLevel;
-//       }
-//       public OperatorDesiredReefLevel getOperatorDesiredReefLevel() {
-//           return currentOperatorDesiredReefLevel;
-//       }
-
-
-//       public void setOperatorDesiredReefHexSide(OperatorDesiredReefHexSide pOperatorDesiredReefHexSide) {
-//           currentOperatorDesiredReefHexSide = pOperatorDesiredReefHexSide;
-//           setUpdated(false);
-//       }
-//       public OperatorDesiredReefHexSide getOperatorDesiredReefHexSide() {
-//           return currentOperatorDesiredReefHexSide;
-//       }
-  
-//       public boolean isUpdated() {
-//         return isUpdated;
-//     }
-
-//     public void setUpdated(boolean updated) {
-//         isUpdated = updated;
-//     }
-  
-  
-
-//     switch (this.getOperatorDesiredReefHexSide()) {
-//       case AUTO_REEF_HEX_SIDE_11 -> {
-        
-//     }
-//       case AUTO_REEF_HEX_SIDE_10 -> {
-        
-
-//     }
-//     case AUTO_REEF_HEX_SIDE_9 -> {
-        
-//     }
-// }
-
-
+// Establishing the Auto Chooser that will appear on the SmartDashboard
+  private final SendableChooser<Command> autoChooser;
 
 
   /**
@@ -224,10 +131,23 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    
+    DriverStation.silenceJoystickConnectionWarning(true);
+    
+     // Add all actions to PathPlanner
+    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+ 
+      
+    
+    
+    autoChooser = AutoBuilder.buildAutoChooser("New Auto");
+
+    SmartDashboard.putData("Auto Chooser", autoChooser); 
+ 
+
     // Configure the trigger bindings
     configureBindings();
-    DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+
   }
 
   /**
@@ -290,28 +210,33 @@ public class RobotContainer
   //   opperatorXbox.a().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L2).alongWith(Blinkin.setRedChase()));
   
   //   // A Button -> Elevator/Arm to level 2 position
-  opperatorXbox.a().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L2));
+ // opperatorXbox.a().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L2));
 
 
 
   //   // X Button -> Elevator/Arm to level 3 position
-  //   opperatorXbox.x().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L3).alongWith(Blinkin.setPat1LarScan()));
+  //   opperatorXbox.x().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L1));
     
   //   // Y Button -> Elevator/Arm to level 4 position
-  //   opperatorXbox.y().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L4).alongWith(Blinkin.setHotPink()));
+  //   opperatorXbox.y().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L3));
 
     //Elevator
-    opperatorXbox.povUp().onTrue(s_Elevator.c_ElevatorUpCommand());
-    opperatorXbox.povDown().onTrue(s_Elevator.c_ElevatorDownCommand());
-
+   // opperatorXbox.rightBumper().onTrue(s_Elevator.c_ElevatorUpCommand());
+   // opperatorXbox.leftBumper().onTrue(s_Elevator.c_ElevatorDownCommand());
+    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(2)));
+    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(4)));
+    opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(6)));
+    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(8)));
 
     //CoralFunnel
     opperatorXbox.rightTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
     opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandext());
     
-    opperatorXbox2.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
-    opperatorXbox2.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
-
+    
+    
+     //FunnelRotator
+     driverXbox.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
+     driverXbox.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
  
 
     //CoralPlacer 
@@ -319,19 +244,18 @@ public class RobotContainer
     opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
     
     //AlgaeClaw 
-    opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
-    opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
-    opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
+   // opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
+    //opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
+    //opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
     //AlgaeRotator
-    driverXbox.leftBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
-    driverXbox.rightBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
+   // driverXbox.leftBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
+    //driverXbox.rightBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
 
 
-
-    opperatorXbox2.rightTrigger().whileTrue(s_climber.c_GetClimberUpCommand());
-    opperatorXbox2.leftTrigger().whileTrue(s_climber.c_GetClimberDownCommand());
-
+   //Climber
+   driverXbox.leftTrigger().whileTrue(s_climber.c_GetClimberUpCommand());
+   driverXbox.rightTrigger().whileTrue(s_climber.c_GetClimberDownCommand());
     
   }
 
@@ -342,8 +266,7 @@ public class RobotContainer
    */
   public Command getAutonomousCommand()
   {
-    // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Auto");
+    return autoChooser.getSelected();
   }
 
   public void setMotorBrake(boolean brake)

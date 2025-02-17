@@ -5,6 +5,8 @@ import com.revrobotics.spark.config.LimitSwitchConfig.Type;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import frc.robot.Constants.ElevatorConstants;
+
 public class Configs {
     public static final class ElevatorConfig {
 
@@ -17,42 +19,13 @@ public class Configs {
           // Configure basic settings of the elevator motor
           globalConfig
             .idleMode(IdleMode.kBrake)
-            .smartCurrentLimit(50)
-            .voltageCompensation(12);
+            
+            .smartCurrentLimit(ElevatorConstants.kElevatorCurrentLimit)
+            .closedLoopRampRate(ElevatorConstants.kElevatorRampRate);
 
-        // elevatorConfig
-        //     .alternateEncoder
-        //     .setSparkMaxDataPortConfig()
-        //     .inverted(false)
-        //     .countsPerRevolution(8192);
-    
-          /*
-           * Configure the reverse limit switch for the elevator. By enabling the limit switch, this
-           * will prevent any actuation of the elevator in the reverse direction if the limit switch is
-           * pressed.
-           */
-        //   elevatorConfig
-        //       .limitSwitch
-        //       .reverseLimitSwitchEnabled(true)
-        //       .reverseLimitSwitchType(Type.kNormallyOpen);
-    
-          /*
-           * Configure the closed loop controller. We want to make sure we set the
-           * feedback sensor as the primary encoder.
-           */
+   
           elevatorConfig
-              .apply(globalConfig)
-              .closedLoop
-              
-              .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-              // Set PID values for position control
-              .p(0.1)
-              .outputRange(-1, 1)
-              .maxMotion
-              // Set MAXMotion parameters for position control
-              .maxVelocity(4200)
-              .maxAcceleration(6000)
-              .allowedClosedLoopError(0.5);
+          .apply(globalConfig);
     
           elevatorFollowerConfig
             .apply(globalConfig);
