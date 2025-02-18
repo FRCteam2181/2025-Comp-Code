@@ -12,13 +12,16 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 // import frc.robot.subsystems.Blinkin;
@@ -28,12 +31,16 @@ import frc.robot.subsystems.CoralPlacer;
 //import frc.robot.subsystems.AlgaeClaw;
 //import frc.robot.subsystems.AlgaeRotator;
 import frc.robot.subsystems.Climber;
+import frc.robot.systems.ButtonBoard;
 import frc.robot.systems.TargetingSystem;
+import frc.robot.systems.TargetingSystem.ReefBranch;
 //import frc.robot.systems.ScoringSystem;
-
-
+import frc.robot.systems.TargetingSystem.ReefSide;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
+
+import javax.imageio.plugins.tiff.TIFFDirectory;
+
 import swervelib.SwerveInputStream;
 
 /**
@@ -48,6 +55,9 @@ public class RobotContainer
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final CommandXboxController opperatorXbox = new CommandXboxController(1);
   final CommandXboxController opperatorXbox2 = new CommandXboxController(2);
+
+  private final ButtonBoard opperatorBoard1 = new ButtonBoard(1);
+
   
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -205,6 +215,29 @@ public class RobotContainer
       driverXbox.y().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
     }
 
+   //Left or Right
+   opperatorBoard1.button0.onTrue(targetingSystem.setReefSide(ReefSide.Left));
+   opperatorBoard1.button5.onTrue(targetingSystem.setReefSide(ReefSide.Right));
+   opperatorBoard1.button17.onTrue(targetingSystem.setReefSide(ReefSide.Middle));
+
+   //Reef Sides
+   opperatorBoard1.button3.onTrue(targetingSystem.setBranchCommand(ReefBranch.AB)
+      .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+  
+   opperatorBoard1.button1.onTrue(targetingSystem.setBranchCommand(ReefBranch.CD)
+      .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+
+   opperatorBoard1.button2.onTrue(targetingSystem.setBranchCommand(ReefBranch.EF)
+      .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+
+   opperatorBoard1.button4.onTrue(targetingSystem.setBranchCommand(ReefBranch.GH)
+      .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+
+   opperatorBoard1.button7.onTrue(targetingSystem.setBranchCommand(ReefBranch.IJ)
+      .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+
+   opperatorBoard1.button6.onTrue(targetingSystem.setBranchCommand(ReefBranch.KL)
+      .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
   //   // A Button -> Elevator/Arm to level 2 position
   //   opperatorXbox.a().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L2).alongWith(Blinkin.setRedChase()));

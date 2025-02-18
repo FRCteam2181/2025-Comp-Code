@@ -34,13 +34,14 @@ import frc.robot.Constants.TargetingConstants;
 public class TargetingSystem
 {
 
-  private AprilTagFieldLayout fieldLayout              = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+  private AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
   private ReefBranch targetBranch;
   private ReefBranchLevel targetLevel;
   private DesiredCage targetCage;
   private ProcessorScoring targetProcessor;
   private CoralLoadingPosition targetCoralLoading;
-  private Transform2d         robotBranchScoringOffset = new Transform2d(Inches.of(19).in(Meters),
+  private ReefSide targetReefSide;
+  private Transform2d robotBranchScoringOffset = new Transform2d(Inches.of(19).in(Meters),
                                                                          Inches.of(0).in(Meters),
                                                                          Rotation2d.fromDegrees(0));
 
@@ -68,120 +69,175 @@ public class TargetingSystem
     {
       switch (targetBranch)
       {
-        case A ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_A;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_A;
+          case AB ->
+          {
+            if(targetReefSide == ReefSide.Right) {
+              if(isRedAlliance()){
+                return TargetingConstants.ReefBranch_Red_A;}
+                else{
+                return TargetingConstants.ReefBranch_Blue_A;
+                }
             }
-        }
-        
-        case B ->
+
+            else if (targetReefSide == ReefSide.Left) {
+              if(isRedAlliance()){
+                return TargetingConstants.ReefBranch_Red_B;}
+                else{
+                return TargetingConstants.ReefBranch_Blue_B;
+                }
+            }
+
+            else {
+              if(isRedAlliance()){
+                return TargetingConstants.ReefBranch_Red_AB_Middle;}
+                else{
+                return TargetingConstants.ReefBranch_Blue_AB_Middle;
+                }
+            }
+          }
+
+        case CD ->
         {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_B;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_B;
+          if(targetReefSide == ReefSide.Right) {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_C;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_C;
+              }
+          }
+
+          else if (targetReefSide == ReefSide.Left) {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_D;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_D;
+              }
+          }
+
+          else {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_CD_Middle;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_CD_Middle;
+              }
+          }
+        }
+
+        case EF ->
+        {
+          if(targetReefSide == ReefSide.Right) {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_E;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_E;
+              }
+          }
+
+          else if (targetReefSide == ReefSide.Left) {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_F;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_F;
+              }
+          }
+
+          else {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_EF_Middle;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_EF_Middle;
+              }
+          }
+        }
+
+        case GH ->
+        {
+            if(targetReefSide == ReefSide.Right) {
+              if(isRedAlliance()){
+                return TargetingConstants.ReefBranch_Red_G;}
+                else{
+                return TargetingConstants.ReefBranch_Blue_G;
+                }
+             }
+
+            else if (targetReefSide == ReefSide.Left) {
+              if(isRedAlliance()){
+                return TargetingConstants.ReefBranch_Red_H;}
+                else{
+                return TargetingConstants.ReefBranch_Blue_H;
+                }
+            }
+  
+            else {
+              if(isRedAlliance()){
+                return TargetingConstants.ReefBranch_Red_GH_Middle;}
+                else{
+                return TargetingConstants.ReefBranch_Blue_GH_Middle;
+                }
             }
         }
 
-        case C ->
+      case IJ ->
         {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_C;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_C;
-            }
+          if(targetReefSide == ReefSide.Right) {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_I;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_I;
+              }
+          }
+
+          else if (targetReefSide == ReefSide.Left) {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_J;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_J;
+              }
+          }
+
+          else {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_IJ_Middle;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_IJ_Middle;
+              }
+          }
         }
 
-        case D ->
+        case KL ->
         {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_D;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_D;
-            }
-        }
+          if(targetReefSide == ReefSide.Right) {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_K;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_K;
+              }
+          }
 
-        case E ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_E;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_E;
-            }
-        }
+          else if (targetReefSide == ReefSide.Left) {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_L;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_L;
+              }
+          }
 
-        case F ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_F;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_F;
-            }
-        }
-
-        case G ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_G;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_G;
-            }
-        }
-
-        case H ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_H;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_H;
-            }
-        }
-
-        case I ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_I;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_I;
-            }
-        }
-
-        case J ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_J;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_J;
-            }
-        }
-
-        case K ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_K;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_K;
-            }
-        }
-
-        case L ->
-        {
-          if(isRedAlliance()){
-            return TargetingConstants.ReefBranch_Red_L;}
-            else{
-            return TargetingConstants.ReefBranch_Blue_L;
-            }
+          else {
+            if(isRedAlliance()){
+              return TargetingConstants.ReefBranch_Red_AB_Middle;}
+              else{
+              return TargetingConstants.ReefBranch_Blue_AB_Middle;
+              }
+          }
         }
       }
+    
       return new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
     }
-
+  
 
     public Distance getTargetReefBranchLevelHeight()
     {
@@ -466,28 +522,34 @@ public class TargetingSystem
     });
   }
 
-  public Command setBranchCommand(ReefBranchLevel level)
+  public Command setReefSide(ReefSide side) {
+      return Commands.runOnce(() -> {
+        targetReefSide = side;
+      });
+  }
+
+  public Command setLevelCommand(ReefBranchLevel level)
   {
     return Commands.runOnce(() -> {
       targetLevel = level;
     });
   }
 
-  public Command setBranchCommand(DesiredCage cage)
+  public Command setCageCommand(DesiredCage cage)
   {
     return Commands.runOnce(() -> {
       targetCage = cage;
     });
   }
 
-  public Command setBranchCommand(ProcessorScoring processor)
+  public Command setProcessorCommand(ProcessorScoring processor)
   {
     return Commands.runOnce(() -> {
       targetProcessor = processor;
     });
   }
 
-  public Command setBranchCommand(CoralLoadingPosition coralloading)
+  public Command setLoadingCommand(CoralLoadingPosition coralloading)
   {
     return Commands.runOnce(() -> {
       targetCoralLoading = coralloading;
@@ -515,48 +577,48 @@ public class TargetingSystem
 
 
   
-  public void setTarget(ReefBranch targetBranch, ReefBranchLevel targetBranchLevel)
-  {
-    this.targetBranch = targetBranch;
-    this.targetLevel = targetBranchLevel;
-  }
+  // public void setTarget(ReefBranch targetBranch, ReefBranchLevel targetBranchLevel)
+  // {
+  //   this.targetBranch = targetBranch;
+  //   this.targetLevel = targetBranchLevel;
+  // }
 
-  public Command setTargetCommand(ReefBranch targetBranch, ReefBranchLevel targetBranchLevel)
-  {
-    return Commands.runOnce(() -> setTarget(targetBranch, targetBranchLevel));
-  }
+  // public Command setTargetCommand(ReefBranch targetBranch, ReefBranchLevel targetBranchLevel)
+  // {
+  //   return Commands.runOnce(() -> setTarget(targetBranch, targetBranchLevel));
+  // }
 
-  public Pose2d getTargetPose()
-  {
-    Pose2d scoringPose = Pose2d.kZero;
-    if (targetBranch != null)
-    {
-      scoringPose = Reef.branchPositions.get(targetBranch.ordinal()).get(ReefHeight.L2).toPose2d()
-                                        .plus(robotBranchScoringOffset);
-    }
-    return AllianceFlipUtil.apply(scoringPose);
-  }
+  // public Pose2d getTargetPose()
+  // {
+  //   Pose2d scoringPose = Pose2d.kZero;
+  //   if (targetBranch != null)
+  //   {
+  //     scoringPose = Reef.branchPositions.get(targetBranch.ordinal()).get(ReefHeight.L2).toPose2d()
+  //                                       .plus(robotBranchScoringOffset);
+  //   }
+  //   return AllianceFlipUtil.apply(scoringPose);
+  // }
 
 
-  public Pose2d autoTarget(Supplier<Pose2d> currentPose)
-  {
-    if (allianceRelativeReefBranches == null)
-    {
-      allianceRelativeReefBranches = reefBranches.stream()
-                                                 .map(AllianceFlipUtil::apply)
-                                                 .collect(Collectors.toList());
-    }
-    Pose2d selectedTargetPose = currentPose.get().nearest(allianceRelativeReefBranches);
-    targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
-    return selectedTargetPose;
-  }
+  // public Pose2d autoTarget(Supplier<Pose2d> currentPose)
+  // {
+  //   if (allianceRelativeReefBranches == null)
+  //   {
+  //     allianceRelativeReefBranches = reefBranches.stream()
+  //                                                .map(AllianceFlipUtil::apply)
+  //                                                .collect(Collectors.toList());
+  //   }
+  //   Pose2d selectedTargetPose = currentPose.get().nearest(allianceRelativeReefBranches);
+  //   targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
+  //   return selectedTargetPose;
+  // }
 
-  public Command autoTargetCommand(Supplier<Pose2d> currentPose)
-  {
-    return Commands.runOnce(() -> {
-      autoTarget(currentPose);
-    });
-  }
+  // public Command autoTargetCommand(Supplier<Pose2d> currentPose)
+  // {
+  //   return Commands.runOnce(() -> {
+  //     autoTarget(currentPose);
+  //   });
+  // }
 
 
 
@@ -580,18 +642,13 @@ public class TargetingSystem
   //This lists each individual branch on the reef.
   public enum ReefBranch
   {
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    H,
-    I,
-    J,
-    K,
-    L
+    AB,
+    CD,
+    EF,
+    GH,
+    IJ,
+    KL,
+    I
   }
 
 //This lists each individual branch level on the reef and the fact that the trough exists (L1) even though it is ont unique to the branches.
@@ -642,6 +699,12 @@ public enum ProcessorScoring
     Right_7,
     Right_8,
     Right_9,
+  }
+
+  public enum ReefSide {
+    Left,
+    Right,
+    Middle
   }
 
  /**
