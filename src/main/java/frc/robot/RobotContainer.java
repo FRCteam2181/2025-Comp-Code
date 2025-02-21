@@ -22,11 +22,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 // import frc.robot.subsystems.Blinkin;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystemPID;
 import frc.robot.subsystems.CoralFunnel;
 import frc.robot.subsystems.CoralPlacer;
-//import frc.robot.subsystems.AlgaeClaw;
-//import frc.robot.subsystems.AlgaeRotator;
+import frc.robot.subsystems.AlgaeClaw;
+import frc.robot.subsystems.AlgaeRotator;
 import frc.robot.subsystems.Climber;
 import frc.robot.systems.TargetingSystem;
 //import frc.robot.systems.ScoringSystem;
@@ -52,12 +52,12 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/maxSwerve"));
-  private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
+  private final ElevatorSubsystemPID s_Elevator = new ElevatorSubsystemPID();
   private final CoralFunnel s_CoralFunnel = new CoralFunnel();
   private final CoralPlacer s_CoralPlacer = new CoralPlacer();
-  //private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
+  private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
   // private final Blinkin s_Blinkin = new Blinkin();
-  //private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
+  private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
   private final Climber s_climber = new Climber();
 
   private final TargetingSystem targetingSystem = new TargetingSystem();
@@ -223,34 +223,32 @@ public class RobotContainer
     //Elevator
    // opperatorXbox.rightBumper().onTrue(s_Elevator.c_ElevatorUpCommand());
    // opperatorXbox.leftBumper().onTrue(s_Elevator.c_ElevatorDownCommand());
-    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(2)));
-    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(4)));
-    opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(6)));
-    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(8)));
+    
+    //opperatorXbox.x().whileTrue(s_Elevator.c_GetElevatorUpCommand());
+    //opperatorXbox.y().whileTrue(s_Elevator.c_GetElevatorDownCommand());
+    opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(4)));
+    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(12)));
 
     //CoralFunnel
     opperatorXbox.rightTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
     opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandext());
     
-    
-    
      //FunnelRotator
      driverXbox.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
      driverXbox.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
  
-
     //CoralPlacer 
     opperatorXbox.leftBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
     opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
     
     //AlgaeClaw 
-   // opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
-    //opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
-    //opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
+    opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
+    opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
+    opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
     //AlgaeRotator
-   // driverXbox.leftBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
-    //driverXbox.rightBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
+    opperatorXbox2.leftBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
+    opperatorXbox2.rightBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
 
 
    //Climber

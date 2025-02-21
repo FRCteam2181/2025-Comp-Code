@@ -163,16 +163,16 @@ public final class Constants
       public static class ElevatorConstants
       {
     
-        public static final double   kElevatorKp              = 5;
+        public static final double   kElevatorKp              = 20;
         public static final double   kElevatorKi              = 0;
         public static final double   kElevatorKd              = 0;
         
-        public static final double   kElevatorkS              = 0; // volts (V)
-        public static final double   kElevatorkV              = 0; // volt per velocity (V/(m/s))
-        public static final double   kElevatorkA              = 0; // volt per acceleration (V/(m/s²))
-        public static final double   kElevatorkG              = 0; // volts (V)
+        public static final double   kElevatorkS              = 0;//0.01964; // volts (V)
+        public static final double   kElevatorkV              = 0;//2.63; // volt per velocity (V/(m/s))
+        public static final double   kElevatorkA              = 0;//0.14; // volt per acceleration (V/(m/s²))
+        public static final double   kElevatorkG              = 0;//0.91274; // volts (V)
        
-        public static final double   kElevatorGearing         = 5.0; // ours should be 5
+        public static final double   kElevatorGearing         = 12.0; // ours should be 5
         public static final double   kElevatorDrumDiameter      = Units.inchesToMeters(1.751);
        
         
@@ -187,8 +187,8 @@ public final class Constants
         
         public static       double   kElevatorRampRate       = 0.1;
         public static       int      kElevatorCurrentLimit   = 40;
-        public static double kMaxVelocity = Meters.of(4).per(Second).in(MetersPerSecond);
-        public static double kMaxAcceleration = Meters.of(8).per(Second).per(Second).in(MetersPerSecondPerSecond);
+        public static double kMaxVelocity = Meters.of(13).per(Second).in(MetersPerSecond);
+        public static double kMaxAcceleration = Meters.of(13).per(Second).per(Second).in(MetersPerSecondPerSecond);
         public static final double   kElevatorUnextendedHeight    = Units.inchesToMeters(41.5);
 
 

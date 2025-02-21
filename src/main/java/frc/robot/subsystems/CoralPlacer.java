@@ -12,19 +12,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class CoralPlacer extends SubsystemBase{
 
-    SparkFlex m_CorPWheelRight;
+    //SparkFlex m_CorPWheelRight;
     SparkFlex m_CorPWheelLeft;
 
     SparkFlexConfig config;
 
     public CoralPlacer() {
         m_CorPWheelLeft = new SparkFlex(k_CoralWheelLeftID, MotorType.kBrushless);
-        m_CorPWheelRight = new SparkFlex(k_CoralWheelRightID, MotorType.kBrushless);
+        //m_CorPWheelRight = new SparkFlex(k_CoralWheelRightID, MotorType.kBrushless);
 
         config = new SparkFlexConfig();
 
         m_CorPWheelLeft.configure(config.smartCurrentLimit(k_CoralPlacerVoltageLimit), null, null);
-        m_CorPWheelRight.configure(config.smartCurrentLimit(k_CoralPlacerVoltageLimit), null, null);
+        //m_CorPWheelRight.configure(config.smartCurrentLimit(k_CoralPlacerVoltageLimit), null, null);
 
         m_CorPWheelLeft.configure(config.idleMode(IdleMode.kBrake), null, PersistMode.kPersistParameters);
         m_CorPWheelLeft.configure(config.idleMode(IdleMode.kBrake), null, PersistMode.kPersistParameters);
@@ -52,12 +52,12 @@ public class CoralPlacer extends SubsystemBase{
 
     public void f_setCoralWheels(double speed) {
         m_CorPWheelLeft.set(speed);
-        m_CorPWheelRight.set(-speed*.5);
+        //m_CorPWheelRight.set(-speed*.5);
     }
 
     public void f_stop() { 
         m_CorPWheelLeft.set(0);
-        m_CorPWheelRight.set(0); 
+        //m_CorPWheelRight.set(0); 
     }
 
 }
