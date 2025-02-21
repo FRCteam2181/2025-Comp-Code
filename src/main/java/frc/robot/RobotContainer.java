@@ -228,6 +228,8 @@ public class RobotContainer
     //opperatorXbox.y().whileTrue(s_Elevator.c_GetElevatorDownCommand());
     opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(4)));
     opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(12)));
+    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(18)));
+    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(24)));
 
     //CoralFunnel
     opperatorXbox.rightTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
@@ -247,8 +249,8 @@ public class RobotContainer
     opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
     //AlgaeRotator
-    opperatorXbox2.leftBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
-    opperatorXbox2.rightBumper().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
+    opperatorXbox2.leftBumper().whileTrue(s_AlgaeRotator.setGoal(0));
+    opperatorXbox2.rightBumper().whileTrue(s_AlgaeRotator.setGoal(0));
 
 
    //Climber
