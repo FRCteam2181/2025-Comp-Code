@@ -204,7 +204,7 @@ public final class Constants
     
         public static final double   kElevatorKp              = 22;
         public static final double   kElevatorKi              = 0;
-        public static final double   kElevatorKd              = 0;
+        public static final double   kElevatorKd              = 1.5;
         
         public static final double   kElevatorkS              = 0;//0.01964; // volts (V)
         public static final double   kElevatorkV              = 0;//2.63; // volt per velocity (V/(m/s))
@@ -221,7 +221,7 @@ public final class Constants
         public static final double   kMaxElevatorHeightMeters = 10.25;
         public static final Distance kMinElevatorHeight      = Meters.of(kMinElevatorHeightMeters);
         public static final Distance kMaxElevatorHeight      = Meters.of(kMaxElevatorHeightMeters);
-        public static final double   kElevatorAllowableError = 1;
+        public static final double   kElevatorAllowableError = .04;
         public static final double   kLowerToScoreHeight     = Units.inchesToMeters(6);
         
         public static       double   kElevatorRampRate       = 0.1;

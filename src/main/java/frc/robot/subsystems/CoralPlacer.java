@@ -31,7 +31,7 @@ public class CoralPlacer extends SubsystemBase{
     }
 
     public Command c_getCoralPlacerL1Command() {
-        return this.startEnd(() -> {
+        return this.runEnd(() -> {
             f_setCoralWheels(k_CoralPlacerSpeedL1);
         }, 
         

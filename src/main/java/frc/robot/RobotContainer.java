@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Unit;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -226,10 +228,12 @@ public class RobotContainer
     
     //opperatorXbox.x().whileTrue(s_Elevator.c_GetElevatorUpCommand());
     //opperatorXbox.y().whileTrue(s_Elevator.c_GetElevatorDownCommand());
-    opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(4)));
-    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(12)));
-    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(18)));
-    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(24)));
+    opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(0)));
+    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(28.25)));
+    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(44.125)));
+    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(69.375)));
+
+    opperatorXbox.leftBumper().onTrue(s_Elevator.setGoal(Units.inchesToMeters(17.375)));
 
     //CoralFunnel
     opperatorXbox.rightTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
@@ -240,8 +244,9 @@ public class RobotContainer
      driverXbox.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
  
     //CoralPlacer 
-    opperatorXbox.leftBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
-    opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
+    // opperatorXbox.leftBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
+    opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1)
+    .andThen(s_Elevator.setGoal(70.375)).alongWith(s_CoralPlacer.c_getCoralPlacerGenCommand()));
     
     //AlgaeClaw 
     opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
