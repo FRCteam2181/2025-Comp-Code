@@ -64,7 +64,7 @@ public final class Constants
     public static final int k_CoralWheelRightID = 12;
 
     public static final double k_CoralPlacerSpeedL1 = .4;
-    public static final double k_CoralPlacerSpeedGen = 0.6;
+    public static final double k_CoralPlacerSpeedGen = 1;
     
     public static final int k_CoralPlacerVoltageLimit = 20;
   }
@@ -90,8 +90,9 @@ public final class Constants
 
     public static final int k_AlgaeClawRotatorID = 13;
     // The P gain for the PID controller that drives this arm.
-    public static final double  kAlgaeArmKp                     = 0.25;
-    public static final double  kAlgaeArmKi                     = 0;
+    public static final double  kAlgaeArmKp                     = .325;
+    public static final double  kAlgaeArmKi                     = 7
+    ;
     public static final double  kAlgaeArmKd                     = 0.0;
     public static final double  kAlgaeArmReduction              = 36;
     public static final Angle   kAlgaeArmAllowedClosedLoopError

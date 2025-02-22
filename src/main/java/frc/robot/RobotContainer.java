@@ -232,9 +232,9 @@ public class RobotContainer
     //opperatorXbox.x().whileTrue(s_Elevator.c_GetElevatorUpCommand());
     //opperatorXbox.y().whileTrue(s_Elevator.c_GetElevatorDownCommand());
     opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(0))); //Full down
-    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(28.25))); //L2
-    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(44.125)));//L3
-    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(69.375)));//L4
+    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(27.75))); //L2
+    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(43.625)));//L3
+    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(68.875)));//L4
 
     //Funnel hight
     opperatorXbox.leftBumper().onTrue(s_Elevator.setGoal(Units.inchesToMeters(17.375)));
@@ -259,7 +259,7 @@ public class RobotContainer
 
     // //AlgaeRotator
     opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setGoal(0));
-    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(-10));
+    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(30));
 
 
    //Climber

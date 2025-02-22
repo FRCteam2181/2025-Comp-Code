@@ -21,6 +21,8 @@ import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
+import java.beans.Encoder;
+
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 // import com.revrobotics.sim.SparkMaxSim;
@@ -165,6 +167,8 @@ public class AlgaeRotator extends SubsystemBase {
                                                 new Constraints(AlgaeRotatorConstants.kAlgaeArmMaxVelocityRPM,
                                                                 AlgaeRotatorConstants.kAlgaeArmMaxAccelerationRPMperSecond));
     m_pidController.setTolerance(0.01);
+
+    seedClawMotorPosition();
 
 
   }
@@ -313,7 +317,11 @@ public class AlgaeRotator extends SubsystemBase {
     return setGoal(degree).until(() -> aroundAngle(degree));
   }
 
-
+  public void seedClawMotorPosition()
+  {
+      m_encoder.setPosition(0);
+  
+  }
   public void stop()
   {
     m_AlgaeRotator.set(0.0);
