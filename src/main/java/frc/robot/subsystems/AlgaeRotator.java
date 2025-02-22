@@ -69,11 +69,11 @@ public class AlgaeRotator extends SubsystemBase {
       = new Trigger(() -> getAngle().gte(AlgaeRotatorConstants.kAlgaeArmMaxAngle.minus(Degrees.of(5))));
 
   // The arm gearbox represents a gearbox containing two Vex 775pro motors.
-  private final DCMotor                   m_armGearbox = DCMotor.getNEO(1);
+  // private final DCMotor                   m_armGearbox = DCMotor.getNEO(1);
   private final SparkMax                  m_AlgaeRotator      = new SparkMax(AlgaeRotatorConstants.k_AlgaeClawRotatorID,
                                                                       MotorType.kBrushless);
-  private       DigitalInput        armLoaded              = new DigitalInput(2);
-  private       DigitalInput        armInLoadedPosition    = new DigitalInput(1);
+  // private       DigitalInput        armLoaded              = new DigitalInput(2);
+  // private       DigitalInput        armInLoadedPosition    = new DigitalInput(1);
 
   private final SparkClosedLoopController m_controller = m_AlgaeRotator.getClosedLoopController();
   private final RelativeEncoder           m_encoder    = m_AlgaeRotator.getEncoder();
@@ -156,7 +156,7 @@ public class AlgaeRotator extends SubsystemBase {
         .maxAcceleration(AlgaeRotatorConstants.kAlgaeArmMaxAccelerationRPMperSecond)
         .allowedClosedLoopError(AlgaeRotatorConstants.kAlgaeArmAllowedClosedLoopError.in(Rotations));
     m_AlgaeRotator.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-    synchronizeAbsoluteEncoder();
+    // synchronizeAbsoluteEncoder();
 
     // PID Controller
     m_pidController = new ProfiledPIDController(AlgaeRotatorConstants.kAlgaeArmKp,
@@ -240,25 +240,25 @@ public class AlgaeRotator extends SubsystemBase {
   /**
    * Synchronizes the NEO encoder with the attached Absolute Encoder.
    */
-  public void synchronizeAbsoluteEncoder()
-  {
-    m_encoder.setPosition(Rotations.of(m_absEncoder.getPosition())
-                                   .minus(AlgaeRotatorConstants.kAlgaeArmOffsetToHorizantalZero)
-                                   .in(Rotations));
-  }
+  // public void synchronizeAbsoluteEncoder()
+  // {
+  //   m_encoder.setPosition(Rotations.of(m_absEncoder.getPosition())
+  //                                  .minus(AlgaeRotatorConstants.kAlgaeArmOffsetToHorizantalZero)
+  //                                  .in(Rotations));
+  // }
 
   /**
    * Runs the SysId routine to tune the Arm
    *
    * @return SysId Routine command
    */
-  public Command runSysIdRoutine()
-  {
-    return m_sysIdRoutine.dynamic(Direction.kForward).until(atMax)
-                         .andThen(m_sysIdRoutine.dynamic(Direction.kReverse).until(atMin))
-                         .andThen(m_sysIdRoutine.quasistatic(Direction.kForward).until(atMax))
-                         .andThen(m_sysIdRoutine.quasistatic(Direction.kReverse).until(atMin));
-  }
+  // public Command runSysIdRoutine()
+  // {
+  //   return m_sysIdRoutine.dynamic(Direction.kForward).until(atMax)
+  //                        .andThen(m_sysIdRoutine.dynamic(Direction.kReverse).until(atMin))
+  //                        .andThen(m_sysIdRoutine.quasistatic(Direction.kForward).until(atMax))
+  //                        .andThen(m_sysIdRoutine.quasistatic(Direction.kReverse).until(atMin));
+  // }
 
 
   public void reachSetpoint(double setPointDegree)
@@ -326,16 +326,16 @@ public class AlgaeRotator extends SubsystemBase {
     //    System.out.println(Units.radiansToDegrees(m_AlgaeArmSim.getAngleRads()));
   }
 
-  public boolean algaeInLoadPosition()
-  {
-    System.out.println(armInLoadedPosition.get());
-    return armInLoadedPosition.get();//m_algaeInArm.get()&&aroundAngle(135);//only check the angle-still need check elev?
-  }
+  // public boolean algaeInLoadPosition()
+  // {
+  //   System.out.println(armInLoadedPosition.get());
+  //   return armInLoadedPosition.get();//m_algaeInArm.get()&&aroundAngle(135);//only check the angle-still need check elev?
+  // }
 
-  public boolean algaeLoaded()
-  {
-    return armLoaded.get();//m_algaeInBin.get()|| m_algaeInArm.get();
-  }
+  // public boolean algaeLoaded()
+  // {
+  //   return armLoaded.get();//m_algaeInBin.get()|| m_algaeInArm.get();
+  // }
 
   public boolean aroundAngle(double degree, double allowableError)
   {

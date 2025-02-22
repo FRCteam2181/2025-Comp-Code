@@ -90,10 +90,10 @@ public final class Constants
 
     public static final int k_AlgaeClawRotatorID = 13;
     // The P gain for the PID controller that drives this arm.
-    public static final double  kAlgaeArmKp                     = 2.0691;
+    public static final double  kAlgaeArmKp                     = 0.25;
     public static final double  kAlgaeArmKi                     = 0;
     public static final double  kAlgaeArmKd                     = 0.0;
-    public static final double  kAlgaeArmReduction              = 81;
+    public static final double  kAlgaeArmReduction              = 36;
     public static final Angle   kAlgaeArmAllowedClosedLoopError
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
         0.01));
@@ -107,8 +107,8 @@ public final class Constants
     public static final boolean kAlgaeArmInverted               = false;
     public static final double  kAlgaeArmMaxVelocityRPM
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
-        90)).per(
-        Second).in(RPM);
+                                                                                            90)).per(
+                                                                                            Second).in(RPM);
     public static final double  kAlgaeArmMaxAccelerationRPMperSecond
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
                                                                               180)).per(
@@ -116,9 +116,9 @@ public final class Constants
                                                                           .in(RPM.per(Second));
     public static final int     kAlgaeArmStallCurrentLimitAmps  = 40;
     public static final double  kAlgaeArmkS                     = 0; // volts (V)
-    public static final double  kAlgaeArmkG                     = 1.53; // volts (V)
-    public static final double  kAlgaeArmKv                     = 1.58; // volts per velocity (V/RPM)
-    public static final double  kAlgaeArmKa                     = 0.08; // volts per acceleration (V/(RPM/s))
+    public static final double  kAlgaeArmkG                     = 0; // volts (V)
+    public static final double  kAlgaeArmKv                     = 0; // volts per velocity (V/RPM)
+    public static final double  kAlgaeArmKa                     = 0; // volts per acceleration (V/(RPM/s))
     public static final double  kAlgaeAngleAllowableError       = 1;//degree, for testing whether it's aroundAngle
 
   }
@@ -129,7 +129,7 @@ public final class Constants
     
     public static final double k_CoralFunnelSpeed = -.15;
     public static final double k_CoralFunnelSpeedext = -.80;
-    public static final double k_FunnelRotateSpeed = 0.2;
+    public static final double k_FunnelRotateSpeed = 0.1;
     
     public static final int k_CoralFunnelVoltageLimit = 80;
   

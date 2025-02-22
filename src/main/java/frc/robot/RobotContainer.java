@@ -13,6 +13,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.Unit;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants.OperatorConstants;
 // import frc.robot.subsystems.Blinkin;
 import frc.robot.subsystems.ElevatorSubsystemPID;
@@ -50,6 +51,8 @@ public class RobotContainer
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final CommandXboxController opperatorXbox = new CommandXboxController(1);
   final CommandXboxController opperatorXbox2 = new CommandXboxController(2);
+
+  final Joystick controlPanel1 = new Joystick(1);
   
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -84,7 +87,7 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> driverXbox.getLeftY() * -1,
                                                                 () -> driverXbox.getLeftX() * -1)
-                                                            .withControllerRotationAxis(driverXbox::getRightX)
+                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() * -1)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -228,34 +231,35 @@ public class RobotContainer
     
     //opperatorXbox.x().whileTrue(s_Elevator.c_GetElevatorUpCommand());
     //opperatorXbox.y().whileTrue(s_Elevator.c_GetElevatorDownCommand());
-    opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(0)));
-    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(28.25)));
-    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(44.125)));
-    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(69.375)));
+    opperatorXbox.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(0))); //Full down
+    opperatorXbox.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(28.25))); //L2
+    opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(44.125)));//L3
+    opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(69.375)));//L4
 
+    //Funnel hight
     opperatorXbox.leftBumper().onTrue(s_Elevator.setGoal(Units.inchesToMeters(17.375)));
 
     //CoralFunnel
-    opperatorXbox.rightTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
-    opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandext());
+    opperatorXbox.rightBumper().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
+    opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandback());
     
      //FunnelRotator
      driverXbox.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
      driverXbox.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
  
     //CoralPlacer 
-    // opperatorXbox.leftBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerL1Command());
-    opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1)
-    .andThen(s_Elevator.setGoal(70.375)).alongWith(s_CoralPlacer.c_getCoralPlacerGenCommand()));
+    opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
+    // opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1)
+    // .andThen(s_Elevator.setGoal(70.375)).alongWith(s_CoralPlacer.c_getCoralPlacerGenCommand()));
     
     //AlgaeClaw 
-    opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
-    opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
-    opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
+    // opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
+    // opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
+    // opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
-    //AlgaeRotator
-    opperatorXbox2.leftBumper().whileTrue(s_AlgaeRotator.setGoal(0));
-    opperatorXbox2.rightBumper().whileTrue(s_AlgaeRotator.setGoal(0));
+    // //AlgaeRotator
+    opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setGoal(0));
+    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(-10));
 
 
    //Climber
