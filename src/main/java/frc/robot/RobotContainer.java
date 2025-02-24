@@ -20,10 +20,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import frc.robot.Constants.OperatorConstants;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.XboxController;
+
+
+// Subsystem Imports 
 // import frc.robot.subsystems.Blinkin;
 import frc.robot.subsystems.ElevatorSubsystemPID;
 import frc.robot.subsystems.CoralFunnel;
@@ -34,10 +41,11 @@ import frc.robot.subsystems.Climber;
 import frc.robot.systems.TargetingSystem;
 //import frc.robot.systems.ScoringSystem;
 
-
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
+
+import frc.robot.Constants.OperatorConstants;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -249,9 +257,9 @@ public class RobotContainer
  
     //CoralPlacer 
     opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
-    // opperatorXbox.rightBumper().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1)
-    // .andThen(s_Elevator.setGoal(70.375)).alongWith(s_CoralPlacer.c_getCoralPlacerGenCommand()));
-    
+    opperatorXbox.rightBumper().onTrue(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(2),
+                                                               new WaitCommand(.5).andThen(s_Elevator.setGoal(70.375))));
+    opperatorXbox2.rightTrigger().onTrue(s_CoralFunnel.c_AutoCoralFunnelCommand());
     //AlgaeClaw 
     // opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
     // opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());

@@ -6,6 +6,8 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkBase.PersistMode;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.motors.SparkFlexSwerve;
@@ -15,6 +17,11 @@ public class CoralFunnel extends SubsystemBase {
   SparkFlex m_CoralFunnelWheel;
   SparkFlex m_FunnelRotator;
   SparkFlexConfig config;
+
+  LinearFilter currentFilter = LinearFilter.movingAverage(10);
+  private double filteredCurrent;
+
+
 
  public CoralFunnel() {
         m_CoralFunnelWheel = new SparkFlex(k_CoralFunnelWheelID, MotorType.kBrushless);
@@ -78,6 +85,34 @@ public class CoralFunnel extends SubsystemBase {
         });
 }
 
+
+public Command c_AutoCoralFunnelCommand() {
+
+        Debouncer debounce = new Debouncer(1, Debouncer.DebounceType.kRising);
+    // Open arms
+    return runOnce(
+            () -> {
+              debounce.calculate(false);
+            })
+        // set the intake to cube intaking speed
+        .andThen(
+            run(() -> {
+              f_setFunnelWheel(k_CoralFunnelSpeed);
+                })
+                // Wait until current spike is detected for more than 1s
+                .until(() -> debounce.calculate(getFilteredCurrent() > 7)))
+        // Reduce motor power to holding power
+        .finallyDo(
+            (interrupted) -> {
+                f_stop();
+            });
+
+    }
+
+
+
+
+
     public void f_setFunnelWheel(double speed) {
         m_CoralFunnelWheel.set(speed);
     }
@@ -90,4 +125,22 @@ public class CoralFunnel extends SubsystemBase {
     public void f_setFunnelRotate (double speed) {
       m_FunnelRotator.set(speed);
     }
+
+
+
+    public double getFilteredCurrent() {
+      return filteredCurrent;
+    }
+
+  public double getCurrent() {
+      return m_CoralFunnelWheel.getOutputCurrent();
+    }
+  
+    @Override
+    public void periodic() {
+      filteredCurrent = currentFilter.calculate(getCurrent());
+    }
+
+
+
 }
