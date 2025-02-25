@@ -64,7 +64,7 @@ public final class Constants
     public static final int k_CoralWheelRightID = 12;
 
     public static final double k_CoralPlacerSpeedL1 = .4;
-    public static final double k_CoralPlacerSpeedGen = 1;
+    public static final double k_CoralPlacerSpeedGen = 0.6;
     
     public static final int k_CoralPlacerVoltageLimit = 20;
   }
@@ -90,11 +90,10 @@ public final class Constants
 
     public static final int k_AlgaeClawRotatorID = 13;
     // The P gain for the PID controller that drives this arm.
-    public static final double  kAlgaeArmKp                     = .325;
-    public static final double  kAlgaeArmKi                     = 7
-    ;
+    public static final double  kAlgaeArmKp                     = 0.001;
+    public static final double  kAlgaeArmKi                     = 0;
     public static final double  kAlgaeArmKd                     = 0.0;
-    public static final double  kAlgaeArmReduction              = 36;
+    public static final double  kAlgaeArmReduction              = 180;
     public static final Angle   kAlgaeArmAllowedClosedLoopError
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
         0.01));
@@ -117,8 +116,8 @@ public final class Constants
                                                                           .in(RPM.per(Second));
     public static final int     kAlgaeArmStallCurrentLimitAmps  = 40;
     public static final double  kAlgaeArmkS                     = 0; // volts (V)
-    public static final double  kAlgaeArmkG                     = 0; // volts (V)
-    public static final double  kAlgaeArmKv                     = 0; // volts per velocity (V/RPM)
+    public static final double  kAlgaeArmkG                     = .4826; // volts (V)
+    public static final double  kAlgaeArmKv                     = .02; // volts per velocity (V/RPM)
     public static final double  kAlgaeArmKa                     = 0; // volts per acceleration (V/(RPM/s))
     public static final double  kAlgaeAngleAllowableError       = 1;//degree, for testing whether it's aroundAngle
 

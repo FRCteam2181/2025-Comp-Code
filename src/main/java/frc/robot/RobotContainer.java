@@ -267,7 +267,7 @@ public class RobotContainer
 
     // //AlgaeRotator
     opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setGoal(0));
-    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(30));
+    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(60));
 
 
    //Climber
