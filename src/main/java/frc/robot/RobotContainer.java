@@ -249,7 +249,7 @@ public class RobotContainer
 
     //CoralFunnel
     opperatorXbox.rightBumper().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
-    opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandback());
+    //opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandback());
     
      //FunnelRotator
      driverXbox.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
@@ -257,8 +257,8 @@ public class RobotContainer
  
     //CoralPlacer 
     opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
-    opperatorXbox.rightBumper().onTrue(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(2),
-                                                               new WaitCommand(.5).andThen(s_Elevator.setGoal(70.375))));
+    opperatorXbox.leftTrigger().onTrue(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1.5),
+                                                               new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))));
     opperatorXbox2.rightTrigger().onTrue(s_CoralFunnel.c_AutoCoralFunnelCommand());
     //AlgaeClaw 
     // opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
