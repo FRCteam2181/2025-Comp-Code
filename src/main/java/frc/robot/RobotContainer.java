@@ -259,15 +259,22 @@ public class RobotContainer
     opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
     opperatorXbox.leftTrigger().onTrue(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1.5),
                                                                new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))));
-    opperatorXbox2.rightTrigger().onTrue(s_CoralFunnel.c_AutoCoralFunnelCommand());
+    // opperatorXbox2.rightTrigger().onTrue(s_CoralFunnel.c_AutoCoralFunnelCommand());
+    
+    //Algae claw height
+    opperatorXbox2.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(15.5)));
+    opperatorXbox2.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(31)));
+    opperatorXbox2.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(73.875)));
+    
     //AlgaeClaw 
-    // opperatorXbox2.a().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
+    opperatorXbox2.rightTrigger().whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
     // opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
-    // opperatorXbox2.x().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
+    opperatorXbox2.leftTrigger().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
     // //AlgaeRotator
     opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setGoal(0));
-    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(120));
+    opperatorXbox2.x().onTrue(s_AlgaeRotator.setGoal(90));
+    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(110));
 
 
    //Climber

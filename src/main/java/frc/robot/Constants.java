@@ -77,7 +77,7 @@ public final class Constants
     
 
     public static final double k_AlgaeClawIntakeSpeed = 0.4;
-    public static final double k_AlgaeClawProcessorSpeed = 0.5;
+    public static final double k_AlgaeClawProcessorSpeed = 0.75;
     public static final double k_AlgaeClawBargeSpeed = 0.25;
     public static final double k_AlgaeClawRotateSpeed = .30;
 
@@ -90,7 +90,7 @@ public final class Constants
 
     public static final int k_AlgaeClawRotatorID = 13;
     // The P gain for the PID controller that drives this arm.
-    public static final double  kAlgaeArmKp                     = 0.001;
+    public static final double  kAlgaeArmKp                     = 0.005;
     public static final double  kAlgaeArmKi                     = 0;
     public static final double  kAlgaeArmKd                     = 0.0;
     public static final double  kAlgaeArmReduction              = 180;
