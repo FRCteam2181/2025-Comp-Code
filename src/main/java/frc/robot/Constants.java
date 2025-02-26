@@ -187,13 +187,13 @@ public final class Constants
 
 
 
-  public static class targetingConstants
-  {
+  // public static class targetingConstants
+  // {
 
-    public static final double positiveScootch = Units.inchesToMeters(5);
-    public static final double negitiveScootch = Units.inchesToMeters(-5);
-    public static final double scootchBack     = Units.inchesToMeters(12);
-  }
+  //   public static final double positiveScootch = Units.inchesToMeters(5);
+  //   public static final double negitiveScootch = Units.inchesToMeters(-5);
+  //   public static final double scootchBack     = Units.inchesToMeters(12);
+  // }
 
   
 
@@ -240,7 +240,7 @@ public final class Constants
 
         public static final int k_Processor = 0;
         public static final int k_AGround = 0;
-        public static final int k_A1 = 0;
+        public static final double k_A1 = Units.inchesToMeters(15.5);
         public static final int k_A2 = 0;
         public static final int k_Net = 0;
         
@@ -260,12 +260,22 @@ public final class Constants
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
+        public static final Pose2d ReefBranch_Red_AB_Middle = new Pose2d(
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(0),
+          Rotation2d.fromDegrees(0));
+
         public static final Pose2d ReefBranch_Red_B = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
         public static final Pose2d ReefBranch_Red_C = new Pose2d(
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(0),
+          Rotation2d.fromDegrees(0));
+
+        public static final Pose2d ReefBranch_Red_CD_Middle = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
@@ -280,12 +290,22 @@ public final class Constants
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
+        public static final Pose2d ReefBranch_Red_EF_Middle = new Pose2d(
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(0),
+          Rotation2d.fromDegrees(0));
+
         public static final Pose2d ReefBranch_Red_F = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
         public static final Pose2d ReefBranch_Red_G = new Pose2d(
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(0),
+          Rotation2d.fromDegrees(0));
+
+        public static final Pose2d ReefBranch_Red_GH_Middle = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
@@ -300,12 +320,22 @@ public final class Constants
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
+        public static final Pose2d ReefBranch_Red_IJ_Middle = new Pose2d(
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(0),
+          Rotation2d.fromDegrees(0));
+
         public static final Pose2d ReefBranch_Red_J = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
         public static final Pose2d ReefBranch_Red_K = new Pose2d(
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(0),
+          Rotation2d.fromDegrees(0));
+
+        public static final Pose2d ReefBranch_Red_KL_Middle = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
@@ -324,6 +354,11 @@ public final class Constants
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
+          public static final Pose2d ReefBranch_Blue_AB_Middle = new Pose2d(
+            Units.inchesToMeters(0),
+            Units.inchesToMeters(0),
+            Rotation2d.fromDegrees(0));
+
         public static final Pose2d ReefBranch_Blue_B = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
@@ -333,6 +368,12 @@ public final class Constants
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
+
+          public static final Pose2d ReefBranch_Blue_CD_Middle = new Pose2d(
+            Units.inchesToMeters(0),
+            Units.inchesToMeters(0),
+            Rotation2d.fromDegrees(0));
+
 
         public static final Pose2d ReefBranch_Blue_D = new Pose2d(
           Units.inchesToMeters(0),
@@ -344,6 +385,12 @@ public final class Constants
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
+          public static final Pose2d ReefBranch_Blue_EF_Middle = new Pose2d(
+            Units.inchesToMeters(0),
+            Units.inchesToMeters(0),
+            Rotation2d.fromDegrees(0));
+
+
         public static final Pose2d ReefBranch_Blue_F = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
@@ -353,6 +400,12 @@ public final class Constants
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
+
+          public static final Pose2d ReefBranch_Blue_GH_Middle = new Pose2d(
+            Units.inchesToMeters(0),
+            Units.inchesToMeters(0),
+            Rotation2d.fromDegrees(0));
+
 
         public static final Pose2d ReefBranch_Blue_H = new Pose2d(
           Units.inchesToMeters(0),
@@ -364,6 +417,12 @@ public final class Constants
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
 
+          public static final Pose2d ReefBranch_Blue_IJ_Middle = new Pose2d(
+            Units.inchesToMeters(0),
+            Units.inchesToMeters(0),
+            Rotation2d.fromDegrees(0));
+
+
         public static final Pose2d ReefBranch_Blue_J = new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
@@ -373,6 +432,12 @@ public final class Constants
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
           Rotation2d.fromDegrees(0));
+
+          public static final Pose2d ReefBranch_Blue_KL_Middle = new Pose2d(
+            Units.inchesToMeters(0),
+            Units.inchesToMeters(0),
+            Rotation2d.fromDegrees(0));
+
 
         public static final Pose2d ReefBranch_Blue_L = new Pose2d(
           Units.inchesToMeters(0),

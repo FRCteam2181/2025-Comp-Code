@@ -9,6 +9,8 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -18,6 +20,9 @@ public class AlgaeClaw extends SubsystemBase {
     SparkMax m_AlgaeClawBottomWheel;
 
     SparkMaxConfig config;
+
+      LinearFilter currentFilter = LinearFilter.movingAverage(10);
+  private double filteredCurrent;
 
     public AlgaeClaw() {
         m_AlgaeClawTopWheel = new SparkMax(k_AlgaeClawTopID, MotorType.kBrushless);
@@ -68,7 +73,28 @@ public class AlgaeClaw extends SubsystemBase {
             f_stop();
           });
   }
+public Command c_AutoAlgaeIntakeCommand() {
 
+        Debouncer debounce = new Debouncer(1, Debouncer.DebounceType.kRising);
+    // Open arms
+    return runOnce(
+            () -> {
+              debounce.calculate(false);
+            })
+        // set the intake to cube intaking speed
+        .andThen(
+            run(() -> {
+              f_setAlgaeClawWheel(k_AlgaeClawIntakeSpeed);
+                })
+                // Wait until current spike is detected for more than 1s
+                .until(() -> debounce.calculate(getFilteredCurrent() > 7)))
+        // Reduce motor power to holding power
+        .finallyDo(
+            (interrupted) -> {
+                f_stop();
+            });
+
+    }
 
 
     public void f_setAlgaeClawWheel(double speed) {
@@ -81,4 +107,16 @@ public class AlgaeClaw extends SubsystemBase {
         m_AlgaeClawBottomWheel.set(0);
     }
 
+    public double getFilteredCurrent() {
+      return filteredCurrent;
+    }
+
+  public double getCurrent() {
+      return m_AlgaeClawBottomWheel.getOutputCurrent();
+    }
+  
+    @Override
+    public void periodic() {
+      filteredCurrent = currentFilter.calculate(getCurrent());
+    }
 }
