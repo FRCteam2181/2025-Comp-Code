@@ -232,17 +232,17 @@ public final class Constants
 
 
 
-        public static final int k_FeederStation = 0;
-        public static final int k_L1 = 0;
-        public static final int k_L2 = 5;
-        public static final int k_L3 = 100;
-        public static final int k_L4 = 150;
+        public static final double k_FeederStation = 0;
+        public static final double k_L1 = Units.inchesToMeters(0);
+        public static final double k_L2 = Units.inchesToMeters(27.75);
+        public static final double k_L3 = Units.inchesToMeters(43.625);
+        public static final double k_L4 = Units.inchesToMeters(68.875);
 
-        public static final int k_Processor = 0;
-        public static final int k_AGround = 0;
+        public static final double k_Processor = 0;
+        public static final double k_AGround = 0;
         public static final double k_A1 = Units.inchesToMeters(15.5);
-        public static final int k_A2 = 0;
-        public static final int k_Net = 0;
+        public static final double k_A2 = Units.inchesToMeters(31);
+        public static final double k_Net = Units.inchesToMeters(73.875);
         
         public static final int k_ElevatorLeftID = 17;
         public static final int k_ElevatorRightID = 16;

@@ -222,22 +222,62 @@ public class RobotContainer
     }
 
     //AlgaeClaw
-    // JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
-    //  processorButton.onTrue(s_Elevator.setGoal(Constants.ElevatorConstants.k_Processor));
-     JoystickButton a1Button = new JoystickButton(elevatorBoard, 7);
-     a1Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A1),
+    
+     
+    //Algae retrival from A1
+    JoystickButton a1Button = new JoystickButton(elevatorBoard, 7);
+        a1Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A1),
                                               new WaitCommand(.5).andThen(s_AlgaeRotator.setGoal(180))
                                               .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25)
-                                              .andThen(s_AlgaeRotator.setGoal(0))));
-    //  JoystickButton a2Button = new JoystickButton(elevatorBoard, 8);
-    //  a2Button.onTrue(new ParallelCommandGroup(s_Elevator.setGoal(Constants.ElevatorConstants.k_A2).withTimeout(2),
-    //                                           new WaitCommand(2.1).andThen(s_AlgaeRotator.setGoal(120).withTimeout(.5)),
-    //                                           new WaitCommand(2.6).andThen(s_AlgaeClaw.c_getAlgaeIntakeCommand().withTimeout(1.5)),
-    //                                           new WaitCommand(4.1).andThen(s_AlgaeRotator.setGoal(0).withTimeout(.5))));
-    //  JoystickButton algaeNetButton = new JoystickButton(elevatorBoard, 9);
-    //  algaeNetButton.onTrue(s_Elevator.setGoal(Constants.ElevatorConstants.k_Net));
-    //  JoystickButton algaeGroundButton = new JoystickButton(elevatorBoard, 10);
-    //  algaeGroundButton.onTrue(s_Elevator.setGoal(Constants.ElevatorConstants.k_AGround));
+                                              .andThen(new ParallelCommandGroup(s_AlgaeRotator.setGoal(0),
+                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1)));
+
+    //Algae retrival from A2                                          
+    JoystickButton a2Button = new JoystickButton(elevatorBoard, 8);
+        a2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A2),
+                                               new WaitCommand(.5).andThen(s_AlgaeRotator.setGoal(180))
+                                              .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25)
+                                              .andThen(new ParallelCommandGroup(s_AlgaeRotator.setGoal(0),
+                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1)));
+    
+
+    //Algae Auto Dunk Command
+    JoystickButton algaeNetButton = new JoystickButton(elevatorBoard, 9);
+        algaeNetButton.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Net),
+                                              new ParallelCommandGroup(new WaitCommand(.5).andThen(s_AlgaeRotator.setGoal(180)),//set the correct scoring angle
+                                              new WaitCommand(1).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())))
+                                                .withTimeout(3).andThen(new ParallelCommandGroup(s_AlgaeRotator.setGoal(0),
+                                                      new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1));
+  
+
+    //Algae Auto Intake Command 
+    JoystickButton algaeGroundButton = new JoystickButton(elevatorBoard, 10);
+        algaeGroundButton.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_AGround),
+                                              new WaitCommand(.5).andThen(s_AlgaeRotator.setGoal(180))//set the correct scoring angle
+                                              .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25)
+                                              .andThen(new ParallelCommandGroup(s_AlgaeRotator.setGoal(0),
+                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1)));
+
+    //Algae Auto Processor Command 
+   JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
+        processorButton.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor),
+                                              new ParallelCommandGroup(new WaitCommand(.5).andThen(s_AlgaeRotator.setGoal(180)),//set the correct scoring angle
+                                              new WaitCommand(1).andThen(s_AlgaeClaw.c_getAlgaeProcessorCommand())))
+                                                .withTimeout(3).andThen(new ParallelCommandGroup(s_AlgaeRotator.setGoal(0),
+                                                      new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1));
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
 
   //   // A Button -> Elevator/Arm to level 2 position
   //   opperatorXbox.a().onTrue(s_Elevator.setSetpointCommand(Setpoint.k_L2).alongWith(Blinkin.setRedChase()));
@@ -261,8 +301,8 @@ public class RobotContainer
     //opperatorXbox.y().whileTrue(s_Elevator.c_GetElevatorDownCommand());
 
     JoystickButton leftPositionButton = new JoystickButton(positioningBoard, 1);
-     JoystickButton middlePositionButton = new JoystickButton(positioningBoard, 3);
-     JoystickButton rightPositionButton = new JoystickButton(positioningBoard, 2);
+    JoystickButton middlePositionButton = new JoystickButton(positioningBoard, 3);
+    JoystickButton rightPositionButton = new JoystickButton(positioningBoard, 2);
 
     leftPositionButton.onTrue(targetingSystem.setReefSide(ReefSide.Left));
     middlePositionButton.onTrue(targetingSystem.setReefSide(ReefSide.Right));
@@ -273,7 +313,35 @@ public class RobotContainer
     opperatorXbox.x().onTrue(s_Elevator.setGoal(Units.inchesToMeters(43.625)));//L3
     opperatorXbox.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(68.875)));//L4
 
-    //Funnel hight
+ 
+
+    //L2 Auto Score
+    JoystickButton L2Button = new JoystickButton(elevatorBoard, 0);//set correct number
+        L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
+                                                  new WaitCommand(.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                                                  .withTimeout(1).andThen(s_Elevator.setElevatorHeight(0)).withTimeout(1));
+
+                                                  
+    //L3 Auto Score
+    JoystickButton L3Button = new JoystickButton(elevatorBoard, 0);//set correct number
+        L3Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
+                                                  new WaitCommand(.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                                                  .withTimeout(1).andThen(s_Elevator.setElevatorHeight(0)).withTimeout(1));
+
+
+    //L4 Auto Score
+    JoystickButton L4Button = new JoystickButton(elevatorBoard, 0);//set correct number
+        L4Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4),
+                                                  new WaitCommand(.5).andThen(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1.5),
+                                                        new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))).withTimeout(2)
+                                                            .andThen(s_Elevator.setElevatorHeight(0)).withTimeout(1))));
+                                                        
+                                                        
+         
+
+
+
+    //Funnel intake height
     opperatorXbox.leftBumper().onTrue(s_Elevator.setGoal(Units.inchesToMeters(17.375)));
 
     //CoralFunnel
