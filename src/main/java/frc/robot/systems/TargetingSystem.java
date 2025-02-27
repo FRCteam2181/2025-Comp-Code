@@ -559,24 +559,6 @@ public class TargetingSystem
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   // public void setTarget(ReefBranch targetBranch, ReefBranchLevel targetBranchLevel)
   // {
@@ -620,20 +602,6 @@ public class TargetingSystem
   //     autoTarget(currentPose);
   //   });
   // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
