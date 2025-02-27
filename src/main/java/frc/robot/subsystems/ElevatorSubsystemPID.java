@@ -18,6 +18,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Configs;
@@ -33,6 +34,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
   private SparkMax m_ElevatorLeft;
   private SparkMax m_ElevatorRight;
   private RelativeEncoder elevatorEncoder;
+  private boolean autoZero = true;
  
   // Closed Loop Controller + Feedback
   private final ProfiledPIDController m_controller  = new ProfiledPIDController(ElevatorConstants.kElevatorKp,
@@ -79,6 +81,22 @@ public class ElevatorSubsystemPID extends SubsystemBase
     
     seedElevatorMotorPosition();
 
+  }
+
+  public Command autoZeroSwitchCommand() {
+    return run(() -> autoZeroSwitch() );
+  }
+
+  public void autoZeroSwitch() {
+     autoZero = false;
+  }
+
+  public Command setElevatoorZero() {
+    if (autoZero) {
+     return setElevatorHeight(0);
+    } else {
+      return setElevatorHeight(getHeightMeters());
+    }
   }
 
 

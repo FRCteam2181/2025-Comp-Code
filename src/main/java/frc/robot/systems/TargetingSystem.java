@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+
 import static frc.robot.Constants.TargetingConstants;
 
 //targetting system should be able to select either left or right side of the branch
@@ -52,16 +54,16 @@ public class TargetingSystem
 
   public TargetingSystem()
   {
-    reefBranches = new ArrayList<>();
-    reefPoseToBranchMap = new HashMap<>();
-    for (int branchPositionIndex = 0; branchPositionIndex < Reef.branchPositions.size(); branchPositionIndex++)
-    {
-      Map<ReefHeight, Pose3d> branchPosition = Reef.branchPositions.get(branchPositionIndex);
-      Pose2d                  targetPose     = AllianceFlipUtil.apply(branchPosition.get(ReefHeight.L4).toPose2d());
-      reefBranches.add(targetPose);
-      // reefPoseToBranchMap.put(targetPose, ReefBranch.values()[branchPositionIndex]);
-      // reefPoseToBranchMap.put(AllianceFlipUtil.flip(targetPose), ReefBranch.values()[branchPositionIndex]);
-    }
+    // reefBranches = new ArrayList<>();
+    // reefPoseToBranchMap = new HashMap<>();
+    // for (int branchPositionIndex = 0; branchPositionIndex < Reef.branchPositions.size(); branchPositionIndex++)
+    // {
+    //   Map<ReefHeight, Pose3d> branchPosition = Reef.branchPositions.get(branchPositionIndex);
+    //   Pose2d                  targetPose     = AllianceFlipUtil.apply(branchPosition.get(ReefHeight.L4).toPose2d());
+    //   reefBranches.add(targetPose);
+    //   // reefPoseToBranchMap.put(targetPose, ReefBranch.values()[branchPositionIndex]);
+    //   // reefPoseToBranchMap.put(AllianceFlipUtil.flip(targetPose), ReefBranch.values()[branchPositionIndex]);
+    // }
   }
 
   
@@ -232,7 +234,6 @@ public class TargetingSystem
           }
         }
       }
-    
       return new Pose2d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(0),
@@ -560,11 +561,11 @@ public class TargetingSystem
 
 
   
-  // public void setTarget(ReefBranch targetBranch, ReefBranchLevel targetBranchLevel)
-  // {
-  //   this.targetBranch = targetBranch;
-  //   this.targetLevel = targetBranchLevel;
-  // }
+  public void setTarget(ReefBranch targetBranch)
+  {
+    this.targetBranch = targetBranch;
+    // this.targetLevel = targetBranchLevel;
+  }
 
   // public Command setTargetCommand(ReefBranch targetBranch, ReefBranchLevel targetBranchLevel)
   // {
