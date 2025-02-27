@@ -59,8 +59,8 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandXboxController driverXbox = new CommandXboxController(0);
-  final CommandXboxController opperatorXbox = new CommandXboxController(1);
-  final CommandXboxController opperatorXbox2 = new CommandXboxController(2);
+  final CommandXboxController opperatorXbox = new CommandXboxController(3);
+  final CommandXboxController opperatorXbox2 = new CommandXboxController(4);
 
   private final Joystick positioningBoard = new Joystick(1);
   private final Joystick elevatorBoard = new Joystick(2);
@@ -228,17 +228,17 @@ public class RobotContainer
     JoystickButton a1Button = new JoystickButton(elevatorBoard, 7);
         a1Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A1),
                                               new WaitCommand(.5).andThen(s_AlgaeRotator.setGoal(180))
-                                              .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25)
+                                              .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25))
                                               .andThen(new ParallelCommandGroup(s_AlgaeRotator.setGoal(0),
-                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1)));
+                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1));
 
     //Algae retrival from A2                                          
     JoystickButton a2Button = new JoystickButton(elevatorBoard, 8);
         a2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A2),
                                                new WaitCommand(.5).andThen(s_AlgaeRotator.setGoal(180))
-                                              .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25)
+                                              .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25))
                                               .andThen(new ParallelCommandGroup(s_AlgaeRotator.setGoal(0),
-                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1)));
+                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1));
     
 
     //Algae Auto Dunk Command
@@ -254,9 +254,9 @@ public class RobotContainer
     JoystickButton algaeGroundButton = new JoystickButton(elevatorBoard, 10);
         algaeGroundButton.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_AGround),
                                               new WaitCommand(.5).andThen(s_AlgaeRotator.setGoal(180))//set the correct scoring angle
-                                              .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25)
+                                              .alongWith(s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.25))
                                               .andThen(new ParallelCommandGroup(s_AlgaeRotator.setGoal(0),
-                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1)));
+                                              new WaitCommand(.25).andThen(s_Elevator.setElevatorHeight(0)))).withTimeout(1));
 
     //Algae Auto Processor Command 
    JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
@@ -316,25 +316,25 @@ public class RobotContainer
  
 
     //L2 Auto Score
-    JoystickButton L2Button = new JoystickButton(elevatorBoard, 0);//set correct number
+    JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);//set correct number
         L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
-                                                  new WaitCommand(.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                                                  .withTimeout(1).andThen(s_Elevator.setElevatorHeight(0)).withTimeout(1));
+                                                  new WaitCommand(.75).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                                                   .withTimeout(2).andThen(s_Elevator.setElevatorHeight(0)));
 
                                                   
     //L3 Auto Score
-    JoystickButton L3Button = new JoystickButton(elevatorBoard, 0);//set correct number
+    JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);//set correct number
         L3Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
-                                                  new WaitCommand(.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                                                  .withTimeout(1).andThen(s_Elevator.setElevatorHeight(0)).withTimeout(1));
+                                        new WaitCommand(3).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(4))
+                                                .withTimeout(5).andThen(s_Elevator.setElevatorHeight(0)));
 
 
     //L4 Auto Score
-    JoystickButton L4Button = new JoystickButton(elevatorBoard, 0);//set correct number
-        L4Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4),
-                                                  new WaitCommand(.5).andThen(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1.5),
-                                                        new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))).withTimeout(2)
-                                                            .andThen(s_Elevator.setElevatorHeight(0)).withTimeout(1))));
+    JoystickButton L4Button = new JoystickButton(elevatorBoard, 4);//set correct number
+        L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3).andThen(new ParallelCommandGroup(
+                                                  s_CoralPlacer.c_getCoralPlacerGenCommand(),
+                                                  new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))))
+                                                  .withTimeout(5).andThen(new WaitCommand(1).andThen(s_Elevator.setElevatorHeight(0))));
                                                         
                                                         
          
