@@ -296,37 +296,37 @@ public class RobotContainer
 
 
 
-    // //Reef Sides
+    //Reef Sides
 
-    // // Reef AB
-    // JoystickButton abPositionButton = new JoystickButton(positioningBoard, 4);
-    //     abPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.AB)
-    //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // Reef AB
+    JoystickButton abPositionButton = new JoystickButton(positioningBoard, 4);
+        abPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.AB)
+          .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
-    // // Reef CD         
-    // JoystickButton cdPositionButton = new JoystickButton(positioningBoard, 5);
-    //     cdPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.CD)
-    //      .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // Reef CD         
+    JoystickButton cdPositionButton = new JoystickButton(positioningBoard, 5);
+        cdPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.CD)
+         .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
-    // // Reef EF
-    // JoystickButton efPositionButton = new JoystickButton(positioningBoard, 6);
-    //     efPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.EF)
-    //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // Reef EF
+    JoystickButton efPositionButton = new JoystickButton(positioningBoard, 6);
+        efPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.EF)
+          .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
-    // // Reef GH
-    // JoystickButton jhPositionButton = new JoystickButton(positioningBoard, 7);
-    //     jhPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.GH)
-    //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // Reef GH
+    JoystickButton jhPositionButton = new JoystickButton(positioningBoard, 7);
+        jhPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.GH)
+          .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
           
-    // // Reef IJ
-    // JoystickButton ijPositionButton = new JoystickButton(positioningBoard, 8);
-    //     ijPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.IJ)
-    //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // Reef IJ
+    JoystickButton ijPositionButton = new JoystickButton(positioningBoard, 8);
+        ijPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.IJ)
+          .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
-    // // Reef KL
-    // JoystickButton klPositionButton = new JoystickButton(positioningBoard, 9);
-    //     klPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.KL)
-    //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // Reef KL
+    JoystickButton klPositionButton = new JoystickButton(positioningBoard, 9);
+        klPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.KL)
+          .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
 
 
