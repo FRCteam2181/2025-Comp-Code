@@ -92,11 +92,11 @@ public final class Constants
     // The P gain for the PID controller that drives this arm.
     public static final double  kAlgaeArmKp                     = 0.005;
     public static final double  kAlgaeArmKi                     = 0;
-    public static final double  kAlgaeArmKd                     = 0.0;
+    public static final double  kAlgaeArmKd                     = .001;
     public static final double  kAlgaeArmReduction              = 180;
     public static final Angle   kAlgaeArmAllowedClosedLoopError
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
-        0.01));
+        1));
     public static final double  kAlgaeArmMass                   = Units.lbsToKilograms(15); // Kilograms
     public static final double  kAlgaeArmLength                 = Inches.of(31).in(Meters);//.7meter
     public static final Angle   kAlgaeArmStartingAngle          = Degrees.of(0);
@@ -107,17 +107,17 @@ public final class Constants
     public static final boolean kAlgaeArmInverted               = false;
     public static final double  kAlgaeArmMaxVelocityRPM
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
-                                                                                            90)).per(
+                                                                                            45)).per(
                                                                                             Second).in(RPM);
     public static final double  kAlgaeArmMaxAccelerationRPMperSecond
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
-                                                                              180)).per(
+                                                                              90)).per(
                                                                               Second).per(Second)
                                                                           .in(RPM.per(Second));
     public static final int     kAlgaeArmStallCurrentLimitAmps  = 40;
     public static final double  kAlgaeArmkS                     = 0; // volts (V)
     public static final double  kAlgaeArmkG                     = .4826; // volts (V)
-    public static final double  kAlgaeArmKv                     = .02; // volts per velocity (V/RPM)
+    public static final double  kAlgaeArmKv                     = .01; // volts per velocity (V/RPM)
     public static final double  kAlgaeArmKa                     = 0; // volts per acceleration (V/(RPM/s))
     public static final double  kAlgaeAngleAllowableError       = 1;//degree, for testing whether it's aroundAngle
 
@@ -232,17 +232,17 @@ public final class Constants
 
 
 
-        public static final int k_FeederStation = 0;
-        public static final int k_L1 = 0;
-        public static final int k_L2 = 5;
-        public static final int k_L3 = 100;
-        public static final int k_L4 = 150;
+        public static final double k_FeederStation = 0;
+        public static final double k_L1 = Units.inchesToMeters(0);
+        public static final double k_L2 = Units.inchesToMeters(27.75);
+        public static final double k_L3 = Units.inchesToMeters(43.625);
+        public static final double k_L4 = Units.inchesToMeters(68.875);
 
-        public static final int k_Processor = 0;
-        public static final int k_AGround = 0;
+        public static final double k_Processor = 0;
+        public static final double k_AGround = 0;
         public static final double k_A1 = Units.inchesToMeters(15.5);
-        public static final int k_A2 = 0;
-        public static final int k_Net = 0;
+        public static final double k_A2 = Units.inchesToMeters(31);
+        public static final double k_Net = Units.inchesToMeters(73.875);
         
         public static final int k_ElevatorLeftID = 17;
         public static final int k_ElevatorRightID = 16;
