@@ -92,7 +92,7 @@ public final class Constants
     // The P gain for the PID controller that drives this arm.
     public static final double  kAlgaeArmKp                     = 0.005;
     public static final double  kAlgaeArmKi                     = 0;
-    public static final double  kAlgaeArmKd                     = .001;
+    public static final double  kAlgaeArmKd                     = .00;
     public static final double  kAlgaeArmReduction              = 180;
     public static final Angle   kAlgaeArmAllowedClosedLoopError
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
@@ -107,17 +107,17 @@ public final class Constants
     public static final boolean kAlgaeArmInverted               = false;
     public static final double  kAlgaeArmMaxVelocityRPM
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
-                                                                                            45)).per(
+                                                                                            90)).per(
                                                                                             Second).in(RPM);
     public static final double  kAlgaeArmMaxAccelerationRPMperSecond
                                                                 = AlgaeRotatorMath.convertAlgaeAngleToSensorUnits(Degrees.of(
-                                                                              90)).per(
+                                                                              180)).per(
                                                                               Second).per(Second)
                                                                           .in(RPM.per(Second));
     public static final int     kAlgaeArmStallCurrentLimitAmps  = 40;
     public static final double  kAlgaeArmkS                     = 0; // volts (V)
     public static final double  kAlgaeArmkG                     = .4826; // volts (V)
-    public static final double  kAlgaeArmKv                     = .01; // volts per velocity (V/RPM)
+    public static final double  kAlgaeArmKv                     = .02; // volts per velocity (V/RPM)
     public static final double  kAlgaeArmKa                     = 0; // volts per acceleration (V/(RPM/s))
     public static final double  kAlgaeAngleAllowableError       = 1;//degree, for testing whether it's aroundAngle
 

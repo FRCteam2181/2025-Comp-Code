@@ -226,7 +226,7 @@ public class RobotContainer
       driverXbox.y().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
 
       //Algae Claw up and down for climbing
-      driverXbox.b().onTrue(s_AlgaeRotator.setAlgaeArmAngle(260));
+      driverXbox.b().onTrue(s_AlgaeRotator.setAlgaeArmAngle(200));
       driverXbox.x().onTrue(s_AlgaeRotator.setAlgaeArmAngle(0));
     }
 
@@ -446,9 +446,9 @@ public class RobotContainer
     opperatorXbox2.leftTrigger().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
     // //AlgaeRotator
-    opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setAlgaeArmAngle(0));
-    opperatorXbox2.x().onTrue(s_AlgaeRotator.setAlgaeArmAngle(90));
-    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setAlgaeArmAngle(110));
+    opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setGoal(0));
+    opperatorXbox2.x().onTrue(s_AlgaeRotator.setGoal(260));
+    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(200));
 
 
    //Climber
