@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 3.626015032,
+        "y": 2.935113768
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 2.626015032,
+        "y": 2.935113768
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Branch L"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 59.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Blue Branch Positions",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

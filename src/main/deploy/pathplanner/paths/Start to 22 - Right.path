@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.176,
-        "y": 2.078643002717391
+        "x": 7.2247252,
+        "y": 2.9718
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.015342106056555,
-        "y": 2.441732090678184
+        "x": 6.047136306092596,
+        "y": 2.8685579488905817
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red Inner Cage Start"
     },
     {
       "anchor": {
-        "x": 5.325690136,
-        "y": 2.908173
+        "x": 5.298749372,
+        "y": 2.881232232
       },
       "prevControl": {
-        "x": 6.3672153974641486,
-        "y": 2.4292613992993344
+        "x": 6.127620420757366,
+        "y": 2.937007253613141
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Branch I"
     }
   ],
   "rotationTargets": [],

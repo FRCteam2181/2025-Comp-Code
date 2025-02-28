@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.552,
-        "y": 0.691
+        "x": 1.317190883,
+        "y": 0.715450138
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.745835489539978,
-        "y": 3.1394121542781344
+        "x": 2.5110263725399777,
+        "y": 3.1638622922781345
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Load Station"
     },
     {
       "anchor": {
         "x": 3.175,
-        "y": 4.190238
+        "y": 4.217178768
       },
       "prevControl": {
         "x": 2.725221100778703,
-        "y": 3.2250913142669653
+        "y": 3.2520320822669655
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Branch B"
     }
   ],
   "rotationTargets": [],

@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 3.175,
-        "y": 4.190238
+        "y": 4.217178768
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.396757356444058,
-        "y": 2.416418144613279
+        "x": 2.277275244531055,
+        "y": 2.564330796922743
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Branch B"
     },
     {
       "anchor": {
-        "x": 1.5516129032258064,
-        "y": 0.6911290322580647
+        "x": 1.317190883,
+        "y": 0.715450138
       },
       "prevControl": {
-        "x": 2.4079696230685963,
-        "y": 2.5105968766624156
+        "x": 2.2670569634194466,
+        "y": 2.4852583755759934
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Load Station"
     }
   ],
   "rotationTargets": [],

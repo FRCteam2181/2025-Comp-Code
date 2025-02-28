@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.551,
-        "y": 0.755
+        "x": 1.317190883,
+        "y": 0.715450138
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3577479107134414,
-        "y": 2.3028779418462935
+        "x": 3.213462185912994,
+        "y": 2.2112326324604203
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Load Station"
     },
     {
       "anchor": {
-        "x": 3.937597408,
-        "y": 2.739263
+        "x": 3.910656642,
+        "y": 2.766203768
       },
       "prevControl": {
-        "x": 2.9056894866700347,
-        "y": 1.86639245678318
+        "x": 2.9285912994977066,
+        "y": 2.0547034594392777
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Branch K"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 54.0
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": null,

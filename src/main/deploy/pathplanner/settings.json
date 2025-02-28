@@ -1,8 +1,10 @@
 {
   "robotWidth": 0.9398,
-  "robotLength": 0.94,
+  "robotLength": 0.9398,
   "holonomicMode": true,
-  "pathFolders": [],
+  "pathFolders": [
+    "Blue Branch Positions"
+  ],
   "autoFolders": [],
   "defaultMaxVel": 5.33,
   "defaultMaxAccel": 4.9,

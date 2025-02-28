@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.8036465,
-        "y": 4.163297232
+        "x": 7.2247252,
+        "y": 5.0786538
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.989874951360966,
-        "y": 3.244664744762548
+        "x": 5.763722794769257,
+        "y": 5.156058419225453
       },
       "isLocked": false,
-      "linkedName": "Red Branch G"
+      "linkedName": "Blue Inner Cage Start"
     },
     {
       "anchor": {
-        "x": 5.556451612903226,
-        "y": 2.0645161290322576
+        "x": 5.36514945652174,
+        "y": 5.124855638586956
       },
       "prevControl": {
-        "x": 6.021764771109624,
-        "y": 2.6355266590002744
-      },
-      "nextControl": {
-        "x": 4.709601706347849,
-        "y": 1.0253015583343479
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.317190883,
-        "y": 0.715450138
-      },
-      "prevControl": {
-        "x": 2.880381178303613,
-        "y": 1.1002419648803836
+        "x": 6.566864422719634,
+        "y": 5.044887216633255
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Right Load Station"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -58,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 54.0
+    "rotation": -120.40342447450573
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Blue Branch Positions",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

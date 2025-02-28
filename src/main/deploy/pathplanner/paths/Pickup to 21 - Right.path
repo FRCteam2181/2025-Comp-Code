@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.551,
-        "y": 0.755
+        "x": 1.317190883,
+        "y": 0.715450138
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1399999999999992,
-        "y": 2.239551282051282
+        "x": 3.482414101488029,
+        "y": 0.8328357292026194
+      },
+      "isLocked": false,
+      "linkedName": "Right Load Station"
+    },
+    {
+      "anchor": {
+        "x": 5.608870967741935,
+        "y": 1.8758064516129014
+      },
+      "prevControl": {
+        "x": 4.848131445419021,
+        "y": 0.9032524120998222
+      },
+      "nextControl": {
+        "x": 5.809496009761749,
+        "y": 2.1322920019469462
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.803646,
-        "y": 4.190238
+        "x": 5.8036465,
+        "y": 4.163297232
       },
       "prevControl": {
-        "x": 6.2361538461538455,
-        "y": 2.146666666666668
+        "x": 6.292683859466063,
+        "y": 2.845640763076097
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red Branch G"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 54.0
   },
   "useDefaultConstraints": true
 }

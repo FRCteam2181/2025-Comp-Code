@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.325690136,
-        "y": 2.908173
+        "x": 5.298749372,
+        "y": 2.881232232
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.4256024036406165,
-        "y": 1.7874162634723079
+        "x": 3.238895635638172,
+        "y": 1.7459387463159484
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Branch I"
     },
     {
       "anchor": {
-        "x": 1.5516129032258064,
-        "y": 0.6911290322580647
+        "x": 1.317190883,
+        "y": 0.715450138
       },
       "prevControl": {
-        "x": 3.15926822478763,
-        "y": 1.7542879884450144
+        "x": 2.9380376187062844,
+        "y": 1.6274593165465991
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Load Station"
     }
   ],
   "rotationTargets": [],

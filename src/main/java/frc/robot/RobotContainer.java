@@ -156,7 +156,10 @@ public class RobotContainer
     
      // Add all actions to PathPlanner
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
- 
+    NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(2).andThen(new ParallelCommandGroup(
+      s_CoralPlacer.c_getCoralPlacerGenCommand(),
+      new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))))
+      .withTimeout(2).andThen(new WaitCommand(1).andThen(s_Elevator.setElevatoorZero())));
       
     
     
@@ -226,7 +229,7 @@ public class RobotContainer
       driverXbox.y().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
 
       //Algae Claw up and down for climbing
-      driverXbox.b().onTrue(s_AlgaeRotator.setAlgaeArmAngle(260));
+      driverXbox.b().onTrue(s_AlgaeRotator.setAlgaeArmAngle(200));
       driverXbox.x().onTrue(s_AlgaeRotator.setAlgaeArmAngle(0));
     }
 
@@ -325,10 +328,10 @@ public class RobotContainer
     //     efPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.EF)
     //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
-    // // Reef GH
-    // JoystickButton jhPositionButton = new JoystickButton(positioningBoard, 7);
-    //     jhPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.GH)
-    //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // Reef GH
+    JoystickButton jhPositionButton = new JoystickButton(positioningBoard, 7);
+        jhPositionButton.onTrue(targetingSystem.setBranchCommand(ReefBranch.GH)
+          .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
           
     // // Reef IJ
     // JoystickButton ijPositionButton = new JoystickButton(positioningBoard, 8);
@@ -406,10 +409,10 @@ public class RobotContainer
 
     //L4 Auto Score
     JoystickButton L4Button = new JoystickButton(elevatorBoard, 4);//set correct number
-        L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3).andThen(new ParallelCommandGroup(
+        L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(2).andThen(new ParallelCommandGroup(
                                                   s_CoralPlacer.c_getCoralPlacerGenCommand(),
                                                   new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))))
-                                                  .withTimeout(5).andThen(new WaitCommand(1).andThen(s_Elevator.setElevatoorZero())));
+                                                  .withTimeout(2).andThen(new WaitCommand(1).andThen(s_Elevator.setElevatoorZero())));
                                         
     JoystickButton ZeroButton = new JoystickButton(elevatorBoard, 1);
       ZeroButton.onTrue(s_Elevator.setElevatorHeight(0));
@@ -446,9 +449,9 @@ public class RobotContainer
     opperatorXbox2.leftTrigger().whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
 
     // //AlgaeRotator
-    opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setAlgaeArmAngle(0));
-    opperatorXbox2.x().onTrue(s_AlgaeRotator.setAlgaeArmAngle(90));
-    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setAlgaeArmAngle(110));
+    opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setGoal(0));
+    opperatorXbox2.x().onTrue(s_AlgaeRotator.setGoal(260));
+    opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(200));
 
 
    //Climber

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.577820512820511,
-        "y": 3.861562
+        "x": 7.225,
+        "y": 4.0259
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.436526948497698,
-        "y": 3.7426209730803834
+        "x": 6.324093468654086,
+        "y": 3.8921332194935716
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Center Start"
     },
     {
       "anchor": {
-        "x": 5.803646,
-        "y": 3.861562
+        "x": 5.830586768,
+        "y": 3.834621232
       },
       "prevControl": {
-        "x": 6.143345458717652,
-        "y": 3.9124403722303045
+        "x": 6.500898473642798,
+        "y": 3.939553770740893
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Branch H"
     }
   ],
   "rotationTargets": [],
