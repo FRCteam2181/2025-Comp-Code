@@ -53,7 +53,7 @@ public class CoralFunnel extends SubsystemBase {
         return this.startEnd(
             // When the command is initialized, set the wheels to the intake speed values
             () -> {
-              f_setFunnelWheel(-k_CoralFunnelSpeed);
+              f_setFunnelWheel(-k_CoralFunnelSpeed/2);
             },
             // When the command stops, stop the wheels
             () -> {

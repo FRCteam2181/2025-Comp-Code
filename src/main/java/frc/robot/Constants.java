@@ -121,6 +121,8 @@ public final class Constants
     public static final double  kAlgaeArmKa                     = 0; // volts per acceleration (V/(RPM/s))
     public static final double  kAlgaeAngleAllowableError       = 1;//degree, for testing whether it's aroundAngle
 
+    public static final double k_AlgaeClawRotateSpeed = .250;
+
   }
   
   public static class CoralFunnelConstants {

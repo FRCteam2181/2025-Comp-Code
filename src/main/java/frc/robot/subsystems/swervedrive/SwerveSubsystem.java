@@ -55,6 +55,8 @@ import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveSubsystem extends SubsystemBase
 {
@@ -70,11 +72,15 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean visionDriveTest     = true;
+  private final boolean visionDriveTest     = false;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
   private Vision vision;
+
+
+  Field2d m_field2d = new Field2d();
+
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -83,6 +89,8 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public SwerveSubsystem(File directory)
   {
+
+    SmartDashboard.putData("RealField", m_field2d);
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW;
     try
@@ -140,6 +148,8 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
+    m_field2d.setRobotPose(this.getPose());
+    //SmartDashboard.putNumber("RealYAW", this.getHeading().getZ());
     // When vision is enabled we must manually update odometry in SwerveDrive
     if (visionDriveTest)
     {

@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 5.239962635869566,
-        "y": 2.9718
+        "x": 5.298749372,
+        "y": 2.881232232
       },
       "prevControl": {
-        "x": 6.273145648580265,
-        "y": 3.007542480880652
+        "x": 6.331932384710698,
+        "y": 2.916974712880652
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Branch I"
     }
   ],
   "rotationTargets": [],
