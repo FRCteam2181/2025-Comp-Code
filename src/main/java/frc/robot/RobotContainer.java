@@ -155,17 +155,17 @@ public class RobotContainer
     DriverStation.silenceJoystickConnectionWarning(true);
     
      // Add all actions to PathPlanner
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    //NamedCommands.registerCommand("test", Commands.print("I EXIST"));
     NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3).andThen(new ParallelCommandGroup(
       s_CoralPlacer.c_getCoralPlacerGenCommand(),
       new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))))
       .withTimeout(4.5).andThen(s_Elevator.setElevatoorZero()));
     
-    NamedCommands.registerCommand("Elevator to Intake Height", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation));
+    //NamedCommands.registerCommand("Elevator to Intake Height", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation));
 
-    NamedCommands.registerCommand("Zero Elevator", s_Elevator.setElevatorHeight(0));
+    //NamedCommands.registerCommand("Zero Elevator", s_Elevator.setElevatorHeight(0));
 
-    NamedCommands.registerCommand("Intake Coral", s_CoralFunnel.c_getFunnelWheelCommand());
+    //NamedCommands.registerCommand("Intake Coral", s_CoralFunnel.c_getFunnelWheelCommand());
 
   
     
@@ -310,9 +310,9 @@ public class RobotContainer
     //Reef Sides
 
     // Reef AB
-    JoystickButton abPositionButton = new JoystickButton(positioningBoard, 4);
-    abPositionButton.whileTrue(targetingSystem.setBranchCommand(ReefBranch.AB)
-    .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // JoystickButton abPositionButton = new JoystickButton(positioningBoard, 4);
+    // abPositionButton.whileTrue(targetingSystem.setBranchCommand(ReefBranch.AB)
+    // .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
     // // Reef CD         
     // JoystickButton cdPositionButton = new JoystickButton(positioningBoard, 5);
@@ -325,9 +325,9 @@ public class RobotContainer
     //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
 
     // Reef GH
-    JoystickButton jhPositionButton = new JoystickButton(positioningBoard, 7);
-        jhPositionButton.whileTrue(targetingSystem.setBranchCommand(ReefBranch.GH)
-          .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
+    // JoystickButton jhPositionButton = new JoystickButton(positioningBoard, 7);
+    //     jhPositionButton.whileTrue(targetingSystem.setBranchCommand(ReefBranch.GH)
+    //       .andThen(drivebase.driveToPose(targetingSystem.getTargetReefBranchPose())));
           
     // // Reef IJ
     // JoystickButton ijPositionButton = new JoystickButton(positioningBoard, 8);
