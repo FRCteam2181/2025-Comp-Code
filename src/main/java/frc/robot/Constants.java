@@ -223,7 +223,7 @@ public final class Constants
         public static final double   kMaxElevatorHeightMeters = 10.25;
         public static final Distance kMinElevatorHeight      = Meters.of(kMinElevatorHeightMeters);
         public static final Distance kMaxElevatorHeight      = Meters.of(kMaxElevatorHeightMeters);
-        public static final double   kElevatorAllowableError = .04;
+        public static final double   kElevatorAllowableError = .04;  //.04
         public static final double   kLowerToScoreHeight     = Units.inchesToMeters(6);
         
         public static       double   kElevatorRampRate       = 0.1;
@@ -257,194 +257,37 @@ public final class Constants
     //Pose to align with Each Reef branch
 
       public static class TargetingConstants {
-        public static final Pose2d ReefBranch_Red_A = new Pose2d(
-          14.373098,
-          4.163297232,
-          Rotation2d.fromDegrees(0));
+        public static final Pose2d ReefBranch_Blue_AB = new Pose2d(
+          Units.inchesToMeters(144.003),
+                Units.inchesToMeters(158.500),
+                Rotation2d.fromDegrees(180));
 
-        public static final Pose2d ReefBranch_Red_AB_Middle = new Pose2d(
-          14.360398,
-          3.999029942,
-          Rotation2d.fromDegrees(0));
-
-        public static final Pose2d ReefBranch_Red_B = new Pose2d(
-          13.58381383,
-          2.766203768,
-          Rotation2d.fromDegrees(0));
-
-        public static final Pose2d ReefBranch_Red_C = new Pose2d(
-          13.86845533,
-          2.935113768,
-          Rotation2d.fromDegrees(300));
-
-        public static final Pose2d ReefBranch_Red_CD_Middle = new Pose2d(
-          13.709396,
-          2.872431894,
-          Rotation2d.fromDegrees(300));
-
-        public static final Pose2d ReefBranch_Red_D = new Pose2d(
-          13.58381383,
-          2.766203768,
-          Rotation2d.fromDegrees(300));
-
-        public static final Pose2d ReefBranch_Red_E = new Pose2d(
-          12.48010863,
-          2.766203768,
-          Rotation2d.fromDegrees(240));
-
-        public static final Pose2d ReefBranch_Red_EF_Middle = new Pose2d(
-          12.408408,
-          2.872431894,
-          Rotation2d.fromDegrees(240));
-
-        public static final Pose2d ReefBranch_Red_F = new Pose2d(
-          12.19546715,
-          2.935113768,
-          Rotation2d.fromDegrees(240));
-
-        public static final Pose2d ReefBranch_Red_G = new Pose2d(
-          11.744706,
-          3.888502768,
-          Rotation2d.fromDegrees(180));
-
-        public static final Pose2d ReefBranch_Red_GH_Middle = new Pose2d(
-          11.757406,
-          3.999029942,
-          Rotation2d.fromDegrees(180));
-
-        public static final Pose2d ReefBranch_Red_H = new Pose2d(
-          11.744706,
-          4.217178768,
-          Rotation2d.fromDegrees(180));
-
-        public static final Pose2d ReefBranch_Red_I = new Pose2d(
-          12.24934867,
-          5.116686232,
+        public static final Pose2d ReefBranch_Blue_CD = new Pose2d(
+          Units.inchesToMeters(160.373),
+          Units.inchesToMeters(186.857),
           Rotation2d.fromDegrees(120));
 
-        public static final Pose2d ReefBranch_Red_IJ_Middle = new Pose2d(
-          12.43534877,
-          5.179368106,
-          Rotation2d.fromDegrees(120));
+        public static final Pose2d ReefBranch_Blue_EF = new Pose2d(
+          Units.inchesToMeters(193.116),
+                Units.inchesToMeters(186.858),
+                Rotation2d.fromDegrees(60));
 
-        public static final Pose2d ReefBranch_Red_J = new Pose2d(
-          12.53399017,
-          5.285596232,
-          Rotation2d.fromDegrees(120));
-
-        public static final Pose2d ReefBranch_Red_K = new Pose2d(
-          13.63769537,
-          5.285596232,
-          Rotation2d.fromDegrees(60));
-
-        public static final Pose2d ReefBranch_Red_KL_Middle = new Pose2d(
-          13.73626606,
-          5.179368106,
-          Rotation2d.fromDegrees(60));
-
-        public static final Pose2d ReefBranch_Red_L = new Pose2d(
-          13.92233687,
-          5.116686232,
-          Rotation2d.fromDegrees(60));
-
-
-
-
-
-        public static final Pose2d ReefBranch_Blue_A = new Pose2d(
-          3.175,
-          3.888503068,
+        public static final Pose2d ReefBranch_Blue_GH = new Pose2d(
+          Units.inchesToMeters(209.489),
+          Units.inchesToMeters(158.502),
           Rotation2d.fromDegrees(0));
 
-          public static final Pose2d ReefBranch_Blue_AB_Middle = new Pose2d(
-            3.1877,
-            3.999029942,
-            Rotation2d.fromDegrees(0));
+        public static final Pose2d ReefBranch_Blue_IJ = new Pose2d(
+          Units.inchesToMeters(193.118),
+                Units.inchesToMeters(130.145),
+                Rotation2d.fromDegrees(-60));
 
-        public static final Pose2d ReefBranch_Blue_B = new Pose2d(
-          3.175,
-          4.217178768,
-          Rotation2d.fromDegrees(0));
+        public static final Pose2d ReefBranch_Blue_KL = new Pose2d(
+          Units.inchesToMeters(160.375),
+                Units.inchesToMeters(130.144),
+                Rotation2d.fromDegrees(-120));
 
-        public static final Pose2d ReefBranch_Blue_C = new Pose2d(
-          3.679896628,
-          5.116686232,
-          Rotation2d.fromDegrees(300));
-
-          public static final Pose2d ReefBranch_Blue_CD_Middle = new Pose2d(
-            3.865826058,
-            5.179368106,
-            Rotation2d.fromDegrees(300));
-
-
-        public static final Pose2d ReefBranch_Blue_D = new Pose2d(
-          3.964538178,
-          5.285596232,
-          Rotation2d.fromDegrees(300));
-
-        public static final Pose2d ReefBranch_Blue_E = new Pose2d(
-          5.067989358,
-          5.285596232,
-          Rotation2d.fromDegrees(240));
-
-          public static final Pose2d ReefBranch_Blue_EF_Middle = new Pose2d(
-            5.166630768,
-            5.179368106,
-            Rotation2d.fromDegrees(240));
-
-
-        public static final Pose2d ReefBranch_Blue_F = new Pose2d(
-          5.352630908,
-          5.116686,
-          Rotation2d.fromDegrees(240));
-
-        public static final Pose2d ReefBranch_Blue_G = new Pose2d(
-          5.8036465,
-          4.163297232,
-          Rotation2d.fromDegrees(180));
-
-          public static final Pose2d ReefBranch_Blue_GH_Middle = new Pose2d(
-            5.790946,
-            3.999029942,
-            Rotation2d.fromDegrees(180));
-
-
-        public static final Pose2d ReefBranch_Blue_H = new Pose2d(
-          5.830586768,
-          3.834621232,
-          Rotation2d.fromDegrees(180));
-
-        public static final Pose2d ReefBranch_Blue_I = new Pose2d(
-          5.298749372,
-          2.881232232,
-          Rotation2d.fromDegrees(120));
-
-          public static final Pose2d ReefBranch_Blue_IJ_Middle = new Pose2d(
-            5.13969,
-            2.872431894,
-            Rotation2d.fromDegrees(120));
-
-
-        public static final Pose2d ReefBranch_Blue_J = new Pose2d(
-          5.014107822,
-          2.766203768,
-          Rotation2d.fromDegrees(120));
-
-        public static final Pose2d ReefBranch_Blue_K = new Pose2d(
-          3.910656642,
-          2.766203768,
-          Rotation2d.fromDegrees(60));
-
-          public static final Pose2d ReefBranch_Blue_KL_Middle = new Pose2d(
-            3.812015232,
-            2.872431894,
-            Rotation2d.fromDegrees(60));
-
-
-        public static final Pose2d ReefBranch_Blue_L = new Pose2d(
-          3.626015032,
-          2.935113768,
-          Rotation2d.fromDegrees(60));
+       
 
 
 

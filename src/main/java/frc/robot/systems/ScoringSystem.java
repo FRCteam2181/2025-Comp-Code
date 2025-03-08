@@ -34,6 +34,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Setpoints.AutoScoring.HumanPlayer.Left;
 // import frc.robot.subsystems.Blinkin;
 import frc.robot.subsystems.ElevatorSubsystemPID;
 import frc.robot.subsystems.CoralFunnel;
@@ -44,6 +45,8 @@ import frc.robot.subsystems.Climber;
 import frc.robot.systems.TargetingSystem;
 //import frc.robot.systems.ScoringSystem;
 import frc.robot.systems.TargetingSystem.ReefBranch;
+import frc.robot.systems.TargetingSystem.ReefSide;
+import frc.robot.systems.field.FieldConstants.CoralStation;
 
 
 public class ScoringSystem
@@ -81,11 +84,44 @@ public class ScoringSystem
 
   public Command scoreCoral()
   {
-     //return Commands.print("Tell me why aint nothing but an heart ache");
-     Pose2d TargetPose = m_targetSystem.getTargetReefBranchPose();
+
+
+    //return m_targetSystem.driveToCoralTarget(m_drivebase);
     
-     return m_targetSystem.setBranchCommand(ReefBranch.CD)
-          .andThen(m_drivebase.driveToPose(m_targetSystem.getTargetReefBranchPose()));
+    
+     if (m_targetSystem.targetReefSide == ReefSide.Middle)
+    {
+
+      return m_targetSystem.driveToAlgaeTarget(m_drivebase);
+    
+     
+    }
+
+    else 
+    {
+      
+      
+      return m_targetSystem.driveToCoralTarget(m_drivebase);
+    
+  
+
+
+
+    }
+
+
+
+
+
+  // //  return defer(() -> {
+  //     Pose2d TargetPose = m_targetSystem.getTargetReefBranchPose();
+
+      
+  //     return m_drivebase.driveToPose(TargetPose);
+  //  // });
+
+
+
     // if (m_elevator.getHeightMeters() > Units.inchesToMeters(60)) {
         
     //    return  m_coralPlacer.c_getCoralPlacerGenCommand().;

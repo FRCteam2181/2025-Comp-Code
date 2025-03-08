@@ -37,6 +37,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
+import frc.robot.systems.field.FieldConstants.CoralStation;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -58,6 +60,15 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
+import frc.robot.Setpoints;
+import frc.robot.Setpoints.AutoScoring;
+import frc.robot.Setpoints.AutoScoring.HumanPlayer.Left;
+import frc.robot.systems.field.FieldConstants.CoralStation;
+import frc.robot.systems.field.FieldConstants.Processor;
+
+
+
 public class SwerveSubsystem extends SubsystemBase
 {
 
@@ -72,7 +83,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean visionDriveTest     = false;
+  private final boolean visionDriveTest     = true;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -269,6 +280,28 @@ public class SwerveSubsystem extends SubsystemBase
     // Create a path following command using AutoBuilder. This will also trigger event markers.
     return new PathPlannerAuto(pathName);
   }
+
+
+  public Command driveToPose(Supplier<Pose2d> pose)
+  {
+    return defer(() -> {
+// Create the constraints to use while pathfinding
+      PathConstraints constraints = new PathConstraints(
+          swerveDrive.getMaximumChassisVelocity(), 4.0,
+          swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
+
+// Since AutoBuilder is configured, we can use it to build pathfinding commands
+      return AutoBuilder.pathfindToPose(
+          pose.get(),
+          constraints,
+          edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
+                                       );
+    });
+  }
+
+
+
+
 
   /**
    * Use PathPlanner Path finding to go to a point on the field.
@@ -742,4 +775,56 @@ public class SwerveSubsystem extends SubsystemBase
   {
     return swerveDrive;
   }
+
+
+
+
+
+
+  public Command driveToLeftHP()
+  {
+    return defer(() -> {
+      Pose2d startingPose = CoralStation.leftCenterFace;
+      SmartDashboard.putString("Station Targetted Pose without Offset (Meters)", startingPose.toString());
+      Pose2d scorePose = startingPose.plus(Left.offset);
+      SmartDashboard.putString("Station Targetted Pose with Offset (Meters)", scorePose.toString());
+      return driveToPose(scorePose);
+    });
+  }
+
+  public Command driveToRightHP()
+  {
+    return defer(() -> {
+      Pose2d startingPose = CoralStation.rightCenterFace;
+      SmartDashboard.putString("Station Targetted Pose without Offset (Meters)", startingPose.toString());
+      Pose2d scorePose = startingPose.plus(Setpoints.AutoScoring.HumanPlayer.Right.offset);
+      SmartDashboard.putString("Station Targetted Pose with Offset (Meters)", scorePose.toString());
+      return driveToPose(scorePose);
+    });
+  }
+
+  public Command driveToProcessor()
+  {
+    return defer(() -> {
+      Pose2d startingPose = Processor.centerFace;
+      SmartDashboard.putString("Processor Targetted Pose without Offset (Meters)", startingPose.toString());
+      Pose2d scorePose = startingPose.plus(AutoScoring.Processor.offset);
+      SmartDashboard.putString("Processor Targetted Pose with Offset (Meters)", scorePose.toString());
+      return driveToPose(scorePose);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

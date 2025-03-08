@@ -59,25 +59,49 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.Configs;
 import frc.robot.Constants.AlgaeClawConstants;
 // import frc.robot.Constants;
 import frc.robot.Constants.AlgaeRotatorConstants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.RobotMath.AlgaeRotatorMath;
 
 public class AlgaeRotator extends SubsystemBase {
 
   SparkMax m_AlgaeRotator;
+  RelativeEncoder rotatorEncoder;
 
-  SparkMaxConfig config;
 
   public AlgaeRotator() {
       m_AlgaeRotator = new SparkMax(AlgaeRotatorConstants.k_AlgaeClawRotatorID, MotorType.kBrushless);
+      rotatorEncoder = m_AlgaeRotator.getEncoder();
+      
+      
+      m_AlgaeRotator.configure(
+            Configs.algaeRotatorConfig, 
+            ResetMode.kResetSafeParameters, 
+            PersistMode.kPersistParameters);
 
-      config = new SparkMaxConfig();
+  
+      seedRotatorMotorPosition();
+  
+  
+    }
 
-      m_AlgaeRotator.configure(config.smartCurrentLimit(AlgaeRotatorConstants.kAlgaeArmStallCurrentLimitAmps), null, null);
-      m_AlgaeRotator.configure(config.idleMode(IdleMode.kBrake), null, PersistMode.kPersistParameters);
+
+
+     /**
+   * Seed the elevator motor encoder with the sensed position from the LaserCAN which tells us the height of the
+   * elevator.
+   */
+  public void seedRotatorMotorPosition()
+  {
+    rotatorEncoder.setPosition(0);
+  
   }
+
+
+
 
   public Command c_GetAlgeaRotateUpCommand() {
       return this.startEnd(
