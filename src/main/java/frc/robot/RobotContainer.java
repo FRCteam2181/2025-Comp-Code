@@ -42,12 +42,11 @@ import frc.robot.subsystems.AlgaeRotator;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.systems.TargetingSystem;
-import frc.robot.systems.TargetingSystem.ReefBranch;
+
 import frc.robot.systems.TargetingSystem.ReefBranchLevel;
 import frc.robot.systems.TargetingSystem.ReefSide;
 import frc.robot.systems.ScoringSystem;
-// import frc.robot.systems.TargetingSystem.ReefBranch;
-// import frc.robot.systems.TargetingSystem.ReefSide;
+
 
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -59,31 +58,29 @@ import frc.robot.Constants.OperatorConstants;
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
  * Instead, the structure of the robot (including subsystems, commands, and trigger mappings) should be declared here.
  */
-public class RobotContainer
-{
+public class RobotContainer {
 
-
-  //private ReefSide targetReefSide;
-  
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  // Controllers and Button Board
   final CommandXboxController driverXbox = new CommandXboxController(0);
+  final Joystick positioningBoard = new Joystick(1);
+  final Joystick elevatorBoard = new Joystick(2);
+  
   final CommandXboxController opperatorXbox = new CommandXboxController(3);
   final CommandXboxController opperatorXbox2 = new CommandXboxController(4);
 
-  private final Joystick positioningBoard = new Joystick(1);
-  private final Joystick elevatorBoard = new Joystick(2);
-  
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems are defined here
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/maxSwerve"));
   private final ElevatorSubsystemPID s_Elevator = new ElevatorSubsystemPID();
   private final CoralFunnel s_CoralFunnel = new CoralFunnel();
   private final CoralPlacer s_CoralPlacer = new CoralPlacer();
   private final AlgaeClaw s_AlgaeClaw = new AlgaeClaw();
-  // private final Blinkin s_Blinkin = new Blinkin();
   private final AlgaeRotator s_AlgaeRotator = new AlgaeRotator();
   private final Climber s_climber = new Climber();
+  //private final Blinkin s_Blinkin = new Blinkin();
 
+
+  // The robot's systems are defined here
   private final TargetingSystem targetingSystem = new TargetingSystem();
   private final ScoringSystem   scoringSystem   = new ScoringSystem(s_CoralPlacer,
                                                                     s_Elevator,
@@ -94,11 +91,8 @@ public class RobotContainer
                                                                     s_CoralFunnel,
                                                                     s_climber);
 
-                                                                    
 
-
-
-// Establishing the Auto Chooser that will appear on the SmartDashboard
+  // Establishing the Auto Chooser that will appear on the SmartDashboard
   private final SendableChooser<Command> autoChooser;
 
 
@@ -157,30 +151,22 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    
+    //Silence the Joystick not Connected warnings (except for when connected to the FMS)
     DriverStation.silenceJoystickConnectionWarning(true);
     
-     // Add all actions to PathPlanner
-    //NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-    NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3).andThen(new ParallelCommandGroup(
-      s_CoralPlacer.c_getCoralPlacerGenCommand(),
-      new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))))
-      .withTimeout(4.5).andThen(s_Elevator.setElevatoorZero()));
-    
-    //NamedCommands.registerCommand("Elevator to Intake Height", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation));
 
-    //NamedCommands.registerCommand("Zero Elevator", s_Elevator.setElevatorHeight(0));
+    //Register NamedCommands to add to PathPlannerAdd all actions to PathPlanner
+    NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3)
+                                                  .andThen(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand(),
+                                                      new WaitCommand(.6)
+                                                      .andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5))))).withTimeout(4.5)
+                                                      .andThen(s_Elevator.setElevatoorZero()));
 
-    //NamedCommands.registerCommand("Intake Coral", s_CoralFunnel.c_getFunnelWheelCommand());
 
-  
-    
-    
+    //Set the default auto and put the autoChoser on the SmartDashboard
     autoChooser = AutoBuilder.buildAutoChooser("Center 1 Piece L4");
-
     SmartDashboard.putData("Auto Chooser", autoChooser); 
  
-     // targetingSystem.setTarget(TargetingSystem.ReefBranch.AB);
 
     // Configure the trigger bindings
     configureBindings();
@@ -196,7 +182,7 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-
+    //All of this is different driving options that are default supported by YAGSL
     Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveRobotOriented);
@@ -232,120 +218,50 @@ public class RobotContainer
     } else
     {
       driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      // driverXbox.b().whileTrue(
-      //     drivebase.driveToPose(
-      //         new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-      //                         );
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.y().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
 
-      //Algae Claw up and down for climbing
+      //Driver Controller Algae Claw up and down for climbing
       driverXbox.b().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateUpCommand());
       driverXbox.x().whileTrue(s_AlgaeRotator.c_GetAlgeaRotateDownCommand());
+      
+      //Climber
+      driverXbox.leftTrigger().whileTrue(s_climber.c_GetClimberUpCommand());
+      driverXbox.rightTrigger().whileTrue(s_climber.c_GetClimberDownCommand());
+
+      //FunnelRotator
+      driverXbox.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
+      driverXbox.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
+
     }
-
-    //AlgaeClaw
     
-     
 
-
-// //L3 Auto Score
-// JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);//set correct number
-// L3Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
-//                                 new WaitCommand(3).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(4))
-//                                         .withTimeout(5).andThen(s_Elevator.setElevatorHeight(0)));
-
-
-// //L4 Auto Score
-// JoystickButton L4Button = new JoystickButton(elevatorBoard, 4);//set correct number
-// L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3).andThen(new ParallelCommandGroup(
-//                                           s_CoralPlacer.c_getCoralPlacerGenCommand(),
-//                                           new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))))
-//                                           .withTimeout(5).andThen(new WaitCommand(1).andThen(s_Elevator.setElevatorHeight(0))));
-
-
-    //Disable auto zero
-    JoystickButton AZStop = new JoystickButton(positioningBoard,11);
-    AZStop.onTrue(
-      s_Elevator.autoZeroSwitchCommand()
-    );
-
-
-
-    //Algae retrival from A1
-    JoystickButton a1Button = new JoystickButton(elevatorBoard, 7);
-        a1Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A1).withTimeout(1.5).andThen(
-          
-                                              new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),//set the correct scoring angle
-                                              s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
-                                              .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                                              new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(2.5))));
-        
-        
-    //Algae retrival from A2                                          
-    JoystickButton a2Button = new JoystickButton(elevatorBoard, 8);
-        a2Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A2).withTimeout(1.5).andThen(
-          
-        new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),//set the correct scoring angle
-        s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
-        .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-        new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(3))));
-
-
-
-
-
-
-
-
-    //Algae Auto Dunk Command
-    JoystickButton algaeNetButton = new JoystickButton(elevatorBoard, 9);
-        algaeNetButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Net).withTimeout(2).andThen(
-          
-        new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),//set the correct scoring angle
-        new WaitCommand(1.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(4)
-        .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-        new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(3))));
-  
-
-    //Algae Auto Intake Command 
-    JoystickButton algaeGroundButton = new JoystickButton(elevatorBoard, 10);
-        algaeGroundButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1).andThen(
-          
-                                              new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),//set the correct scoring angle
-                                              s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.5)
-                                              .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                                              new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero())).withTimeout(1.5))));
-
-
-
-
-    //Algae Auto Processor Command 
-   JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
-        processorButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1).andThen(
-                                              new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),//set the correct scoring angle
-                                              new WaitCommand(1).andThen(s_AlgaeClaw.c_getAlgaeProcessorCommand())).withTimeout(1.5).andThen(
-                                                new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                                                      new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero()))).withTimeout(1.5)));
-        
-  
-  
-//This is the working go to nearest reef branch command
+    //This is the working go to nearest reef branch command
 // JoystickButton abPositionButton = new JoystickButton(positioningBoard, 4);
 //     abPositionButton.whileTrue(targetingSystem.autoTargetCommand(drivebase::getPose)
 //                                                          .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
 //                                                          );
 
-    //Reef Sides
+    //Position Board Commands    
+
+    //Set Desired Manual Target to Left Branch
+    JoystickButton leftPositionButton = new JoystickButton(positioningBoard, 1);
+    leftPositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Left));
+    
+    //Set Desired Manual Target to Center
+    JoystickButton middlePositionButton = new JoystickButton(positioningBoard, 3);
+    middlePositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Right));
+
+    //Set Desired Manual Target to Right Branch
+    JoystickButton rightPositionButton = new JoystickButton(positioningBoard, 2);
+    rightPositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Middle));
 
     // Reef AB
     JoystickButton abPositionButton = new JoystickButton(positioningBoard, 4);
     abPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 0, 1, 0)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
-
 
     // Reef CD         
     JoystickButton cdPositionButton = new JoystickButton(positioningBoard, 5);
@@ -377,99 +293,111 @@ public class RobotContainer
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
     
+    //Disable auto zero
+    JoystickButton AZStop = new JoystickButton(positioningBoard,11);
+    AZStop.onTrue(s_Elevator.autoZeroSwitchCommand());
 
 
+    //Elevator Board Commands 
 
-    JoystickButton leftPositionButton = new JoystickButton(positioningBoard, 1);
-    JoystickButton middlePositionButton = new JoystickButton(positioningBoard, 3);
-    JoystickButton rightPositionButton = new JoystickButton(positioningBoard, 2);
+    //Reverse coral funnel intake wheels
+    JoystickButton coralReverseIntakeButton = new JoystickButton(elevatorBoard, 12);
+    coralReverseIntakeButton.whileTrue(s_CoralFunnel.c_getFunnelWheelCommandback());
 
-    leftPositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Left));
-    middlePositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Right));
-    rightPositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Middle));
+    //Run coral funnel intake wheels
+    JoystickButton coralIntakeButtomn = new JoystickButton(elevatorBoard, 11);
+    coralIntakeButtomn.whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
 
+    //Algae Auto Intake Command 
+    JoystickButton algaeGroundButton = new JoystickButton(elevatorBoard, 10);
+    algaeGroundButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1)
+                            .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
+                            s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.5)
+                            .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
+                            new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero())).withTimeout(1.5))));
+
+    //Algae Auto Dunk Command
+    JoystickButton algaeNetButton = new JoystickButton(elevatorBoard, 9);
+    algaeNetButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Net).withTimeout(2)
+                          .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
+                          new WaitCommand(1.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(4)
+                          .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
+                          new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(3))));
+
+    //Algae retrival from A2                                          
+    JoystickButton a2Button = new JoystickButton(elevatorBoard, 8);
+    a2Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A2).withTimeout(1.5)
+                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
+                    s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
+                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
+                    new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(3))));
+
+    //Algae retrival from A1
+    JoystickButton a1Button = new JoystickButton(elevatorBoard, 7);
+    a1Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A1).withTimeout(1.5)
+                   .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
+                    s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
+                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
+                    new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(2.5))));
+
+    //Algae Auto Processor Command 
+    JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
+        processorButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1).andThen(
+                              new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
+                              new WaitCommand(1).andThen(s_AlgaeClaw.c_getAlgaeProcessorCommand())).withTimeout(1.5)
+                              .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
+                              new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero()))).withTimeout(1.5)));
+        
+    //Set Elevator to intake height for coral funnel
+    JoystickButton coralIntakeHeighButton = new JoystickButton(elevatorBoard, 5);
+    coralIntakeHeighButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation));
+
+    //L4 Auto Score
+    JoystickButton L4Button = new JoystickButton(elevatorBoard, 4);//set correct number
+    L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3)
+                    .andThen(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand(),
+                    new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5))))).withTimeout(4.5)
+                    .andThen(s_Elevator.setElevatoorZero()));
+
+    //L3 Auto Score
+    JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);//set correct number
+    L3Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
+                    new WaitCommand(1.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)).withTimeout(2.6)
+                    .andThen(s_Elevator.setElevatoorZero()));
+
+    //L2 Auto Score
+    JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);//set correct number
+    L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
+                    new WaitCommand(.75).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand())).withTimeout(2)
+                    .andThen(s_Elevator.setElevatoorZero()));
+
+    //Manually return Elevator to 0            
+    JoystickButton ZeroButton = new JoystickButton(elevatorBoard, 1);
+    ZeroButton.onTrue(s_Elevator.setElevatorHeight(0));
+                                                        
+  
+
+    //Operator 1 and 2 Xbox Controller Testing Buttons 
     opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(0))); //Full down
     opperatorXbox.b().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(27.75)).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)); //L2
     opperatorXbox.x().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(43.625)));//L3
     opperatorXbox.y().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(68.875)));//L4
-
-    //Set hight for coral funnel
-    JoystickButton coralIntakeHeighButton = new JoystickButton(elevatorBoard, 5);
-    coralIntakeHeighButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation));
-
-    //Run coral intake
-    JoystickButton coralIntakeButtomn = new JoystickButton(elevatorBoard, 11);
-    coralIntakeButtomn.whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
-
-    JoystickButton coralReverseIntakeButton = new JoystickButton(elevatorBoard, 12);
-    coralReverseIntakeButton.whileTrue(s_CoralFunnel.c_getFunnelWheelCommandback());
-
-    //L2 Auto Score
-    JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);//set correct number
-        L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
-                                                  new WaitCommand(.75).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                                                   .withTimeout(2).andThen(s_Elevator.setElevatoorZero()));
-
-                                                  
-    //L3 Auto Score
-    JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);//set correct number
-        L3Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
-                                        new WaitCommand(1.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2))
-                                                .withTimeout(2.6).andThen(s_Elevator.setElevatoorZero()));
-
-
-    //L4 Auto Score
-    JoystickButton L4Button = new JoystickButton(elevatorBoard, 4);//set correct number
-        L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3).andThen(new ParallelCommandGroup(
-                                                  s_CoralPlacer.c_getCoralPlacerGenCommand(),
-                                                  new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))))
-                                                  .withTimeout(4.5).andThen(s_Elevator.setElevatoorZero()));
-                                        
-    JoystickButton ZeroButton = new JoystickButton(elevatorBoard, 1);
-      ZeroButton.onTrue(s_Elevator.setElevatorHeight(0));
-                                                        
-         
-
-
 
     //Funnel intake height
     opperatorXbox.leftBumper().onTrue(s_Elevator.setGoal(Units.inchesToMeters(17.375)));
 
     //CoralFunnel
     opperatorXbox.rightBumper().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
-    //opperatorXbox.leftTrigger().whileTrue(s_CoralFunnel.c_getFunnelWheelCommandback());
-    
-     //FunnelRotator
-     driverXbox.rightBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandUp());
-     driverXbox.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
- 
+  
     //CoralPlacer 
     opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
     opperatorXbox.leftTrigger().onTrue(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1.5),
                                                                new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))));
-    // opperatorXbox2.rightTrigger().onTrue(s_CoralFunnel.c_AutoCoralFunnelCommand());
     
     //Algae claw height
     opperatorXbox2.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(15.5))); //a1
     opperatorXbox2.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(31))); //a2
     opperatorXbox2.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(73.875))); //barge
-    
-    // //AlgaeClaw 
-    // JoystickButton algaeIntakeButton = new JoystickButton(elevatorBoard, 6);
-    // algaeIntakeButton.whileTrue(s_AlgaeClaw.c_getAlgaeIntakeCommand());
-    // // opperatorXbox2.b().whileTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand());
-    // JoystickButton algaeReverseIntakeButton = new JoystickButton(elevatorBoard, 10);
-    // algaeReverseIntakeButton.whileTrue(s_AlgaeClaw.c_getAlgaeBargeCommand());
-
-    // //AlgaeRotator
-    // opperatorXbox2.leftBumper().onTrue(s_AlgaeRotator.setGoal(0));
-    // opperatorXbox2.x().onTrue(s_AlgaeRotator.setGoal(260));
-    // opperatorXbox2.rightBumper().onTrue(s_AlgaeRotator.setGoal(200));
-
-
-   //Climber
-   driverXbox.leftTrigger().whileTrue(s_climber.c_GetClimberUpCommand());
-   driverXbox.rightTrigger().whileTrue(s_climber.c_GetClimberDownCommand());
     
   }
 
