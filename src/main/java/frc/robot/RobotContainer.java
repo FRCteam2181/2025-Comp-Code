@@ -319,10 +319,8 @@ public class RobotContainer {
     //Algae Auto Dunk Command
     JoystickButton algaeNetButton = new JoystickButton(elevatorBoard, 9);
     algaeNetButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Net).withTimeout(2)
-                          .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
-                          new WaitCommand(1.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(4)
-                          .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                          new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(3))));
+                          .andThen(new WaitCommand(0.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(3)
+                          .andThen(s_Elevator.setElevatoorZero()).withTimeout(5.5));
 
     //Algae retrival from A2                                          
     JoystickButton a2Button = new JoystickButton(elevatorBoard, 8);
@@ -343,10 +341,8 @@ public class RobotContainer {
     //Algae Auto Processor Command 
     JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
         processorButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1).andThen(
-                              new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
-                              new WaitCommand(1).andThen(s_AlgaeClaw.c_getAlgaeProcessorCommand())).withTimeout(1.5)
-                              .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                              new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero()))).withTimeout(1.5)));
+                              new WaitCommand(1).andThen(s_AlgaeClaw.c_getAlgaeProcessorCommand()).withTimeout(1.5)
+                              .andThen(new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero()))).withTimeout(1.5));
         
     //Set Elevator to intake height for coral funnel
     JoystickButton coralIntakeHeighButton = new JoystickButton(elevatorBoard, 5);
