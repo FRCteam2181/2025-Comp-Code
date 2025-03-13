@@ -340,9 +340,8 @@ public class RobotContainer {
 
     //Algae Auto Processor Command 
     JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
-        processorButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1).andThen(
-                              new WaitCommand(1).andThen(s_AlgaeClaw.c_getAlgaeProcessorCommand()).withTimeout(1.5)
-                              .andThen(new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero()))).withTimeout(1.5));
+        processorButton.onTrue(
+                              s_AlgaeClaw.c_getAlgaeProcessorCommand().withTimeout(1.5));
         
     //Set Elevator to intake height for coral funnel
     JoystickButton coralIntakeHeighButton = new JoystickButton(elevatorBoard, 5);
