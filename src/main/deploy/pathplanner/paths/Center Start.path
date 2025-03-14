@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.124196876574519,
-        "y": 4.130042515525307
+        "x": 6.9827525287792716,
+        "y": 3.9641249023702705
       },
       "isLocked": false,
       "linkedName": "Center Start"
     },
     {
       "anchor": {
-        "x": 5.8036465,
-        "y": 4.163297232
+        "x": 7.0,
+        "y": 3.75
       },
       "prevControl": {
-        "x": 6.666738054547463,
-        "y": 4.09649940070574
+        "x": 7.249781456508387,
+        "y": 3.760451027918277
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red Branch G"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],

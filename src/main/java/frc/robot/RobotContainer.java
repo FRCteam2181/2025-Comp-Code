@@ -219,6 +219,9 @@ public class RobotContainer {
                                                                   .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
                                                                   .andThen(scoringSystem.scoreCoral()));
 
+    NamedCommands.registerCommand("Drive to Pose Nearest Branch", targetingSystem.autoTargetCommand(drivebase::getPose)
+                                                                       .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral()));
+  
     NamedCommands.registerCommand("Drive to Pose LeftHP", scoringSystem.collectLeftHP());
 
     NamedCommands.registerCommand("Drive to Pose RightHP", scoringSystem.collectRightHP());
