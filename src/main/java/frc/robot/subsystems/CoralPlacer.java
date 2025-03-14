@@ -82,6 +82,16 @@ public class CoralPlacer extends SubsystemBase{
         });
     }
 
+    public Command c_getCoralPlacerReverseCommand() {
+        return this.startEnd(() -> {
+            f_setCoralWheels(-.05);
+        }, 
+        
+        () -> {
+            f_stop();
+        });
+    }
+
     public void f_setCoralWheels(double speed) {
         m_CorPWheelLeft.set(speed);
         //m_CorPWheelRight.set(-speed*.5);

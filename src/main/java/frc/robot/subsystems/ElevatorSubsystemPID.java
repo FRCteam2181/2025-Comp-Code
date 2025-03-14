@@ -17,9 +17,9 @@ import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+//import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Configs;
@@ -185,9 +185,6 @@ public class ElevatorSubsystemPID extends SubsystemBase
   public Command setElevatorHeight(double height)
   {
     return setGoal(height).until(() -> aroundHeight(height));
-
-    //TODO Try this
-    //return setGoal(height).beforeStarting(()->m_controller.reset(getHeightMeters())).until(() -> aroundHeight(height));
   }
 
 

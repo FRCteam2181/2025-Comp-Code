@@ -119,9 +119,26 @@ public class TargetingSystem
 
 
 
+  public Command autoDriveToLeftHP(SwerveSubsystem swerveDrive)
+  {
+    return Commands.print("GOING TO POSE")
+                   .andThen(swerveDrive.driveToLeftHP())
+                   .andThen(Commands.print("DONE GOING TO POSE"));
+  }
 
+  public Command autoDriveToRightHP(SwerveSubsystem swerveDrive)
+  {
+    return Commands.print("GOING TO POSE")
+                   .andThen(swerveDrive.driveToRightHP())
+                   .andThen(Commands.print("DONE GOING TO POSE"));
+  }
 
-
+  public Command autoDriveToProcessor(SwerveSubsystem swerveDrive)
+  {
+    return Commands.print("GOING TO POSE")
+                   .andThen(swerveDrive.driveToProcessor())
+                   .andThen(Commands.print("DONE GOING TO POSE"));
+  }
 
 
   public Command driveToCoralTarget(SwerveSubsystem swerveDrive)

@@ -10,7 +10,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import swervelib.motors.SparkFlexSwerve;
+
 
 
 public class CoralFunnel extends SubsystemBase {

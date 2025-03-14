@@ -8,9 +8,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.Unit;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -157,10 +155,106 @@ public class RobotContainer {
 
     //Register NamedCommands to add to PathPlannerAdd all actions to PathPlanner
     NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(3)
-                                                  .andThen(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand(),
-                                                      new WaitCommand(.6)
-                                                      .andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5))))).withTimeout(4.5)
-                                                      .andThen(s_Elevator.setElevatoorZero()));
+                                                   .andThen(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand(),
+                                                   new WaitCommand(.6)
+                                                   .andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5))))).withTimeout(4.5)
+                                                   .andThen(s_Elevator.setElevatoorZero()));
+
+
+    NamedCommands.registerCommand("Score L3", new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
+                                                   new WaitCommand(1.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)).withTimeout(2.6)
+                                                   .andThen(s_Elevator.setElevatoorZero()));
+
+    NamedCommands.registerCommand("Score L2", new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
+                                                   new WaitCommand(.75).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand())).withTimeout(2)
+                                                   .andThen(s_Elevator.setElevatoorZero()));
+
+    NamedCommands.registerCommand("Intake A1", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A1).withTimeout(1.5)
+                                                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
+                                                    s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
+                                                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
+                                                     new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(2.5))));
+
+    NamedCommands.registerCommand("Intake A2", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A2).withTimeout(1.5)
+                                                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
+                                                    s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
+                                                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
+                                                    new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(3))));
+
+    NamedCommands.registerCommand("Score Processor", s_AlgaeClaw.c_getAlgaeProcessorCommand().withTimeout(1.5));
+
+    NamedCommands.registerCommand("Score Barge", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Net).withTimeout(2)
+                                                      .andThen(new WaitCommand(0.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(3)
+                                                      .andThen(s_Elevator.setElevatoorZero()).withTimeout(5.5));
+
+    //NamedCommands.registerCommand("Intake from HP", );
+
+    NamedCommands.registerCommand("Set Desired Branch Left", targetingSystem.setReefSideCommand(ReefSide.Left));
+
+    NamedCommands.registerCommand("Set Desired Branch Middle", targetingSystem.setReefSideCommand(ReefSide.Middle));
+
+    NamedCommands.registerCommand("Set Desired Branch Right", targetingSystem.setReefSideCommand(ReefSide.Right));
+
+    NamedCommands.registerCommand("Drive to Pose Branch AB", targetingSystem.manualTargetCommand(drivebase::getPose, 0, 1, 0)
+                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                                  .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Pose Branch CD", targetingSystem.manualTargetCommand(drivebase::getPose, 2, 3, 2)
+                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                                  .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Pose Branch EF", targetingSystem.manualTargetCommand(drivebase::getPose, 4, 5, 4)
+                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                                  .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Pose Branch GH", targetingSystem.manualTargetCommand(drivebase::getPose, 6, 7, 6)
+                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                                  .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Pose Branch IJ", targetingSystem.manualTargetCommand(drivebase::getPose, 8, 9, 8)
+                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                                  .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Pose Branch KL", targetingSystem.manualTargetCommand(drivebase::getPose, 10, 11, 10)
+                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                                  .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Pose LeftHP", scoringSystem.collectLeftHP());
+
+    NamedCommands.registerCommand("Drive to Pose RightHP", scoringSystem.collectRightHP());
+
+    NamedCommands.registerCommand("Drive to Pose ProcessorHP", scoringSystem.scoreProcessor());
+
+    
+
+
+
+
+//Algae Auto Processor Command 
+
+                          
+//L3 Auto Score
+JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);//set correct number
+L3Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
+                new WaitCommand(1.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)).withTimeout(2.6)
+                .andThen(s_Elevator.setElevatoorZero()));
+
+//L2 Auto Score
+JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);//set correct number
+L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
+                new WaitCommand(.75).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand())).withTimeout(2)
+                .andThen(s_Elevator.setElevatoorZero()));
+
+
+
+
+
+
+
+
+
+
+
 
 
     //Set the default auto and put the autoChoser on the SmartDashboard
@@ -186,12 +280,10 @@ public class RobotContainer {
     Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveRobotOriented);
-    Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngle);
+    Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
     Command driveFieldOrientedDirectAngleKeyboard = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
     Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
-    Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngleKeyboard);
+    Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleKeyboard);
 
     if (RobotBase.isSimulation())
     {
@@ -307,8 +399,10 @@ public class RobotContainer {
     //Run coral funnel intake wheels
     JoystickButton coralIntakeButtomn = new JoystickButton(elevatorBoard, 11);
     coralIntakeButtomn.whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
+                    //alongWith(s_CoralPlacer.c_getCoralPlacerReverseCommand())
 
-    //Algae Auto Intake Command 
+
+    //Algae Auto Ground Intake Command 
     JoystickButton algaeGroundButton = new JoystickButton(elevatorBoard, 10);
     algaeGroundButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1)
                             .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
@@ -340,9 +434,7 @@ public class RobotContainer {
 
     //Algae Auto Processor Command 
     JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
-        processorButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1).andThen(
-                              new WaitCommand(1).andThen(s_AlgaeClaw.c_getAlgaeProcessorCommand()).withTimeout(1.5)
-                              .andThen(new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero()))).withTimeout(1.5));
+    processorButton.onTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand().withTimeout(1.5));
         
     //Set Elevator to intake height for coral funnel
     JoystickButton coralIntakeHeighButton = new JoystickButton(elevatorBoard, 5);

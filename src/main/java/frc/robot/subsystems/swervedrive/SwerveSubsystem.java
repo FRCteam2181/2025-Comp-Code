@@ -17,8 +17,6 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import com.pathplanner.lib.util.swerve.SwerveSetpoint;
 import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 //import edu.wpi.first.math.geometry.Pose3d;
@@ -34,6 +32,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
@@ -64,7 +63,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Setpoints;
 import frc.robot.Setpoints.AutoScoring;
 import frc.robot.Setpoints.AutoScoring.HumanPlayer.Left;
-import frc.robot.systems.field.FieldConstants.CoralStation;
 import frc.robot.systems.field.FieldConstants.Processor;
 
 
@@ -76,10 +74,6 @@ public class SwerveSubsystem extends SubsystemBase
    * Swerve drive object.
    */
   private final SwerveDrive swerveDrive;
-  /**
-   * AprilTag field layout.
-   */
-  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
   /**
    * Enable vision odometry updates while driving.
    */
@@ -130,8 +124,12 @@ public class SwerveSubsystem extends SubsystemBase
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
-    setupPathPlanner();
-  }
+    
+  setupPathPlanner();
+
+  //RobotModeTriggers.autonomous().onTrue(Commands.runOnce(this::zeroGyro));
+
+}
 
   /**
    * Construct the swerve drive.

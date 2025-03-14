@@ -65,17 +65,17 @@ public class Setpoints
     public static class Processor {
       public static final Transform2d offset = new Transform2d(Inches.of(18.5).in(Meters),
                                                                Inches.of(0).in(Meters),
-                                                               Rotation2d.fromDegrees(0));
+                                                               Rotation2d.fromDegrees(180));
     }
     public static class Reef
     {
 
       public static final Transform2d coralOffset = new Transform2d(Inches.of(18.5).in(Meters),
                                                                     -Inches.of(1.5).in(Meters),
-                                                                    Rotation2d.fromDegrees(0));
+                                                                    Rotation2d.fromDegrees(180));
       public static final Transform2d algaeOffset = new Transform2d(Inches.of(18.5).in(Meters),
                                                                     Inches.of(20).in(Meters),
-                                                                    Rotation2d.fromDegrees(0));
+                                                                    Rotation2d.fromDegrees(180));
     }
 
     public static class HumanPlayer
@@ -86,7 +86,7 @@ public class Setpoints
 
         public static final Transform2d offset = new Transform2d(Inches.of(18.5).in(Meters),
                                                                  Inches.of(0).in(Meters),
-                                                                 Rotation2d.fromDegrees(0));
+                                                                 Rotation2d.fromDegrees(180));
       }
 
       public static class Right
@@ -94,7 +94,7 @@ public class Setpoints
 
         public static final Transform2d offset = new Transform2d(Inches.of(18.5).in(Meters),
                                                                  Inches.of(0).in(Meters),
-                                                                 Rotation2d.fromDegrees(0));
+                                                                 Rotation2d.fromDegrees(180));
       }
     }
   }
