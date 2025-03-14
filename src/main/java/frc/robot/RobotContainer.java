@@ -434,12 +434,8 @@ L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.
 
     //Algae Auto Processor Command 
     JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
-<<<<<<< HEAD
     processorButton.onTrue(s_AlgaeClaw.c_getAlgaeProcessorCommand().withTimeout(1.5));
-=======
-        processorButton.onTrue(
-                              s_AlgaeClaw.c_getAlgaeProcessorCommand().withTimeout(1.5));
->>>>>>> acc93b7550ed7be43e7590f6263c48191f1838a3
+
         
     //Set Elevator to intake height for coral funnel
     JoystickButton coralIntakeHeighButton = new JoystickButton(elevatorBoard, 5);
