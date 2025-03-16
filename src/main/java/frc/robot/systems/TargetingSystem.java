@@ -213,44 +213,41 @@ public class TargetingSystem
   }
 
 
-  public Pose2d manualTarget(Supplier<Pose2d> currentPose, Integer LeftFaceValue, Integer RightFaceValue, Integer CenterFaceValue)
+  public Pose2d manualTarget(Supplier<Pose2d> currentPose, Integer ReefBranch)
   {
     if (reefBranches == null)
     {
       initializeBranchPoses();
     }
-    if (targetReefSide == ReefSide.Left)
-    {
-
-      Pose2d selectedTargetPose = allianceRelativeReefBranches.get(LeftFaceValue);
+    
+      Pose2d selectedTargetPose = allianceRelativeReefBranches.get(ReefBranch);
       targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
       return selectedTargetPose;
 
-    } 
-    //else {
+    // //else {
       
-    if (targetReefSide == ReefSide.Right)
-    {
+    // if (targetReefSide == ReefSide.Right)
+    // {
 
-      Pose2d selectedTargetPose = allianceRelativeReefBranches.get(RightFaceValue);
-      targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
-      return selectedTargetPose;
-    }
+    //   Pose2d selectedTargetPose = allianceRelativeReefBranches.get(RightFaceValue);
+    //   targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
+    //   return selectedTargetPose;
+    // }
 
-    else 
-    {
+    // else 
+    // {
       
       
-      Pose2d selectedTargetPose = allianceRelativeReefBranches.get(CenterFaceValue);
-      targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
-      return selectedTargetPose;
+    //   Pose2d selectedTargetPose = allianceRelativeReefBranches.get(CenterFaceValue);
+    //   targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
+    //   return selectedTargetPose;
     
       
   
 
 
 
-    }
+    // }
     // )
     // Pose2d selectedTargetPose = allianceRelativeReefBranches.get(FaceValue);
     // targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
@@ -258,10 +255,10 @@ public class TargetingSystem
   }
 
 
-  public Command manualTargetCommand(Supplier<Pose2d> currentPose, Integer LeftFaceValue, Integer RightFaceValue, Integer CenterFaceValue)
+  public Command manualTargetCommand(Supplier<Pose2d> currentPose, Integer ReefBranch)
   {
     return Commands.runOnce(() ->
-                                manualTarget(currentPose, LeftFaceValue, RightFaceValue, CenterFaceValue)).andThen(Commands.print("Manual-targetting complete"));
+                                manualTarget(currentPose, ReefBranch)).andThen(Commands.print("Manual-targetting complete"));
   }
 
 

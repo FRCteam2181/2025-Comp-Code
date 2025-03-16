@@ -6,17 +6,20 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkBase.PersistMode;
-
 import edu.wpi.first.math.filter.Debouncer;
-import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.filter.LinearFilter;
 
 
 public class CoralPlacer extends SubsystemBase{
 
     //SparkFlex m_CorPWheelRight;
     SparkFlex m_CorPWheelLeft;
+
+    
+
+
 
     LinearFilter currentFilter = LinearFilter.movingAverage(10);
     private double filteredCurrent;
@@ -27,6 +30,8 @@ public class CoralPlacer extends SubsystemBase{
         m_CorPWheelLeft = new SparkFlex(k_CoralWheelLeftID, MotorType.kBrushless);
         //m_CorPWheelRight = new SparkFlex(k_CoralWheelRightID, MotorType.kBrushless);
 
+        
+
         config = new SparkFlexConfig();
 
         m_CorPWheelLeft.configure(config.smartCurrentLimit(k_CoralPlacerVoltageLimit), null, null);
@@ -36,6 +41,8 @@ public class CoralPlacer extends SubsystemBase{
         m_CorPWheelLeft.configure(config.idleMode(IdleMode.kBrake), null, PersistMode.kPersistParameters);
         
     }
+
+   
 
     public Command c_getCoralPlacerL1Command() {
         return this.runEnd(() -> {

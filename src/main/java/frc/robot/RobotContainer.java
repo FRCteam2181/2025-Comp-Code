@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
+import au.grapplerobotics.CanBridge;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
@@ -149,6 +151,7 @@ public class RobotContainer {
    */
   public RobotContainer()
   {
+    //CanBridge.runTCP();
     //Silence the Joystick not Connected warnings (except for when connected to the FMS)
     DriverStation.silenceJoystickConnectionWarning(true);
     
@@ -189,36 +192,6 @@ public class RobotContainer {
 
     //NamedCommands.registerCommand("Intake from HP", );
 
-    NamedCommands.registerCommand("Set Desired Branch Left", targetingSystem.setReefSideCommand(ReefSide.Left));
-
-    NamedCommands.registerCommand("Set Desired Branch Middle", targetingSystem.setReefSideCommand(ReefSide.Middle));
-
-    NamedCommands.registerCommand("Set Desired Branch Right", targetingSystem.setReefSideCommand(ReefSide.Right));
-
-    NamedCommands.registerCommand("Drive to Pose Branch AB", targetingSystem.manualTargetCommand(drivebase::getPose, 0, 1, 0)
-                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-                                                                  .andThen(scoringSystem.scoreCoral()));
-
-    NamedCommands.registerCommand("Drive to Pose Branch CD", targetingSystem.manualTargetCommand(drivebase::getPose, 2, 3, 2)
-                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-                                                                  .andThen(scoringSystem.scoreCoral()));
-
-    NamedCommands.registerCommand("Drive to Pose Branch EF", targetingSystem.manualTargetCommand(drivebase::getPose, 4, 5, 4)
-                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-                                                                  .andThen(scoringSystem.scoreCoral()));
-
-    NamedCommands.registerCommand("Drive to Pose Branch GH", targetingSystem.manualTargetCommand(drivebase::getPose, 6, 7, 6)
-                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-                                                                  .andThen(scoringSystem.scoreCoral()));
-
-    NamedCommands.registerCommand("Drive to Pose Branch IJ", targetingSystem.manualTargetCommand(drivebase::getPose, 8, 9, 8)
-                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-                                                                  .andThen(scoringSystem.scoreCoral()));
-
-    NamedCommands.registerCommand("Drive to Pose Branch KL", targetingSystem.manualTargetCommand(drivebase::getPose, 10, 11, 10)
-                                                                  .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-                                                                  .andThen(scoringSystem.scoreCoral()));
-
     NamedCommands.registerCommand("Drive to Pose Nearest Branch", targetingSystem.autoTargetCommand(drivebase::getPose)
                                                                        .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral()));
   
@@ -227,37 +200,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("Drive to Pose RightHP", scoringSystem.collectRightHP());
 
     NamedCommands.registerCommand("Drive to Pose ProcessorHP", scoringSystem.scoreProcessor());
-
-    
-
-
-
-
-//Algae Auto Processor Command 
-
-                          
-//L3 Auto Score
-JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);//set correct number
-L3Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
-                new WaitCommand(1.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)).withTimeout(2.6)
-                .andThen(s_Elevator.setElevatoorZero()));
-
-//L2 Auto Score
-JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);//set correct number
-L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
-                new WaitCommand(.75).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand())).withTimeout(2)
-                .andThen(s_Elevator.setElevatoorZero()));
-
-
-
-
-
-
-
-
-
-
-
 
 
     //Set the default auto and put the autoChoser on the SmartDashboard
@@ -340,67 +282,92 @@ L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.
 
     //Position Board Commands    
 
-    //Set Desired Manual Target to Left Branch
-    JoystickButton leftPositionButton = new JoystickButton(positioningBoard, 1);
-    leftPositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Left));
-    
-    //Set Desired Manual Target to Center
-    JoystickButton middlePositionButton = new JoystickButton(positioningBoard, 3);
-    middlePositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Right));
-
-    //Set Desired Manual Target to Right Branch
-    JoystickButton rightPositionButton = new JoystickButton(positioningBoard, 2);
-    rightPositionButton.onTrue(targetingSystem.setReefSideCommand(ReefSide.Middle));
-
-    // Reef AB
-    JoystickButton abPositionButton = new JoystickButton(positioningBoard, 4);
-    abPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 0, 1, 0)
+    // Reef A
+    JoystickButton aPositionButton = new JoystickButton(positioningBoard, 1);
+    aPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 1)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
 
-    // Reef CD         
-    JoystickButton cdPositionButton = new JoystickButton(positioningBoard, 5);
-    cdPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 2, 3, 2)
+    // Reef B         
+    JoystickButton bPositionButton = new JoystickButton(positioningBoard, 2);
+    bPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 0)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
    
-    // Reef EF
-    JoystickButton efPositionButton = new JoystickButton(positioningBoard, 6);
-    efPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 4, 5, 4)
+    // Reef C
+    JoystickButton cPositionButton = new JoystickButton(positioningBoard, 12);
+    cPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 3)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
 
-    // Reef GH
-    JoystickButton jhPositionButton = new JoystickButton(positioningBoard, 7);
-    jhPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 6, 7, 6)
+    // Reef D
+    JoystickButton dPositionButton = new JoystickButton(positioningBoard, 11);
+    dPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 2)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
           
-    // Reef IJ
-    JoystickButton ijPositionButton = new JoystickButton(positioningBoard, 8);
-    ijPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 8, 9, 8)
+    // Reef E
+    JoystickButton ePositionButton = new JoystickButton(positioningBoard, 10);
+    ePositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 5)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
 
-    // Reef KL
-    JoystickButton klPositionButton = new JoystickButton(positioningBoard, 9);
-    klPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 10, 11, 10)
+    // Reef F
+    JoystickButton fPositionButton = new JoystickButton(positioningBoard, 9);
+    fPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 4)
+    .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
+    );
+
+    // Reef G
+    JoystickButton gPositionButton = new JoystickButton(positioningBoard, 8);
+    gPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 7)
+    .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
+    );
+
+    // Reef H         
+    JoystickButton hPositionButton = new JoystickButton(positioningBoard, 7);
+    hPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 6)
+    .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
+    );
+   
+    // Reef I
+    JoystickButton iPositionButton = new JoystickButton(positioningBoard, 6);
+    iPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 9)
+    .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
+    );
+
+    // Reef J
+    JoystickButton jPositionButton = new JoystickButton(positioningBoard, 5);
+    jPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 8)
+    .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
+    );
+          
+    // Reef K
+    JoystickButton kPositionButton = new JoystickButton(positioningBoard, 4);
+    kPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 11)
+    .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
+    );
+
+    // Reef L
+    JoystickButton lPositionButton = new JoystickButton(positioningBoard, 3);
+    lPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 10)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
     
-    //Disable auto zero
-    JoystickButton AZStop = new JoystickButton(positioningBoard,11);
-    AZStop.onTrue(s_Elevator.autoZeroSwitchCommand());
+    //Closest Branch
+    Trigger closeBranchPositionButton = new Trigger(() -> positioningBoard.getX() < -0.5);
+    closeBranchPositionButton.whileTrue(targetingSystem.autoTargetCommand(drivebase::getPose)
+    .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral()));
 
 
     //Elevator Board Commands 
 
     //Reverse coral funnel intake wheels
-    JoystickButton coralReverseIntakeButton = new JoystickButton(elevatorBoard, 12);
+    JoystickButton coralReverseIntakeButton = new JoystickButton(elevatorBoard, 11);
     coralReverseIntakeButton.whileTrue(s_CoralFunnel.c_getFunnelWheelCommandback());
 
     //Run coral funnel intake wheels
-    JoystickButton coralIntakeButtomn = new JoystickButton(elevatorBoard, 11);
+    Trigger coralIntakeButtomn = new Trigger(() -> elevatorBoard.getX() < -0.5);
     coralIntakeButtomn.whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
                     //alongWith(s_CoralPlacer.c_getCoralPlacerReverseCommand())
 
@@ -466,6 +433,14 @@ L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.
     //Manually return Elevator to 0            
     JoystickButton ZeroButton = new JoystickButton(elevatorBoard, 1);
     ZeroButton.onTrue(s_Elevator.setElevatorHeight(0));
+
+    //Shoot Out Coral
+    JoystickButton ShootCoralButton = new JoystickButton(elevatorBoard, 12);
+    ShootCoralButton.onTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
+
+    //Disable auto zero
+    Trigger AZStop = new Trigger(() -> positioningBoard.getY() > 0.5);
+    AZStop.onTrue(s_Elevator.autoZeroSwitchCommand());
                                                         
   
 

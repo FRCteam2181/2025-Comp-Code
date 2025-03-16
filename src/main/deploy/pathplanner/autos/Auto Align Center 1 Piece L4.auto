@@ -5,13 +5,13 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Inner Blue Cage Start"
+                  "pathName": "Center Start"
                 }
               },
               {

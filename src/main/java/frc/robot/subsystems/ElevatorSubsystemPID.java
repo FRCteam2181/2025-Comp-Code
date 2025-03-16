@@ -7,25 +7,46 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Millimeters;
+import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
+import static edu.wpi.first.units.Units.Volts;
+
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import static au.grapplerobotics.interfaces.LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT;
+import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.interfaces.LaserCanInterface.Measurement;
+import au.grapplerobotics.interfaces.LaserCanInterface.RangingMode;
+import au.grapplerobotics.interfaces.LaserCanInterface.RegionOfInterest;
+import au.grapplerobotics.interfaces.LaserCanInterface.TimingBudget;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Configs;
-
+import frc.robot.RobotMath.Elevator;
 
 import frc.robot.Constants.ElevatorConstants;
+
 
 
 public class ElevatorSubsystemPID extends SubsystemBase
@@ -60,6 +81,20 @@ public class ElevatorSubsystemPID extends SubsystemBase
                                                                                       ));
 
 
+  // Sensors
+  private final LaserCan         m_elevatorLaserCan     = new LaserCan(ElevatorConstants.elevatorLaserCanID);
+  private final RegionOfInterest m_laserCanROI          = new RegionOfInterest(0, 0, 4, 4);//TODO Change
+  private final TimingBudget     m_laserCanTimingBudget = TimingBudget.TIMING_BUDGET_33MS;
+  private final Alert            m_laserCanFailure      = new Alert("LaserCAN failed to configure.",
+                                                                     AlertType.kError);
+  
+
+
+
+
+
+
+
   /**
    * Subsystem constructor.
    */
@@ -79,7 +114,23 @@ public class ElevatorSubsystemPID extends SubsystemBase
             Configs.ElevatorConfig.elevatorConfig, 
             ResetMode.kResetSafeParameters, 
             PersistMode.kPersistParameters);
-    
+  
+
+            try
+            {
+             
+              m_elevatorLaserCan.setRangingMode(RangingMode.SHORT);
+              m_elevatorLaserCan.setTimingBudget(m_laserCanTimingBudget);
+              m_elevatorLaserCan.setRegionOfInterest(m_laserCanROI);
+            
+            } catch (Exception e)
+            {
+              m_laserCanFailure.set(true);
+            }
+
+
+
+
     seedElevatorMotorPosition();
 
   }
@@ -89,7 +140,8 @@ public class ElevatorSubsystemPID extends SubsystemBase
   }
 
   public void autoZeroSwitch() {
-     autoZero = false;
+    autoZero = false;
+    CommandScheduler.getInstance().cancelAll();
   }
 
   public Command setElevatoorZero() {
@@ -107,7 +159,15 @@ public class ElevatorSubsystemPID extends SubsystemBase
    */
   public void seedElevatorMotorPosition()
   {
-      elevatorEncoder.setPosition(0);
+       Measurement seedMeasurement = m_elevatorLaserCan.getMeasurement();
+      while (seedMeasurement == null)
+      {
+        seedMeasurement = m_elevatorLaserCan.getMeasurement();
+      }
+
+      elevatorEncoder.setPosition(Elevator.convertDistanceToRotations(Millimeters.of(
+                                        m_elevatorLaserCan.getMeasurement().distance_mm - ElevatorConstants.kLaserCANOffset.in(Millimeters)))
+                                    .in(Rotations));
   
   }
 
@@ -201,7 +261,13 @@ public class ElevatorSubsystemPID extends SubsystemBase
   @Override
   public void periodic()
   {
-    
+    Measurement laserCanMeasurement = m_elevatorLaserCan.getMeasurement();
+    if (laserCanMeasurement != null)
+    {
+      SmartDashboard.putNumber("Elevator LaserCAN (Meters)",
+                               (Millimeters.of(laserCanMeasurement.distance_mm).in(Meters)*3));
+    }
+      SmartDashboard.putNumber("Elevator Height (Meters)", getHeightMeters());
   }
 
   /**
