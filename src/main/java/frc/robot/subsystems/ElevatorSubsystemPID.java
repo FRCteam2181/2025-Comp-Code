@@ -106,12 +106,12 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
 
     m_ElevatorRight.configure(
-            Configs.ElevatorConfig.elevatorFollowerConfig.follow(ElevatorConstants.k_ElevatorLeftID), 
+            Configs.ElevatorConfigs.elevatorFollowerConfig.follow(ElevatorConstants.k_ElevatorLeftID), 
             ResetMode.kResetSafeParameters, 
             PersistMode.kPersistParameters);
 
     m_ElevatorLeft.configure( 
-            Configs.ElevatorConfig.elevatorConfig, 
+            Configs.ElevatorConfigs.elevatorConfig, 
             ResetMode.kResetSafeParameters, 
             PersistMode.kPersistParameters);
   

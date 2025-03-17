@@ -19,17 +19,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+// import edu.wpi.first.wpilibj2.command.RunCommand;
+// import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj.XboxController;
+// import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+// import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+// import edu.wpi.first.wpilibj.XboxController;
 
 
 // Subsystem Imports 
@@ -44,7 +44,7 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.systems.TargetingSystem;
 
 import frc.robot.systems.TargetingSystem.ReefBranchLevel;
-import frc.robot.systems.TargetingSystem.ReefSide;
+// import frc.robot.systems.TargetingSystem.ReefSide;
 import frc.robot.systems.ScoringSystem;
 
 
@@ -65,8 +65,8 @@ public class RobotContainer {
   final Joystick positioningBoard = new Joystick(1);
   final Joystick elevatorBoard = new Joystick(2);
   
-  final CommandXboxController opperatorXbox = new CommandXboxController(3);
-  final CommandXboxController opperatorXbox2 = new CommandXboxController(4);
+  // final CommandXboxController opperatorXbox = new CommandXboxController(3);
+  // final CommandXboxController opperatorXbox2 = new CommandXboxController(4);
 
   // The robot's subsystems are defined here
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -444,27 +444,27 @@ public class RobotContainer {
                                                         
   
 
-    //Operator 1 and 2 Xbox Controller Testing Buttons 
-    opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(0))); //Full down
-    opperatorXbox.b().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(27.75)).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)); //L2
-    opperatorXbox.x().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(43.625)));//L3
-    opperatorXbox.y().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(68.875)));//L4
+    // //Operator 1 and 2 Xbox Controller Testing Buttons 
+    // opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(0))); //Full down
+    // opperatorXbox.b().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(27.75)).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)); //L2
+    // opperatorXbox.x().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(43.625)));//L3
+    // opperatorXbox.y().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(68.875)));//L4
 
-    //Funnel intake height
-    opperatorXbox.leftBumper().onTrue(s_Elevator.setGoal(Units.inchesToMeters(17.375)));
+    // //Funnel intake height
+    // opperatorXbox.leftBumper().onTrue(s_Elevator.setGoal(Units.inchesToMeters(17.375)));
 
-    //CoralFunnel
-    opperatorXbox.rightBumper().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
+    // //CoralFunnel
+    // opperatorXbox.rightBumper().whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
   
-    //CoralPlacer 
-    opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
-    opperatorXbox.leftTrigger().onTrue(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1.5),
-                                                               new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))));
+    // //CoralPlacer 
+    // opperatorXbox.rightTrigger().whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
+    // opperatorXbox.leftTrigger().onTrue(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand().withTimeout(1.5),
+    //                                                            new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5)))));
     
-    //Algae claw height
-    opperatorXbox2.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(15.5))); //a1
-    opperatorXbox2.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(31))); //a2
-    opperatorXbox2.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(73.875))); //barge
+    // //Algae claw height
+    // opperatorXbox2.a().onTrue(s_Elevator.setGoal(Units.inchesToMeters(15.5))); //a1
+    // opperatorXbox2.b().onTrue(s_Elevator.setGoal(Units.inchesToMeters(31))); //a2
+    // opperatorXbox2.y().onTrue(s_Elevator.setGoal(Units.inchesToMeters(73.875))); //barge
     
   }
 

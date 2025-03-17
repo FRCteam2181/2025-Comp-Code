@@ -2,8 +2,9 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.AlgaeClawConstants.*;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+// import com.revrobotics.spark.config.SparkMaxConfig;
+// import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 
@@ -11,30 +12,31 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Configs;
 
 
 public class AlgaeClaw extends SubsystemBase {
-    SparkMax m_AlgaeClawTopWheel;
-    SparkMax m_AlgaeClawBottomWheel;
+  SparkMax m_AlgaeClawTopWheel;
+  SparkMax m_AlgaeClawBottomWheel;
 
-    SparkMaxConfig config;
-
-      LinearFilter currentFilter = LinearFilter.movingAverage(10);
+  LinearFilter currentFilter = LinearFilter.movingAverage(10);
   private double filteredCurrent;
 
-    public AlgaeClaw() {
-        m_AlgaeClawTopWheel = new SparkMax(k_AlgaeClawTopID, MotorType.kBrushless);
-        m_AlgaeClawBottomWheel = new SparkMax(k_AlgaeClawBottomID, MotorType.kBrushless);
+  public AlgaeClaw() {
+      m_AlgaeClawTopWheel = new SparkMax(k_AlgaeClawTopID, MotorType.kBrushless);
+      m_AlgaeClawBottomWheel = new SparkMax(k_AlgaeClawBottomID, MotorType.kBrushless);
 
-        config = new SparkMaxConfig();
+      m_AlgaeClawTopWheel.configure(
+        Configs.AlgaeClawConfigs.baseAlgaeClawConfig, 
+        ResetMode.kResetSafeParameters, 
+        PersistMode.kPersistParameters);
 
-        m_AlgaeClawTopWheel.configure(config.smartCurrentLimit(k_AlgaeClawVoltageLimit), null, null);
-        m_AlgaeClawBottomWheel.configure(config.smartCurrentLimit(k_AlgaeClawVoltageLimit), null, null);
+      m_AlgaeClawBottomWheel.configure(
+        Configs.AlgaeClawConfigs.baseAlgaeClawConfig, 
+        ResetMode.kResetSafeParameters, 
+        PersistMode.kPersistParameters);
 
-        m_AlgaeClawBottomWheel.configure(config.idleMode(IdleMode.kBrake), null, PersistMode.kPersistParameters);
-        m_AlgaeClawTopWheel.configure(config.idleMode(IdleMode.kBrake), null, PersistMode.kPersistParameters);
-
-    }
+  }
 
     public Command c_getAlgaeIntakeCommand() {
         return this.startEnd(

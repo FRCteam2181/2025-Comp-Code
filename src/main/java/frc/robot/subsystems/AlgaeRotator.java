@@ -26,11 +26,9 @@ public class AlgaeRotator extends SubsystemBase {
       
       
       m_AlgaeRotator.configure(
-            Configs.algaeRotatorConfig, 
+            Configs.AlgaeClawConfigs.algaeRotatorConfig, 
             ResetMode.kResetSafeParameters, 
             PersistMode.kPersistParameters);
-
-      seedRotatorMotorPosition();
     }
 
      /**

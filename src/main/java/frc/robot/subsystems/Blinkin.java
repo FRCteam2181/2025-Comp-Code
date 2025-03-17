@@ -1,17 +1,16 @@
-// package frc.robot.subsystems;
+package frc.robot.subsystems;
 
 // import edu.wpi.first.wpilibj.AddressableLED;
 // import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-// import edu.wpi.first.wpilibj.motorcontrol.Spark;
-// import edu.wpi.first.wpilibj2.command.Command;
-// import edu.wpi.first.wpilibj2.command.InstantCommand;
-// import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// import frc.robot.Constants.Colors;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.Colors;
 
-// public class Blinkin extends SubsystemBase {
-//     public static final Spark blinkin = new Spark(1);
-//     public static final Colors m_colors = new Colors();
-//     public static final AddressableLEDBuffer buffer = new AddressableLEDBuffer(10);
+public class Blinkin extends SubsystemBase {
+    public static final Spark blinkin = new Spark(0);
+    public static final Colors m_colors = new Colors();
     
     
     
@@ -62,5 +61,5 @@
 
 //     @Override
 //     public void periodic() {
-//     }
-// }
+    // }
+}

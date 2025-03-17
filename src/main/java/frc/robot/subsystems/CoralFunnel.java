@@ -5,12 +5,13 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkFlexConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+// import com.revrobotics.spark.config.SparkFlexConfig;
+// import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkFlex;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import static edu.wpi.first.units.Units.Degrees;
@@ -30,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.CoralFunnelConstants;
+import frc.robot.Configs;
 import frc.robot.Robot;
 
 
@@ -54,9 +56,6 @@ import frc.robot.Robot;
 public class CoralFunnel extends SubsystemBase {
   SparkFlex m_CoralFunnelWheel;
   SparkFlex m_FunnelRotator;
-  SparkFlexConfig config;
-
-
 
   private final TimeOfFlight coralSensor;
     private boolean scoreReady;
@@ -74,13 +73,15 @@ public class CoralFunnel extends SubsystemBase {
         m_CoralFunnelWheel = new SparkFlex(k_CoralFunnelWheelID, MotorType.kBrushless);
         m_FunnelRotator = new SparkFlex(k_CoralRotatorID, MotorType.kBrushless);
 
-        config = new SparkFlexConfig();
-
-        m_CoralFunnelWheel.configure(config.smartCurrentLimit(k_CoralFunnelVoltageLimit), null, null);
-        m_FunnelRotator.configure(config.smartCurrentLimit(k_CoralFunnelVoltageLimit), null, null);
-
-        m_CoralFunnelWheel.configure(config.idleMode(IdleMode.kBrake), null, PersistMode.kPersistParameters);
-        m_FunnelRotator.configure(config.idleMode(IdleMode.kBrake), null, PersistMode.kPersistParameters);
+        m_CoralFunnelWheel.configure(
+          Configs.CoralFunnelConfigs.coralIntakeConfig, 
+          ResetMode.kResetSafeParameters, 
+          PersistMode.kPersistParameters);
+          
+        m_FunnelRotator.configure(
+          Configs.CoralFunnelConfigs.funnelRotatorConfig, 
+          ResetMode.kResetSafeParameters, 
+          PersistMode.kPersistParameters);
 
 
       coralSensor = new TimeOfFlight(CoralFunnelConstants.coralSensorId);
