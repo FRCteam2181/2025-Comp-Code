@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.317190883,
-        "y": 0.715450138
+        "x": 1.365132472826087,
+        "y": 0.8029296874999988
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.213462185912994,
-        "y": 2.2112326324604203
+        "x": 3.404599486866796,
+        "y": 2.113171627189754
       },
       "isLocked": false,
       "linkedName": "Right Load Station"
     },
     {
       "anchor": {
-        "x": 3.910656642,
-        "y": 2.766203768
+        "x": 3.856946331521739,
+        "y": 2.4124745244565213
       },
       "prevControl": {
-        "x": 2.9285912994977066,
-        "y": 2.0547034594392777
+        "x": 2.916388132615718,
+        "y": 1.8270411388662429
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue Branch K"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.331370317,
-    "maxAcceleration": 2.6656851585,
+    "maxAcceleration": 2.331370317,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

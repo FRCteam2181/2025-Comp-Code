@@ -1,0 +1,87 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Inner Red Cage Start"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Pose Nearest Branch"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Score L4"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "22 - Right to Pickup"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Pose RightHP"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake from HP Station"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Pickup to 17 - Right"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Pose Nearest Branch"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score L4"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

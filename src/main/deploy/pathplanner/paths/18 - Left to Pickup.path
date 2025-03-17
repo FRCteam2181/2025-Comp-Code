@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.277275244531055,
-        "y": 2.564330796922743
+        "x": 2.418954435995344,
+        "y": 2.360183820113563
       },
       "isLocked": false,
       "linkedName": "Blue Branch B"
     },
     {
       "anchor": {
-        "x": 1.317190883,
-        "y": 0.715450138
+        "x": 2.2474014945652177,
+        "y": 1.4646314538043463
       },
       "prevControl": {
-        "x": 2.2670569634194466,
-        "y": 2.4852583755759934
+        "x": 2.9267695516309034,
+        "y": 3.347814535082998
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Right Load Station"
+      "linkedName": "Auto Align Right HP Station"
     }
   ],
   "rotationTargets": [],
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.331370317,
-    "maxAcceleration": 2.6656851585,
+    "maxAcceleration": 2.331370317,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.317190883,
-        "y": 0.715450138
+        "x": 1.365132472826087,
+        "y": 0.8029296874999988
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1310091247680765,
-        "y": 2.444685773527718
+        "x": 3.2683842321784846,
+        "y": 2.586974774715565
       },
       "isLocked": false,
       "linkedName": "Right Load Station"
     },
     {
       "anchor": {
-        "x": 3.626015032,
-        "y": 2.935113768
+        "x": 3.338315217391304,
+        "y": 2.6688094429347813
       },
       "prevControl": {
-        "x": 2.5269493057776757,
-        "y": 1.8559022593072547
+        "x": 2.085245517465779,
+        "y": 1.5340925673188388
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.331370317,
-    "maxAcceleration": 2.6656851585,
+    "maxAcceleration": 2.331370317,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

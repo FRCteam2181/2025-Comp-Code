@@ -190,7 +190,10 @@ public class RobotContainer {
                                                       .andThen(new WaitCommand(0.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(3)
                                                       .andThen(s_Elevator.setElevatoorZero()).withTimeout(5.5));
 
-    //NamedCommands.registerCommand("Intake from HP", );
+    NamedCommands.registerCommand("Intake from HP Station", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation).withTimeout(1)
+                                                                 .andThen(s_CoralFunnel.c_AutoCoralFunnelCommand())
+                                                                 );
+
 
     NamedCommands.registerCommand("Drive to Pose Nearest Branch", targetingSystem.autoTargetCommand(drivebase::getPose)
                                                                        .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral()));

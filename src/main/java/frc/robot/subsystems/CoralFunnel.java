@@ -60,8 +60,8 @@ public class CoralFunnel extends SubsystemBase {
   private final TimeOfFlight coralSensor;
     private boolean scoreReady;
     private Debouncer risingDebouncer;
-    private DoubleSupplier elevatorPosition;
-    private BooleanSupplier elevatorAtWantedPosition;
+    //private DoubleSupplier elevatorPosition;
+    //private BooleanSupplier elevatorAtWantedPosition;
 
 
   LinearFilter currentFilter = LinearFilter.movingAverage(10);
@@ -87,7 +87,7 @@ public class CoralFunnel extends SubsystemBase {
       coralSensor = new TimeOfFlight(CoralFunnelConstants.coralSensorId);
         scoreReady = false;
         //this.elevatorAtWantedPosition = elevatorAtWantedPosition;
-        this.elevatorPosition = elevatorPosition;
+        //this.elevatorPosition = elevatorPosition;
         risingDebouncer = new Debouncer(0.3, DebounceType.kRising);
 
         coralSensor.setRangingMode(RangingMode.Medium, 24);
