@@ -73,6 +73,8 @@ public class AlgaeClaw extends SubsystemBase {
             f_stop();
           });
   }
+
+  //TODO try this
 public Command c_AutoAlgaeIntakeCommand() {
 
         Debouncer debounce = new Debouncer(1, Debouncer.DebounceType.kRising);

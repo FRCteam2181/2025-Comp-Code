@@ -148,7 +148,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
     if (autoZero) {
      return setElevatorHeight(0);
     } else {
-      return setElevatorHeight(getHeightMeters());
+      return setElevatorHeight(getHeightMeters()); //TODO change this to have it set to HP intake height or some hover distance?
     }
   }
 
@@ -170,6 +170,33 @@ public class ElevatorSubsystemPID extends SubsystemBase
                                     .in(Rotations));
   
   }
+
+
+ /**
+   * Seed the elevator motor encoder with the sensed position from the LaserCAN which tells us the height of the
+   * elevator.
+   */
+  public void ReseedElevatorMotorPosition()
+  {
+      Measurement ReseedMeasurement = m_elevatorLaserCan.getMeasurement();
+      while (ReseedMeasurement == null)
+      {
+        ReseedMeasurement = m_elevatorLaserCan.getMeasurement();
+      }
+
+      elevatorEncoder.setPosition(Elevator.convertDistanceToRotations(Millimeters.of(
+                                        m_elevatorLaserCan.getMeasurement().distance_mm - ElevatorConstants.kLaserCANOffset.in(Millimeters)))
+                                    .in(Rotations));
+  
+  }
+
+  public Command ReseedElevator()
+  {
+    return runOnce(() -> ReseedElevatorMotorPosition());
+  }
+
+
+
 
   /**
    * Run control loop to reach and maintain goal.
@@ -245,6 +272,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
   public Command setElevatorHeight(double height)
   {
     return setGoal(height).until(() -> aroundHeight(height));
+    //return setGoal(height).until(() -> aroundHeight(height)).andThen(Hold()).alongWith(ReseedElevator()); //TODO try this
   }
 
 
@@ -256,6 +284,11 @@ public class ElevatorSubsystemPID extends SubsystemBase
     m_ElevatorLeft.set(0.0);
   }
 
+
+  public Command Hold()
+  {
+    return runOnce(() -> stop());
+  }
  
 
   @Override
@@ -268,6 +301,9 @@ public class ElevatorSubsystemPID extends SubsystemBase
                                (Millimeters.of(laserCanMeasurement.distance_mm).in(Meters)*3));
     }
       SmartDashboard.putNumber("Elevator Height (Meters)", getHeightMeters());
+      
+      
+
   }
 
   /**

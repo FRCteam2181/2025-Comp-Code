@@ -18,10 +18,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-//targetting system should be able to select either left or right side of the branch
-//then select what level we want
-// that go to the nearest side of the reef and load.
-
 
 public class TargetingSystem
 {

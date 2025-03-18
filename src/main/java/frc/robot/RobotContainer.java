@@ -18,11 +18,13 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 // import edu.wpi.first.wpilibj2.command.RunCommand;
 // import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -204,11 +206,68 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("Drive to Pose ProcessorHP", scoringSystem.scoreProcessor());
 
+    NamedCommands.registerCommand("Drive to Branch A", targetingSystem.manualTargetCommand(drivebase::getPose, 1)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Branch B", targetingSystem.manualTargetCommand(drivebase::getPose, 0)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Branch C", targetingSystem.manualTargetCommand(drivebase::getPose, 3)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Branch D", targetingSystem.manualTargetCommand(drivebase::getPose, 2)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+              
+    NamedCommands.registerCommand("Drive to Branch E", targetingSystem.manualTargetCommand(drivebase::getPose, 5)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+
+    NamedCommands.registerCommand("Drive to Branch F", targetingSystem.manualTargetCommand(drivebase::getPose, 4)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+    
+    NamedCommands.registerCommand("Drive to Branch G", targetingSystem.manualTargetCommand(drivebase::getPose, 7)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+     
+    NamedCommands.registerCommand("Drive to Branch H", targetingSystem.manualTargetCommand(drivebase::getPose, 6)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+       
+    NamedCommands.registerCommand("Drive to Branch I", targetingSystem.manualTargetCommand(drivebase::getPose, 9)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+    
+    NamedCommands.registerCommand("Drive to Branch J", targetingSystem.manualTargetCommand(drivebase::getPose, 8)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+              
+    NamedCommands.registerCommand("Drive to Branch K", targetingSystem.manualTargetCommand(drivebase::getPose, 11)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+    
+    NamedCommands.registerCommand("Drive to Branch L", targetingSystem.manualTargetCommand(drivebase::getPose, 10)
+                                                            .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+                                                            .andThen(scoringSystem.scoreCoral()));
+
+
+
+
+
+
+
+
 
     //Set the default auto and put the autoChoser on the SmartDashboard
     autoChooser = AutoBuilder.buildAutoChooser("Center 1 Piece L4");
     SmartDashboard.putData("Auto Chooser", autoChooser); 
  
+    //This should allow us to see what the active commands are
+    SmartDashboard.putData(CommandScheduler.getInstance()); //TODO see if this works
 
     // Configure the trigger bindings
     configureBindings();
@@ -448,8 +507,13 @@ public class RobotContainer {
   
 
     // //Operator 1 and 2 Xbox Controller Testing Buttons 
+
+    //TODO try these with the set to 0 speed command on the elevator and adjusting the allowable tolerance
     // opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(0))); //Full down
-    // opperatorXbox.b().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(27.75)).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)); //L2
+    // opperatorXbox.b().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2)
+    //                          .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+    //                          s_CoralPlacer.c_getCoralPlacerGenCommand()))
+    //                          .andThen(s_Elevator.setElevatoorZero())); //L2
     // opperatorXbox.x().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(43.625)));//L3
     // opperatorXbox.y().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(68.875)));//L4
 
