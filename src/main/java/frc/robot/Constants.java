@@ -99,14 +99,14 @@ public final class Constants
     public static final int k_CoralFunnelWheelID = 15;
     public static final int k_CoralRotatorID = 14;
     
-    public static final double k_CoralFunnelSpeed = -.20;
+    public static final double k_CoralFunnelSpeed = -.15;
     public static final double k_CoralFunnelSpeedext = -.80;
     public static final double k_FunnelRotateSpeed = 0.1;
     
     public static final int k_CoralFunnelVoltageLimit = 80;
 
     public static final int coralSensorId = 22;
-    public static final double coralDistanceThreshold = 100;//TODO Change
+    public static final double coralDistanceThreshold = 100;
 
 
 

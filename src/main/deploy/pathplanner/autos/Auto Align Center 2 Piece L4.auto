@@ -32,6 +32,30 @@
                     }
                   ]
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Pose RightHP"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake from HP Station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Branch L"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score L4"
+                }
               }
             ]
           }

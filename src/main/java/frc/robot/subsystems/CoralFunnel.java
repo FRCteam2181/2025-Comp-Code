@@ -88,7 +88,7 @@ public class CoralFunnel extends SubsystemBase {
         scoreReady = false;
         //this.elevatorAtWantedPosition = elevatorAtWantedPosition;
         //this.elevatorPosition = elevatorPosition;
-        risingDebouncer = new Debouncer(0.3, DebounceType.kRising);
+        risingDebouncer = new Debouncer(0.01, DebounceType.kRising);
 
         coralSensor.setRangingMode(RangingMode.Medium, 24);
 
@@ -119,7 +119,7 @@ public class CoralFunnel extends SubsystemBase {
     public Command loadCoral() {
       return Commands.run(() -> {
           f_setFunnelWheel(k_CoralFunnelSpeed);
-      }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(coralInSensor().negate()).finallyDo(() -> {
+      }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(coralInSensor()).finallyDo(() -> {
           scoreReady = true;
           f_stop();
       });
@@ -130,7 +130,7 @@ public class CoralFunnel extends SubsystemBase {
 public Command unloadCoral() {
   return Commands.run(() -> {
       f_setFunnelWheel(k_CoralFunnelSpeed);
-  }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(coralInSensor()).finallyDo(() -> {
+  }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(coralInSensor().negate()).finallyDo(() -> {
       scoreReady = false;
       f_stop();
   });

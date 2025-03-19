@@ -38,14 +38,18 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 //import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Configs;
 import frc.robot.RobotMath.Elevator;
-
+import frc.robot.Constants.CoralFunnelConstants;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Robot;
 
 
 
@@ -148,7 +152,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
     if (autoZero) {
      return setElevatorHeight(0);
     } else {
-      return setElevatorHeight(getHeightMeters()); //TODO change this to have it set to HP intake height or some hover distance?
+      return setElevatorHeight(ElevatorConstants.k_FeederStation); 
     }
   }
 
@@ -272,8 +276,34 @@ public class ElevatorSubsystemPID extends SubsystemBase
   public Command setElevatorHeight(double height)
   {
     return setGoal(height).until(() -> aroundHeight(height));
-    //return setGoal(height).until(() -> aroundHeight(height)).andThen(Hold()).alongWith(ReseedElevator()); //TODO try this
+
   }
+
+
+
+
+ /**
+   * Set the elevator goal and stop when it reaches its target.
+   *
+   * @param height Height in meters.
+   * @return Command which ends when the elevator is near the target height.
+   */
+  public Command setElevatorHeightUntil(double height)
+  {
+    
+    return Commands.run(() -> {
+          setGoal(height);
+      }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(() -> aroundHeight(height)).finallyDo(() -> {
+          
+          stop();
+      });
+
+  }
+
+
+
+
+
 
 
   /**
@@ -302,7 +332,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
     }
       SmartDashboard.putNumber("Elevator Height (Meters)", getHeightMeters());
       
-      
+     
 
   }
 
@@ -328,6 +358,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
   {
     return aroundHeight(height, Units.inchesToMeters(ElevatorConstants.kElevatorAllowableError));
   }
+
 
 
 }
