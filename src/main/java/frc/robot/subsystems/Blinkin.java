@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 // import edu.wpi.first.wpilibj.AddressableLED;
 // import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -9,57 +10,42 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Colors;
 
 public class Blinkin extends SubsystemBase {
-    public static final Spark blinkin = new Spark(0);
-    public static final Colors m_colors = new Colors();
+
+    public static Spark blinkin;
+    public static Colors.solidColors SOLID_COLORS = new Colors.solidColors();
+    public static Colors.fixedPalettePattern FIXED_PALETTE_PATTERN = new Colors.fixedPalettePattern();
+
+    public Blinkin(int channel) {
+        blinkin = new Spark(channel);
+        
+    }
     
-    
-    
 
-//     public static Command setBlack() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.black));
-//     }
+    public static Command setBlack() {
+        return new InstantCommand(() -> blinkin.set(SOLID_COLORS.black));
+    }
 
-//     public static Command setRed() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.red));
-//     }
+    public static Command setRedChase() {
+        return new InstantCommand(() -> blinkin.set(FIXED_PALETTE_PATTERN.chase_red));
+    }
 
-//     public static Command setHotPink() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.hotPink));
-//     }
+    public static Command setBlueChase() {
+        return new InstantCommand(() -> blinkin.set(FIXED_PALETTE_PATTERN.chase_blue)); 
+    }
 
-//     public static Command setPat1LarScan() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.pat1_larscan));
-//     }
+    public void setDefault() {
+        
+        var alliance = DriverStation.getAlliance();
+        
+        if (alliance.get() == DriverStation.Alliance.Red) {
+           setRedChase(); 
+        } else {
+           setBlueChase(); 
+        }
+    }
 
-//     public static Command setPat2LarScan() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.pat2_larScan));
-//     }
-
-//     public static Command setFixRain() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.fix_rain));
-//     }
-
-//     public static Command setBlue() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.blue));
-//     }
-
-//     public static Command setGreen() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.green));
-//     }
-
-// public static Command setOceanWaves() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.OceanWaves));
-//     }
-
-// public static Command setRedChase() {
-//         return new InstantCommand(() -> blinkin.set(m_colors.RedChase));
-//     }
-
-// public static Command setDefault(double Color) {
-//         return new InstantCommand(() -> blinkin.set(Color));
-// }
-
-//     @Override
-//     public void periodic() {
-    // }
+    @Override
+    public void periodic() {
+    }
 }
+

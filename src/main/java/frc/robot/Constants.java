@@ -126,42 +126,122 @@ public final class Constants
 
   public static class Colors {
     //Basic Blinkin patterns (section 5): https://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf
-
-    public double pat1_larscan = -0.01;
-    public double pat2_larScan = 0.19;
-    public double fix_rain = -0.99;
-    public double fix_rainParty = -0.97;
-    public double fix_ocean = -0.95;
-    public double fix_Lave = -0.93;
-    public double fix_forest = -0.91;
-    public double endToEndBlend = 0.47;
-    public double pat2_lightChase = 0.21;
-    public double pat2_shot = 0.33;
     
-    public double hotPink = 0.57;
-    public double darkRed = 0.59;
-    public double red = 0.61;
-    public double redOrange = 0.63;
-    public double orange = 0.65;
-    public double gold = 0.67;
-    public double yellow = 0.69;
-    public double lawnGreen = 0.71;
-    public double lime = 0.73;
-    public double darkGreen = 0.75;
-    public double green = 0.77;
-    public double blue_green = 0.79;
-    public double aqua = 0.81;
-    public double skyBlue = 0.83;
-    public double dark_blue = 0.85;
-    public double blue = 0.87;
-    public double blueViolet = 0.89;
-    public double purple = 0.91;
-    public double white = 0.93;
-    public double gray = 0.95;
-    public double dark_gray = 0.97;
-    public double black = 0.99;
-    public double OceanWaves = -0.41;
-    public double RedChase = -0.31;    
+    public static class fixedPalettePattern {
+      public double rainbow_rainbow = -0.99;
+      public double rainbow_party = -0.97;
+      public double rainbow_ocean = -0.95;
+      public double rainbow_lava = -0.93;
+      public double rainbow_forest = -0.91;
+      public double rainbow_glitter = -0.89;
+      public double confetti = -0.87;
+      public double shot_red = -0.85;
+      public double shot_blue = -0.83;
+      public double shot_white = -0.81;
+      public double sinelon_rainbow = -0.79;
+      public double sinelon_party = -0.77;
+      public double sinelon_ocean = -0.75;
+      public double sinelon_lava = -0.73;
+      public double sinelon_forest = -0.71;
+      public double bpm_rainbow = -0.69;
+      public double bpm_party = -0.67;  
+      public double bpm_ocean = -0.65;
+      public double bmp_lava = -0.63;
+      public double bpm_forest = -0.61;
+      public double fire_medium = -0.59;
+      public double fire_large = -0.57;  
+      public double twinkle_rainbow = -0.55;
+      public double twinkle_party = -0.53;
+      public double twinkle_ocean = -0.51;
+      public double twinkle_lava = -0.49;
+      public double twinkle_forest = -0.47;
+      public double waves_rainbow = -0.45;
+      public double waves_party = -0.43;
+      public double waves_ocean = -0.41;
+      public double waves_lava = -0.39;
+      public double waves_forest = -0.37;
+      public double larson_red = -0.35;
+      public double larson_gray = -0.33;
+      public double chase_red = -0.31;
+      public double chase_blue = -0.29;
+      public double chase_gray = -0.27;
+      public double heartbeat_red = -0.25;
+      public double heartbeat_blue = -0.23;
+      public double heartbeat_white = -0.21;
+      public double heartbeat_gray = -0.19;
+      public double breath_red = -0.17;  
+      public double breath_blue = -0.15;
+      public double breath_gray = -0.13;
+      public double strobe_red = -0.11;
+      public double strobe_blue = -0.09;
+      public double strobe_gold = -0.07;  
+      public double strobe_white = -0.05;
+    }
+
+    public static class color1Pattern {
+      public double black_blend = -0.03;
+      public double larson = -0.01;
+      public double chase = 0.01;
+      public double heartbeat_slow = 0.03;
+      public double heartbeat_medium = 0.05;
+      public double heartbeat_fast = 0.07;
+      public double breath_slow = 0.09;
+      public double breath_fast = 0.11;
+      public double shot = 0.13;
+      public double strobe = 0.15;
+    }
+
+    public static class color2Pattern {
+      public double blend_black = 0.17;
+      public double larson = 0.19;
+      public double chase = 0.21;
+      public double heartbeat_slow = 0.23;
+      public double heartbeat_medium = 0.25;
+      public double heartbeat_fast = 0.27;
+      public double breath_slow = 0.29;
+      public double breath_fast = 0.31;
+      public double shot = 0.33;
+      public double strobe = 0.35;
+    }
+
+    public static class color1and2Pattern {
+      public double sparkel_1on2 = 0.37;
+      public double sparkle_2on1 = 0.39;
+      public double gradient_1and2 = 0.41;
+      public double bmp_1and2 = 0.43;
+      public double bleed_1to2 = 0.45;
+      public double bleed_2to1 = 0.47;
+      public double noblend_1and2 = 0.49;
+      public double twinkles_1and2 = 0.51;
+      public double waves_1and2 = 0.53;
+      public double sinelon_1and2 = 0.55;
+    }
+
+    public static class solidColors {
+      public double hot_pink = 0.57;
+      public double dark_red = 0.59;
+      public double red = 0.61;
+      public double red_orange = 0.63;
+      public double orange = 0.65;
+      public double gold = 0.67;
+      public double yellow = 0.69;
+      public double lawn_green = 0.71;
+      public double lime = 0.73;
+      public double dark_green = 0.75;
+      public double green = 0.77;
+      public double blue_green = 0.79;
+      public double aqua = 0.81;
+      public double sky_blue = 0.83;
+      public double dark_blue = 0.85;
+      public double blue = 0.87;
+      public double blue_violet = 0.89;
+      public double violet = 0.91;
+      public double white = 0.93;
+      public double gray = 0.95;
+      public double dark_gray = 0.97;
+      public double black = 0.9;
+    }
+        
   }
 
 

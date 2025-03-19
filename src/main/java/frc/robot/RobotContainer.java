@@ -35,7 +35,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 
 // Subsystem Imports 
-// import frc.robot.subsystems.Blinkin;
+import frc.robot.subsystems.Blinkin;
 import frc.robot.subsystems.ElevatorSubsystemPID;
 import frc.robot.subsystems.CoralFunnel;
 import frc.robot.subsystems.CoralPlacer;
@@ -66,6 +66,7 @@ public class RobotContainer {
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final Joystick positioningBoard = new Joystick(1);
   final Joystick elevatorBoard = new Joystick(2);
+  final Blinkin funnelBlinkin = new Blinkin(0);
   
   // final CommandXboxController opperatorXbox = new CommandXboxController(3);
   // final CommandXboxController opperatorXbox2 = new CommandXboxController(4);
@@ -193,9 +194,9 @@ public class RobotContainer {
                                                       .andThen(s_Elevator.setElevatoorZero()).withTimeout(5.5));
 
     NamedCommands.registerCommand("Intake from HP Station", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation).withTimeout(1)
-                                                                 .andThen(s_CoralFunnel.c_AutoCoralFunnelCommand())
-                                                                 );
-
+                  .andThen(s_CoralFunnel.c_AutoCoralFunnelCommand())
+                  );
+    
 
     NamedCommands.registerCommand("Drive to Pose Nearest Branch", targetingSystem.autoTargetCommand(drivebase::getPose)
                                                                        .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral()));
@@ -264,14 +265,16 @@ public class RobotContainer {
 
     //Set the default auto and put the autoChoser on the SmartDashboard
     autoChooser = AutoBuilder.buildAutoChooser("Center 1 Piece L4");
-    SmartDashboard.putData("Auto Chooser", autoChooser); 
- 
-    //This should allow us to see what the active commands are
-    SmartDashboard.putData(CommandScheduler.getInstance()); //TODO see if this works
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
+  //This should allow us to see what the active commands are
+  SmartDashboard.putData(CommandScheduler.getInstance()); //TODO see if this works
 
     // Configure the trigger bindings
     configureBindings();
 
+    //Set the defult LED patterns
+    funnelBlinkin.setDefault();
   }
 
   /**
@@ -503,17 +506,19 @@ public class RobotContainer {
     //Disable auto zero
     Trigger AZStop = new Trigger(() -> positioningBoard.getY() > 0.5);
     AZStop.onTrue(s_Elevator.autoZeroSwitchCommand());
+
                                                         
-  
 
     // //Operator 1 and 2 Xbox Controller Testing Buttons 
-
+    
     //TODO try these with the set to 0 speed command on the elevator and adjusting the allowable tolerance
     // opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(0))); //Full down
-    // opperatorXbox.b().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2)
+ // opperatorXbox.b().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2)
     //                          .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
     //                          s_CoralPlacer.c_getCoralPlacerGenCommand()))
     //                          .andThen(s_Elevator.setElevatoorZero())); //L2
+    // opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(0))); //Full down
+    // opperatorXbox.b().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(27.75)).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)); //L2
     // opperatorXbox.x().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(43.625)));//L3
     // opperatorXbox.y().onTrue(s_Elevator.setElevatorHeight(Units.inchesToMeters(68.875)));//L4
 
