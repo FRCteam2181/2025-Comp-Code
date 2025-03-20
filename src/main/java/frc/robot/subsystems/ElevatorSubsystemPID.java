@@ -292,7 +292,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
   {
     
     return Commands.run(() -> {
-          setGoal(height);
+          reachGoal(height);
       }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(() -> aroundHeight(height)).finallyDo(() -> {
           
           stop();

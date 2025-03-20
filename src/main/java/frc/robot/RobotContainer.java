@@ -431,8 +431,8 @@ public class RobotContainer {
     coralReverseIntakeButton.whileTrue(s_CoralFunnel.c_getFunnelWheelCommandback());
 
     //Run coral funnel intake wheels
-    Trigger coralIntakeButtomn = new Trigger(() -> elevatorBoard.getX() < -0.5);
-    coralIntakeButtomn.whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
+    JoystickButton coralIntakeButton = new JoystickButton(elevatorBoard, 12);
+    coralIntakeButton.whileTrue(s_CoralFunnel.c_getFunnelWheelCommand());
                     //alongWith(s_CoralPlacer.c_getCoralPlacerReverseCommand())
 
 
@@ -499,8 +499,8 @@ public class RobotContainer {
     ZeroButton.onTrue(s_Elevator.setElevatorHeight(0));
 
     //Shoot Out Coral
-    JoystickButton ShootCoralButton = new JoystickButton(elevatorBoard, 12);
-    ShootCoralButton.onTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
+    Trigger ShootCoralButton = new Trigger(() -> elevatorBoard.getX() < -0.5);
+    ShootCoralButton.whileTrue(s_CoralPlacer.c_getCoralPlacerGenCommand());
 
     //Disable auto zero
     Trigger AZStop = new Trigger(() -> positioningBoard.getY() > 0.5);

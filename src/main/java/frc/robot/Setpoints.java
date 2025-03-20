@@ -86,7 +86,7 @@ public class Setpoints
 
         public static final Transform2d offset = new Transform2d(Inches.of(18.5).in(Meters),
                                                                  Inches.of(0).in(Meters),
-                                                                 Rotation2d.fromDegrees(180));
+                                                                 Rotation2d.fromDegrees(0));
       }
 
       public static class Right
@@ -94,7 +94,7 @@ public class Setpoints
 
         public static final Transform2d offset = new Transform2d(Inches.of(18.5).in(Meters),
                                                                  Inches.of(0).in(Meters),
-                                                                 Rotation2d.fromDegrees(180));
+                                                                 Rotation2d.fromDegrees(0));
       }
     }
   }
