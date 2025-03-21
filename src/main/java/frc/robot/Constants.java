@@ -221,6 +221,9 @@ public final class Constants
         public static final double k_A1 = Units.inchesToMeters(15.5);
         public static final double k_A2 = Units.inchesToMeters(31);
         public static final double k_Net = Units.inchesToMeters(73.875);
+        public static final double k_L4BumpUP = Units.inchesToMeters(73.5);
+
+
         
         public static final int k_ElevatorLeftID = 17;
         public static final int k_ElevatorRightID = 16;

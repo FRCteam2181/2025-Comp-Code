@@ -33,10 +33,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Configs;
 import frc.robot.RobotMath.Elevator;
+import frc.robot.Setpoints;
 import frc.robot.Constants.ElevatorConstants;
 
 
@@ -323,6 +326,93 @@ public class ElevatorSubsystemPID extends SubsystemBase
      
 
   }
+
+
+
+
+
+ //Algae Auto Ground Intake Command 
+ public Trigger aroundAlgaeGroundIntake()
+ {
+   return new Trigger(() -> aroundHeight(0));
+ }  
+ 
+
+    //Algae Auto Dunk Command
+    public Trigger aroundAlgaeBarge()
+    {
+      return new Trigger(() -> aroundHeight(ElevatorConstants.k_Net));
+    }
+    
+
+    //Algae retrival from A2
+    public Trigger aroundAlgaeA2()
+    {
+      return new Trigger(() -> aroundHeight(ElevatorConstants.k_A2));
+    }                                          
+    
+
+    //Algae retrival from A1
+
+    public Trigger aroundAlgaeA1()
+    {
+      return new Trigger(() -> aroundHeight(ElevatorConstants.k_A1));
+    }
+    
+
+    //Algae Auto Processor Command 
+
+    public Trigger aroundAlgaePROCESSOR()
+    {
+      return new Trigger(() -> aroundHeight(0));
+    }
+    
+
+        
+    //Set Elevator to intake height for coral funnel
+    public Trigger aroundFeederStation()
+    {
+      return new Trigger(() -> aroundHeight(ElevatorConstants.k_FeederStation));
+    }
+    
+
+    //L4 Auto Score
+    public Trigger aroundCoralL4()
+    {
+      return new Trigger(() -> aroundHeight(ElevatorConstants.k_L4));
+    }
+    
+
+    //L3 Auto Score
+    public Trigger aroundCoralL3()
+    {
+      return new Trigger(() -> aroundHeight(ElevatorConstants.k_L3));
+    }
+    
+
+    //L2 Auto Score
+    public Trigger aroundCoralL2()
+    {
+      return new Trigger(() -> aroundHeight(ElevatorConstants.k_L2));
+    }
+    
+
+    //Manually return Elevator to 0 
+    public Trigger aroundElevatorZero()
+    {
+      return new Trigger(() -> aroundHeight(0));
+    }           
+  
+
+    //Bump up height
+    public Trigger aroundL4BumpUp()
+    {
+      return new Trigger(() -> aroundHeight(ElevatorConstants.k_L4BumpUP));
+    }           
+  
+
+
+
 
   /**
    * Gets the height of the elevator and compares it to the given height with the given tolerance.
