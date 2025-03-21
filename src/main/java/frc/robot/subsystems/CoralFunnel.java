@@ -1,9 +1,6 @@
 package frc.robot.subsystems;
 import static frc.robot.Constants.CoralFunnelConstants.*;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
-
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 // import com.revrobotics.spark.config.SparkFlexConfig;
 // import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -12,12 +9,6 @@ import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.playingwithfusion.TimeOfFlight;
-import com.playingwithfusion.TimeOfFlight.RangingMode;
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.Inches;
-import static edu.wpi.first.units.Units.Meters;
-import static edu.wpi.first.units.Units.MetersPerSecond;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,9 +18,6 @@ import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.CoralFunnelConstants;
 import frc.robot.Configs;
 import frc.robot.Robot;
@@ -37,21 +25,6 @@ import frc.robot.Robot;
 
 
 import edu.wpi.first.math.filter.Debouncer;
-import edu.wpi.first.math.filter.Debouncer.DebounceType;
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
-import edu.wpi.first.math.filter.Debouncer;
-import edu.wpi.first.math.filter.Debouncer.DebounceType;
-import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.CoralFunnelConstants;
-import frc.robot.Robot;
-
-
 
 public class CoralFunnel extends SubsystemBase {
   SparkFlex m_CoralFunnelWheel;
@@ -60,8 +33,6 @@ public class CoralFunnel extends SubsystemBase {
   private final TimeOfFlight coralSensor;
     private boolean scoreReady;
     private Debouncer risingDebouncer;
-    //private DoubleSupplier elevatorPosition;
-    //private BooleanSupplier elevatorAtWantedPosition;
 
 
   LinearFilter currentFilter = LinearFilter.movingAverage(10);
@@ -86,8 +57,6 @@ public class CoralFunnel extends SubsystemBase {
 
       coralSensor = new TimeOfFlight(CoralFunnelConstants.coralSensorId);
         scoreReady = false;
-        //this.elevatorAtWantedPosition = elevatorAtWantedPosition;
-        //this.elevatorPosition = elevatorPosition;
         risingDebouncer = new Debouncer(0.01, DebounceType.kRising);
 
         coralSensor.setRangingMode(RangingMode.Medium, 24);

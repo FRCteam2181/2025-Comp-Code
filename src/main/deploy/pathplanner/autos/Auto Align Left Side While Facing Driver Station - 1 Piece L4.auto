@@ -17,31 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Drive to Branch J"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Score L4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Drive to Pose RightHP"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake from HP Station"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Drive to Branch K"
+                  "name": "Drive to Pose Nearest Branch"
                 }
               },
               {

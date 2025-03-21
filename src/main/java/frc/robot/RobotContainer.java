@@ -7,9 +7,13 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import au.grapplerobotics.CanBridge;
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Meter;
+
+//import au.grapplerobotics.CanBridge;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -46,6 +50,8 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.systems.TargetingSystem;
 
 import frc.robot.systems.TargetingSystem.ReefBranchLevel;
+import frc.robot.systems.field.AllianceFlipUtil;
+import frc.robot.systems.field.FieldConstants.CoralStation;
 // import frc.robot.systems.TargetingSystem.ReefSide;
 import frc.robot.systems.ScoringSystem;
 
@@ -286,13 +292,13 @@ public class RobotContainer {
   private void configureBindings()
   {
     //All of this is different driving options that are default supported by YAGSL
-    Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
+    //Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
-    Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveRobotOriented);
-    Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
+    //Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveRobotOriented);
+    //Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
     Command driveFieldOrientedDirectAngleKeyboard = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
-    Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
-    Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleKeyboard);
+    //Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
+    //Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleKeyboard);
 
     if (RobotBase.isSimulation())
     {
@@ -548,6 +554,55 @@ public class RobotContainer {
   {
     return autoChooser.getSelected();
   }
+
+
+  public Command driveToSetPoint(double x, double y, double angle)
+  {
+    return drivebase.driveToPose(
+        new Pose2d(new Translation2d
+                       (Meter.of(x),
+                        Meter.of(y)),
+                   Rotation2d.fromDegrees(angle)));
+  }
+
+
+
+public Command driveToHumanPlayer1()
+  {
+    if (AllianceFlipUtil.shouldFlip())
+    {
+      return drivebase.driveToPose(AllianceFlipUtil.flip(CoralStation.leftCenterFace));
+    } else
+    {
+      return drivebase.driveToPose((CoralStation.leftCenterFace));
+    }
+  }
+
+  public Command driveToHumanPlayer2()
+  {
+    if (AllianceFlipUtil.shouldFlip())
+    {
+      return drivebase.driveToPose(AllianceFlipUtil.flip(CoralStation.rightCenterFace));
+    } else
+    {
+      return drivebase.driveToPose((CoralStation.rightCenterFace));
+    }
+  }
+
+  public Command driveToProcessor()
+  {
+    return drivebase.driveToPose(
+        new Pose2d(new Translation2d
+                       (Meter.of(11.5),
+                        Meter.of(7.5)),
+                   Rotation2d.fromDegrees(90)));
+  }
+
+
+
+
+
+
 
   public void setMotorBrake(boolean brake)
   {

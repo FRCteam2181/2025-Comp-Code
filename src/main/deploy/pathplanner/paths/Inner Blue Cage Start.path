@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.117810572530212,
-        "y": 5.2562780077501845
+        "x": 6.444140625,
+        "y": 5.440803328804347
       },
       "isLocked": false,
       "linkedName": "Blue Inner Cage Start"
     },
     {
       "anchor": {
-        "x": 6.0,
-        "y": 5.25
+        "x": 5.740709918478261,
+        "y": 5.79847995923913
       },
       "prevControl": {
-        "x": 6.737166114676215,
-        "y": 5.042866126149214
+        "x": 6.426256793478261,
+        "y": 5.476570991847825
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -130.0
+    "rotation": -121.94997144633318
   },
   "reversed": false,
-  "folder": "Blue Branch Positions",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

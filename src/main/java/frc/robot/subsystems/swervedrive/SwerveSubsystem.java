@@ -4,7 +4,11 @@
 
 package frc.robot.subsystems.swervedrive;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Meter;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Second;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -19,7 +23,6 @@ import com.pathplanner.lib.util.swerve.SwerveSetpoint;
 import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
-//import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -27,15 +30,16 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-//import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+import frc.robot.AlignmentConstants.DriveToPose;
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
+import frc.robot.systems.field.AllianceFlipUtil;
 import frc.robot.systems.field.FieldConstants.CoralStation;
 
 import java.io.File;
@@ -282,23 +286,9 @@ public class SwerveSubsystem extends SubsystemBase
 
   public Command driveToPose(Supplier<Pose2d> pose)
   {
-    return defer(() -> {
-// Create the constraints to use while pathfinding
-      PathConstraints constraints = new PathConstraints(
-          swerveDrive.getMaximumChassisVelocity(), 2.665,
-          swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
-
-// Since AutoBuilder is configured, we can use it to build pathfinding commands
-      return AutoBuilder.pathfindToPose(
-          pose.get(),
-          constraints,
-          edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
-                                       );
-    });
+    double tooCloseMeters = 0.5; // If the bot is too close by this much it needs to drive back a little bit.
+    return defer(() -> driveToPose(pose.get()));
   }
-
-
-
 
 
   /**
@@ -311,9 +301,8 @@ public class SwerveSubsystem extends SubsystemBase
   {
 // Create the constraints to use while pathfinding
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 2.665,
-        swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
-
+        DriveToPose.maximumVelocityMetersPerSecond, DriveToPose.maximumAccelerationMetersPerSecondSquared,
+        Degrees.of(DriveToPose.maximumAngularVelocityDegreesPerSecond).per(Second).in(RadiansPerSecond), Units.degreesToRadians(DriveToPose.maximumAngularAccelerationDegreesPerSecondSquared));
 // Since AutoBuilder is configured, we can use it to build pathfinding commands
     return AutoBuilder.pathfindToPose(
         pose,
@@ -779,14 +768,18 @@ public class SwerveSubsystem extends SubsystemBase
 
 
 
-  public Command driveToLeftHP()
+ public Command driveToLeftHP()
   {
     return defer(() -> {
       Pose2d startingPose = CoralStation.leftCenterFace;
       SmartDashboard.putString("Station Targetted Pose without Offset (Meters)", startingPose.toString());
       Pose2d scorePose = startingPose.plus(Left.offset);
       SmartDashboard.putString("Station Targetted Pose with Offset (Meters)", scorePose.toString());
-      return driveToPose(scorePose);
+      return Commands.either(driveToPose(AllianceFlipUtil.flip(scorePose)),
+                             driveToPose(scorePose),
+                             () -> DriverStation.getAlliance().isPresent() &&
+                                   DriverStation.getAlliance().get() == Alliance.Red);
+
     });
   }
 
@@ -797,7 +790,11 @@ public class SwerveSubsystem extends SubsystemBase
       SmartDashboard.putString("Station Targetted Pose without Offset (Meters)", startingPose.toString());
       Pose2d scorePose = startingPose.plus(Setpoints.AutoScoring.HumanPlayer.Right.offset);
       SmartDashboard.putString("Station Targetted Pose with Offset (Meters)", scorePose.toString());
-      return driveToPose(scorePose);
+      return Commands.either(driveToPose(AllianceFlipUtil.flip(scorePose)),
+                             driveToPose(scorePose),
+                             () -> DriverStation.getAlliance().isPresent() &&
+                                   DriverStation.getAlliance().get() == Alliance.Red);
+
     });
   }
 
@@ -808,10 +805,13 @@ public class SwerveSubsystem extends SubsystemBase
       SmartDashboard.putString("Processor Targetted Pose without Offset (Meters)", startingPose.toString());
       Pose2d scorePose = startingPose.plus(AutoScoring.Processor.offset);
       SmartDashboard.putString("Processor Targetted Pose with Offset (Meters)", scorePose.toString());
-      return driveToPose(scorePose);
+      return Commands.either(driveToPose(AllianceFlipUtil.flip(scorePose)),
+                             driveToPose(scorePose),
+                             () -> DriverStation.getAlliance().isPresent() &&
+                                   DriverStation.getAlliance().get() == Alliance.Red);
+
     });
   }
-
 
 
 

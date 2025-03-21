@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.1327480549845195,
-        "y": 2.3160753675643644
+        "x": 6.46202445652174,
+        "y": 2.6151579483695637
       },
       "isLocked": false,
       "linkedName": "Red Inner Cage Start"
@@ -20,8 +20,8 @@
         "y": 2.206892123287671
       },
       "prevControl": {
-        "x": 6.764292964222531,
-        "y": 2.8374488874754604
+        "x": 6.348760190217392,
+        "y": 2.537661345108695
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 130.0
   },
   "reversed": false,
-  "folder": "Blue Branch Positions",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
