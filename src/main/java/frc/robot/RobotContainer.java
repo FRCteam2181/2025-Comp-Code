@@ -171,15 +171,15 @@ public class RobotContainer {
                                                    .andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5))))).withTimeout(2.7)
                                                    .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)).withTimeout(4));
 
-//TODO Part 3. Testing Command
-// NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4)
-//                                                    .until(s_Elevator.aroundCoralL4())
-//                                                    .andThen(new ParallelDeadlineGroup(new WaitCommand(.6)
-//                                                                                      .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4BumpUP))
-//                                                                                      .until(s_Elevator.aroundL4BumpUp()).andThen(new WaitCommand(.1)),
-//                                                    s_CoralPlacer.c_getCoralPlacerGenCommand()))
-//                                                    .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
-//                                                    .until(s_Elevator.aroundFeederStation())));
+    NamedCommands.registerCommand("Auto Score L4 then Go to Right HP", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(1.7)
+                                                                            .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral()
+                                                                            .andThen(new WaitCommand(1)),
+                                                                                      s_CoralPlacer.c_getCoralPlacerGenCommand(),
+                                                                                      new WaitCommand(.6).andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4BumpUP)))
+                                                                                         .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
+                                                                                                         s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation),
+                                                                                                         scoringSystem.collectRightHP()
+                                                                                                         ))));
 
                                                    
     NamedCommands.registerCommand("Score L3", new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
