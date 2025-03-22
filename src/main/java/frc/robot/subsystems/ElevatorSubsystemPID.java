@@ -204,8 +204,8 @@ public class ElevatorSubsystemPID extends SubsystemBase
         m_controller.calculate(getHeightMeters(), goal) +
         m_feedforward.calculateWithVelocities(getVelocityMetersPerSecond(),
                                               m_controller.getSetpoint().velocity),
-        -7,
-        7); // 7 is the max voltage to send out.
+        -8,
+        8); // 7 is the max voltage to send out.
         m_ElevatorLeft.setVoltage(voltsOut);
   }
 
@@ -266,10 +266,17 @@ public class ElevatorSubsystemPID extends SubsystemBase
    */
   public Command setElevatorHeight(double height)
   {
+    
     return setGoal(height).until(() -> aroundHeight(height));
 
+  //   return Commands.run(() -> {
+  //     setGoal(height);
+  // }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundFeederStation().negate()).finallyDo(() -> {
+      
+  //     stop();
+  // });
+    
   }
-
 
 
 
