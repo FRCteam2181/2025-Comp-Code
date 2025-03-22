@@ -570,6 +570,10 @@ public class RobotContainer {
                     new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5))))).withTimeout(2.5)
                     .andThen(s_Elevator.setElevatoorZero()));
 
+                    
+                     
+
+
     //TODO Part 2. Testing Command
     // L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4)
     //                 .until(s_Elevator.aroundCoralL4())
@@ -630,10 +634,24 @@ public class RobotContainer {
     //Operator 1 and 2 Xbox Controller Testing Buttons 
 
     //TODO Item 1. Try this 
-    opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
-                             .andThen(s_CoralFunnel.loadCoral())
-                                            );
+    // opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
+    //                          .andThen(s_CoralFunnel.loadCoral())
+    //                                         );
     
+
+      opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(1.7)
+                    .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral().andThen(new WaitCommand(1)),
+                                                       s_CoralPlacer.c_getCoralPlacerGenCommand(),
+                                                      new WaitCommand(.6).andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4BumpUP)))
+                                                          .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
+                                                                          s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation),
+                                                                          scoringSystem.collectRightHP()
+                                                                          ))));
+                    
+
+
+
+
     // opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation).withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
     //                          .until(s_Elevator.aroundFeederStation()).andThen(s_CoralFunnel.loadCoral())
     //                                         );
