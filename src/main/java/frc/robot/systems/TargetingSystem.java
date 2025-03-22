@@ -2,6 +2,7 @@ package frc.robot.systems;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -220,34 +221,39 @@ public class TargetingSystem
       targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
       return selectedTargetPose;
 
-    // //else {
-      
-    // if (targetReefSide == ReefSide.Right)
-    // {
+  }
 
-    //   Pose2d selectedTargetPose = allianceRelativeReefBranches.get(RightFaceValue);
-    //   targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
-    //   return selectedTargetPose;
-    // }
 
-    // else 
-    // {
-      
-      
-    //   Pose2d selectedTargetPose = allianceRelativeReefBranches.get(CenterFaceValue);
-    //   targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
-    //   return selectedTargetPose;
+  public Command inAutoTargetCommand(Supplier<Pose2d> currentPose, Integer RedReefBranch, Integer BlueReefBranch)
+  {
+    return Commands.runOnce(() ->
+                                inAutoTarget(currentPose, RedReefBranch, BlueReefBranch)).andThen(Commands.print("Manual-targetting complete"));
+  }
+
+
+  public Pose2d inAutoTarget(Supplier<Pose2d> currentPose, Integer RedReefBranch, Integer BlueReefBranch)
+  {
+    if (reefBranches == null)
+    {
+      initializeBranchPoses();
+    }
     
+    var alliance = DriverStation.getAlliance();
+            if (alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red)
+            {
+              Pose2d selectedTargetPose = allianceRelativeReefBranches.get(RedReefBranch);
+              targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
+              return selectedTargetPose;
+            }
+            else {
+
+              Pose2d selectedTargetPose = allianceRelativeReefBranches.get(BlueReefBranch);
+              targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
+              return selectedTargetPose;
+            }
+
       
-  
 
-
-
-    // }
-    // )
-    // Pose2d selectedTargetPose = allianceRelativeReefBranches.get(FaceValue);
-    // targetBranch = reefPoseToBranchMap.get(selectedTargetPose);
-    // return selectedTargetPose;
   }
 
 
@@ -256,9 +262,6 @@ public class TargetingSystem
     return Commands.runOnce(() ->
                                 manualTarget(currentPose, ReefBranch)).andThen(Commands.print("Manual-targetting complete"));
   }
-
-
-
 
 
 
@@ -298,7 +301,16 @@ public class TargetingSystem
   }
 
 
-
+ /**
+   * Checks if the alliance is red, defaults to false if alliance isn't available.
+   *
+   * @return true if the red alliance, false if blue. Defaults to false if none is available.
+   */
+  private boolean isRedAlliance()
+  {
+    var alliance = DriverStation.getAlliance();
+    return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
+  }
 
 
 }

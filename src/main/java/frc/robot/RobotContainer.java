@@ -7,15 +7,14 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Meter;
 
-//import au.grapplerobotics.CanBridge;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -28,7 +27,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 // import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -52,7 +52,6 @@ import frc.robot.systems.TargetingSystem;
 import frc.robot.systems.TargetingSystem.ReefBranchLevel;
 import frc.robot.systems.field.AllianceFlipUtil;
 import frc.robot.systems.field.FieldConstants.CoralStation;
-// import frc.robot.systems.TargetingSystem.ReefSide;
 import frc.robot.systems.ScoringSystem;
 
 
@@ -291,6 +290,55 @@ public class RobotContainer {
 
 
 
+//Attempt at compensating for Red/Blue flip
+
+    // NamedCommands.registerCommand("Drive to Branch A", targetingSystem.inAutoTargetCommand(drivebase::getPose, 1, 0)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+
+    // NamedCommands.registerCommand("Drive to Branch B", targetingSystem.inAutoTargetCommand(drivebase::getPose, 0, 1)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+
+    // NamedCommands.registerCommand("Drive to Branch C", targetingSystem.inAutoTargetCommand(drivebase::getPose, 11, 3)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+
+    // NamedCommands.registerCommand("Drive to Branch D", targetingSystem.inAutoTargetCommand(drivebase::getPose, 10, 2)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+              
+    // NamedCommands.registerCommand("Drive to Branch E", targetingSystem.inAutoTargetCommand(drivebase::getPose, 9, 5)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+
+    // NamedCommands.registerCommand("Drive to Branch F", targetingSystem.inAutoTargetCommand(drivebase::getPose, 8, 4)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+    
+    // NamedCommands.registerCommand("Drive to Branch G", targetingSystem.inAutoTargetCommand(drivebase::getPose, 7, 7)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+     
+    // NamedCommands.registerCommand("Drive to Branch H", targetingSystem.inAutoTargetCommand(drivebase::getPose, 6, 6)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+       
+    // NamedCommands.registerCommand("Drive to Branch I", targetingSystem.inAutoTargetCommand(drivebase::getPose, 5, 9)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+    
+    // NamedCommands.registerCommand("Drive to Branch J", targetingSystem.inAutoTargetCommand(drivebase::getPose, 4, 8)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+              
+    // NamedCommands.registerCommand("Drive to Branch K", targetingSystem.inAutoTargetCommand(drivebase::getPose, 3, 11)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));
+    
+    // NamedCommands.registerCommand("Drive to Branch L", targetingSystem.inAutoTargetCommand(drivebase::getPose, 2, 10)
+    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                         .andThen(scoringSystem.scoreCoral()));                                                        
 
 
 
@@ -660,11 +708,6 @@ public Command driveToHumanPlayer1()
                         Meter.of(7.5)),
                    Rotation2d.fromDegrees(90)));
   }
-
-
-
-
-
 
 
   public void setMotorBrake(boolean brake)

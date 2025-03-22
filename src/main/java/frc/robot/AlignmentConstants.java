@@ -10,8 +10,8 @@ public class AlignmentConstants
     public static final boolean enableDriveFeedFords = true;
 
     public static final PIDConstants translationPID = new PIDConstants(5.0,0,0);
-    public static final double maximumVelocityMetersPerSecond = 1.75; //
-    public static final double maximumAccelerationMetersPerSecondSquared = 1.5;//
+    public static final double maximumVelocityMetersPerSecond = 2;
+    public static final double maximumAccelerationMetersPerSecondSquared = 2;
 
     public static final PIDConstants rotationPID = new PIDConstants(5.0,0,0);
     public static final double maximumAngularVelocityDegreesPerSecond = 90;

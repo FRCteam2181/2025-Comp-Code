@@ -84,7 +84,7 @@ public class CoralFunnel extends SubsystemBase {
         return new Trigger(() -> scoreReady || Robot.isSimulation());
     }
 
-//TODO try this
+
     public Command loadCoral() {
       return Commands.run(() -> {
           f_setFunnelWheel(k_CoralFunnelSpeed);
@@ -95,7 +95,6 @@ public class CoralFunnel extends SubsystemBase {
   }
 
 
-//TODO try this
 public Command unloadCoral() {
   return Commands.run(() -> {
       f_setFunnelWheel(k_CoralFunnelSpeed);
