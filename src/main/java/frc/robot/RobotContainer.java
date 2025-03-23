@@ -172,44 +172,28 @@ public class RobotContainer {
                                                    s_CoralPlacer.c_getCoralPlacerGenCommand()))
                                                    .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
 
-    NamedCommands.registerCommand("Auto Score L4 then Go to Right HP", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(1.7)
-                                                                            .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral()
-                                                                            .andThen(new WaitCommand(1)),
-                                                                                      s_CoralPlacer.c_getCoralPlacerGenCommand(),
-                                                                                      new WaitCommand(.6).andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4BumpUP)))
-                                                                                         .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
-                                                                                                         s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation),
-                                                                                                         scoringSystem.collectRightHP()
-                                                                                                         ))));
-
+    NamedCommands.registerCommand("Auto Score L4 then Go to Right HP", s_Elevator.setElevatorHeightUntilL4(Constants.ElevatorConstants.k_L4)
+                                                   .andThen(new ParallelDeadlineGroup(new WaitCommand(.6)
+                                                                                     .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
+                                                                                    .andThen(new WaitCommand(.1)),
+                                                   s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
+                                                                                      s_Elevator.setElevatorUntilHeightZero(0)
+                                                                                          .andThen(s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)),
+                                                                                      scoringSystem.collectRightHP())));
                                                    
-    NamedCommands.registerCommand("Score L3", new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
-                                                   new WaitCommand(1.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)).withTimeout(2.6)
-                                                   .andThen(s_Elevator.setElevatoorZero()));
+    NamedCommands.registerCommand("Score L3", s_Elevator.setElevatorHeightUntilL3(Constants.ElevatorConstants.k_L3)
+                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+                                                   s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
 
-//TODO Part 3. Testing Command
-// NamedCommands.registerCommand("Score L3", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3)
-//                                               .until(s_Elevator.aroundCoralL3())
-//                                               .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
-//                                               s_CoralPlacer.c_getCoralPlacerGenCommand()))
-//                                               .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
-//                                               .until(s_Elevator.aroundFeederStation())));
+    NamedCommands.registerCommand("Score L2", s_Elevator.setElevatorHeightUntilL2(Constants.ElevatorConstants.k_L2)
+                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+                                                   s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
 
 
-    NamedCommands.registerCommand("Score L2", new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
-                                                   new WaitCommand(.75).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand())).withTimeout(2)
-                                                   .andThen(s_Elevator.setElevatoorZero()));
-
-//TODO Part 3. Testing Command
-// NamedCommands.registerCommand("Score L2", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2)
-//                      .until(s_Elevator.aroundCoralL2())
-//                      .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
-//                      s_CoralPlacer.c_getCoralPlacerGenCommand()))
-//                      .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
-//                      .until(s_Elevator.aroundFeederStation())));
-
-
-
+    //These need testing
     NamedCommands.registerCommand("Intake A1", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A1).withTimeout(1.5)
                                                     .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
                                                     s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
@@ -222,19 +206,19 @@ public class RobotContainer {
                                                     .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
                                                     new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(3))));
   
-    
     NamedCommands.registerCommand("Score Processor", s_AlgaeClaw.c_getAlgaeProcessorCommand().withTimeout(1.5));
 
     NamedCommands.registerCommand("Score Barge", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Net).withTimeout(2)
                                                       .andThen(new WaitCommand(0.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(3)
                                                       .andThen(s_Elevator.setElevatoorZero()).withTimeout(5.5));
 
+
+
+    //All of these are tested and will work
     NamedCommands.registerCommand("Intake from HP Station", new ParallelDeadlineGroup(
                                                                     s_CoralFunnel.loadCoral(),
-                                                                    s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)));
+                                                                    s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)));
 
-    
-    
     NamedCommands.registerCommand("Drive to Pose Nearest Branch", targetingSystem.autoTargetCommand(drivebase::getPose)
                                                                        .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral()));
   
@@ -244,11 +228,11 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("Drive to Pose ProcessorHP", scoringSystem.scoreProcessor());
 
-    NamedCommands.registerCommand("Drive to Branch A", targetingSystem.manualTargetCommand(drivebase::getPose, 0)
+    NamedCommands.registerCommand("Drive to Branch A", targetingSystem.manualTargetCommand(drivebase::getPose, 1)
                                                             .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
                                                             .andThen(scoringSystem.scoreCoral()));
 
-    NamedCommands.registerCommand("Drive to Branch B", targetingSystem.manualTargetCommand(drivebase::getPose, 1)
+    NamedCommands.registerCommand("Drive to Branch B", targetingSystem.manualTargetCommand(drivebase::getPose, 0)
                                                             .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
                                                             .andThen(scoringSystem.scoreCoral()));
 
@@ -291,60 +275,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("Drive to Branch L", targetingSystem.manualTargetCommand(drivebase::getPose, 10)
                                                             .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
                                                             .andThen(scoringSystem.scoreCoral()));
-
-
-
-//Attempt at compensating for Red/Blue flip
-
-    // NamedCommands.registerCommand("Drive to Branch A", targetingSystem.inAutoTargetCommand(drivebase::getPose, 1, 0)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-
-    // NamedCommands.registerCommand("Drive to Branch B", targetingSystem.inAutoTargetCommand(drivebase::getPose, 0, 1)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-
-    // NamedCommands.registerCommand("Drive to Branch C", targetingSystem.inAutoTargetCommand(drivebase::getPose, 11, 3)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-
-    // NamedCommands.registerCommand("Drive to Branch D", targetingSystem.inAutoTargetCommand(drivebase::getPose, 10, 2)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-              
-    // NamedCommands.registerCommand("Drive to Branch E", targetingSystem.inAutoTargetCommand(drivebase::getPose, 9, 5)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-
-    // NamedCommands.registerCommand("Drive to Branch F", targetingSystem.inAutoTargetCommand(drivebase::getPose, 8, 4)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-    
-    // NamedCommands.registerCommand("Drive to Branch G", targetingSystem.inAutoTargetCommand(drivebase::getPose, 7, 7)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-     
-    // NamedCommands.registerCommand("Drive to Branch H", targetingSystem.inAutoTargetCommand(drivebase::getPose, 6, 6)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-       
-    // NamedCommands.registerCommand("Drive to Branch I", targetingSystem.inAutoTargetCommand(drivebase::getPose, 5, 9)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-    
-    // NamedCommands.registerCommand("Drive to Branch J", targetingSystem.inAutoTargetCommand(drivebase::getPose, 4, 8)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-              
-    // NamedCommands.registerCommand("Drive to Branch K", targetingSystem.inAutoTargetCommand(drivebase::getPose, 3, 11)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));
-    
-    // NamedCommands.registerCommand("Drive to Branch L", targetingSystem.inAutoTargetCommand(drivebase::getPose, 2, 10)
-    //                                                         .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
-    //                                                         .andThen(scoringSystem.scoreCoral()));                                                        
-
-
 
 
 
@@ -421,25 +351,18 @@ public class RobotContainer {
       driverXbox.leftBumper().whileTrue(s_CoralFunnel.c_FunnelRotateCommandDown());
 
     }
-    
-
-    //This is the working go to nearest reef branch command
-// JoystickButton abPositionButton = new JoystickButton(positioningBoard, 4);
-//     abPositionButton.whileTrue(targetingSystem.autoTargetCommand(drivebase::getPose)
-//                                                          .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
-//                                                          );
 
     //Position Board Commands    
 
     // Reef A
     JoystickButton aPositionButton = new JoystickButton(positioningBoard, 1);
-    aPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 0)
+    aPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 1)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
 
     // Reef B         
     JoystickButton bPositionButton = new JoystickButton(positioningBoard, 2);
-    bPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 1)
+    bPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 0)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
    
@@ -572,7 +495,6 @@ public class RobotContainer {
 
     //L3 Auto Score
     JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);
-    //TODO Part 2. Testing Command  .andThen(Commands.print("Rock on Dude!"))
     L3Button.onTrue(s_Elevator.setElevatorHeightUntilL3(Constants.ElevatorConstants.k_L3)
                      .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
                      s_CoralPlacer.c_getCoralPlacerGenCommand()))

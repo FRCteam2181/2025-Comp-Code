@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2247252,
-        "y": 5.0786538
+        "x": 7.254769736842105,
+        "y": 6.161019736842105
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.127177870828821,
-        "y": 5.294018651812369
+        "x": 6.157222407670926,
+        "y": 6.376384588654474
       },
       "isLocked": false,
       "linkedName": "Blue Inner Cage Start"
