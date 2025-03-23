@@ -165,11 +165,12 @@ public class RobotContainer {
     
 
     //Register NamedCommands to add to PathPlannerAdd all actions to PathPlanner
-    NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(1.7)
-                                                   .andThen(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand(),
-                                                   new WaitCommand(.6)
-                                                   .andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5))))).withTimeout(2.7)
-                                                   .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)).withTimeout(4));
+    NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeightUntilL4(Constants.ElevatorConstants.k_L4)
+                                                   .andThen(new ParallelDeadlineGroup(new WaitCommand(.6)
+                                                                                     .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
+                                                                                    .andThen(new WaitCommand(.1)),
+                                                   s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
 
     NamedCommands.registerCommand("Auto Score L4 then Go to Right HP", s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(1.7)
                                                                             .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral()
@@ -557,70 +558,38 @@ public class RobotContainer {
         
     //Set Elevator to intake height for coral funnel
     JoystickButton coralIntakeHeighButton = new JoystickButton(elevatorBoard, 5);
-    coralIntakeHeighButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation));
-
-    //TODO Part 2. Testing Command
-    // coralIntakeHeighButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
-    //                               .until(s_Elevator.aroundFeederStation()));
+    coralIntakeHeighButton.onTrue(s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation));
 
     //L4 Auto Score
-    JoystickButton L4Button = new JoystickButton(elevatorBoard, 4);//set correct number
-    L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(1.7)
-                    .andThen(new ParallelCommandGroup(s_CoralPlacer.c_getCoralPlacerGenCommand(),
-                    new WaitCommand(.6).andThen(s_Elevator.setGoal(Units.inchesToMeters(73.5))))).withTimeout(2.5)
-                    .andThen(s_Elevator.setElevatoorZero()));
-
-                    
-                     
-
-
-    //TODO Part 2. Testing Command
-    // L4Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4)
-    //                 .until(s_Elevator.aroundCoralL4())
-    //                 .andThen(new ParallelDeadlineGroup(new WaitCommand(.6)
-    //                                                   .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4BumpUP))
-    //                                                   .until(s_Elevator.aroundL4BumpUp()).andThen(new WaitCommand(.1)),
-    //                 s_CoralPlacer.c_getCoralPlacerGenCommand()))
-    //                 .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
-    //                 .until(s_Elevator.aroundFeederStation())));
+    JoystickButton L4Button = new JoystickButton(elevatorBoard, 4);
+    L4Button.onTrue(s_Elevator.setElevatorHeightUntilL4(Constants.ElevatorConstants.k_L4)
+                    .andThen(new ParallelDeadlineGroup(new WaitCommand(.6)
+                                                      .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
+                                                      .andThen(new WaitCommand(.1)),
+                    s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                    .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
 
 
     //L3 Auto Score
-    JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);//set correct number
-    L3Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3),
-                    new WaitCommand(1.5).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand()).withTimeout(2)).withTimeout(2.6)
-                    .andThen(s_Elevator.setElevatoorZero()));
-
-    //TODO Part 2. Testing Command
-    // L3Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L3)
-    //                 .until(s_Elevator.aroundCoralL3())
-    //                 .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
-    //                 s_CoralPlacer.c_getCoralPlacerGenCommand()))
-    //                 .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
-    //                 .until(s_Elevator.aroundFeederStation())));
+    JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);
+    //TODO Part 2. Testing Command  .andThen(Commands.print("Rock on Dude!"))
+    L3Button.onTrue(s_Elevator.setElevatorHeightUntilL3(Constants.ElevatorConstants.k_L3)
+                     .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+                     s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                     .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
 
 
     //L2 Auto Score
-    JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);//set correct number
-    L2Button.onTrue(new ParallelCommandGroup(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2),
-                    new WaitCommand(.75).andThen(s_CoralPlacer.c_getCoralPlacerGenCommand())).withTimeout(2)
-                    .andThen(s_Elevator.setElevatoorZero()));
-
-    //TODO Part 2. Testing Command
-    // L2Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L2)
-    //                 .until(s_Elevator.aroundCoralL2())
-    //                 .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
-    //                 s_CoralPlacer.c_getCoralPlacerGenCommand()))
-    //                 .andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation)
-    //                 .until(s_Elevator.aroundFeederStation())));
+    JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);
+    L2Button.onTrue(s_Elevator.setElevatorHeightUntilL2(Constants.ElevatorConstants.k_L2)
+                     .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+                     s_CoralPlacer.c_getCoralPlacerGenCommand()))
+                     .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
 
 
     //Manually return Elevator to 0            
     JoystickButton ZeroButton = new JoystickButton(elevatorBoard, 1);
-    ZeroButton.onTrue(s_Elevator.setElevatorHeight(0));
-
-    //TODO Part 2. Testing Command
-    //ZeroButton.onTrue(s_Elevator.setElevatorHeight(0).until(s_Elevator.aroundElevatorZero()));
+    ZeroButton.onTrue(s_Elevator.setElevatorUntilHeightZero(0));
    
     //Shoot Out Coral
     Trigger ShootCoralButton = new Trigger(() -> elevatorBoard.getX() < -0.5);

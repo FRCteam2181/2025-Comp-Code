@@ -24,6 +24,8 @@ import au.grapplerobotics.interfaces.LaserCanInterface.TimingBudget;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Alert;
@@ -42,7 +44,7 @@ import frc.robot.RobotMath.Elevator;
 import frc.robot.Setpoints;
 import frc.robot.Constants.ElevatorConstants;
 
-
+import edu.wpi.first.math.filter.Debouncer;
 
 public class ElevatorSubsystemPID extends SubsystemBase
 {
@@ -52,7 +54,8 @@ public class ElevatorSubsystemPID extends SubsystemBase
   private SparkMax m_ElevatorRight;
   private RelativeEncoder elevatorEncoder;
   private boolean autoZero = true;
- 
+ private Debouncer risingDebouncer;
+
   // Closed Loop Controller + Feedback
   private final ProfiledPIDController m_controller  = new ProfiledPIDController(ElevatorConstants.kElevatorKp,
                                                                                 ElevatorConstants.kElevatorKi,
@@ -123,7 +126,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
               m_laserCanFailure.set(true);
             }
 
-
+            risingDebouncer = new Debouncer(0.01, DebounceType.kRising);
 
 
     seedElevatorMotorPosition();
@@ -286,23 +289,85 @@ public class ElevatorSubsystemPID extends SubsystemBase
    * @param height Height in meters.
    * @return Command which ends when the elevator is near the target height.
    */
-  public Command setElevatorHeightUntil(double height)
+  public Command setElevatorHeightUntilFeeder(double height)
   {
     
-    return Commands.run(() -> {
-          reachGoal(height);
-      }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(() -> aroundHeight(height)).finallyDo(() -> {
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundFeederStation())
           
-          stop();
-      });
+           .finallyDo(() -> {
+         
+           maintainFeeder();
+       });
 
   }
 
 
+  public Command setElevatorHeightUntilL2(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundCoralL2())
+          
+           .finallyDo(() -> {
+         
+           maintainFeeder();
+       });
+
+  }
+
+  public Command setElevatorHeightUntilL3(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundCoralL3())
+          
+           .finallyDo(() -> {
+         
+           maintainFeeder();
+       });
+
+  }
+
+  public Command setElevatorHeightUntilL4(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundCoralL4())
+          
+           .finallyDo(() -> {
+         
+           maintainFeeder();
+       });
+
+  }
+
+  public Command setElevatorHeightUntilBumpUp(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundL4BumpUp())
+          
+           .finallyDo(() -> {
+         
+           maintainFeeder();
+       });
+
+  }
 
 
+  public Command setElevatorUntilHeightZero(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundElevatorZero())
+          
+           .finallyDo(() -> {
+         
+           stop();
+       });
 
-
+  }
 
   /**
    * Stop the control loop and motor output.
@@ -310,6 +375,12 @@ public class ElevatorSubsystemPID extends SubsystemBase
   public void stop()
   {
     m_ElevatorLeft.set(0.0);
+  }
+
+
+  public void maintainFeeder()
+  {
+    m_ElevatorLeft.setVoltage(0.5);
   }
 
 
@@ -341,21 +412,23 @@ public class ElevatorSubsystemPID extends SubsystemBase
  //Algae Auto Ground Intake Command 
  public Trigger aroundAlgaeGroundIntake()
  {
-   return new Trigger(() -> aroundHeight(0));
+  return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(0, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
  }  
  
 
     //Algae Auto Dunk Command
     public Trigger aroundAlgaeBarge()
     {
-      return new Trigger(() -> aroundHeight(ElevatorConstants.k_Net));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(ElevatorConstants.k_Net, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
+
     }
     
 
     //Algae retrival from A2
     public Trigger aroundAlgaeA2()
     {
-      return new Trigger(() -> aroundHeight(ElevatorConstants.k_A2));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(ElevatorConstants.k_A2, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
+
     }                                          
     
 
@@ -363,7 +436,8 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
     public Trigger aroundAlgaeA1()
     {
-      return new Trigger(() -> aroundHeight(ElevatorConstants.k_A1));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(ElevatorConstants.k_A1, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
+
     }
     
 
@@ -371,7 +445,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
     public Trigger aroundAlgaePROCESSOR()
     {
-      return new Trigger(() -> aroundHeight(0));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(0, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
     }
     
 
@@ -379,42 +453,44 @@ public class ElevatorSubsystemPID extends SubsystemBase
     //Set Elevator to intake height for coral funnel
     public Trigger aroundFeederStation()
     {
-      return new Trigger(() -> aroundHeight(ElevatorConstants.k_FeederStation));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(ElevatorConstants.k_FeederStation, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
     }
     
 
     //L4 Auto Score
     public Trigger aroundCoralL4()
     {
-      return new Trigger(() -> aroundHeight(ElevatorConstants.k_L4));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(ElevatorConstants.k_L4, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
+
     }
     
 
     //L3 Auto Score
     public Trigger aroundCoralL3()
     {
-      return new Trigger(() -> aroundHeight(ElevatorConstants.k_L3));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(ElevatorConstants.k_L3, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
     }
     
 
     //L2 Auto Score
     public Trigger aroundCoralL2()
     {
-      return new Trigger(() -> aroundHeight(ElevatorConstants.k_L2));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(ElevatorConstants.k_L2, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
     }
     
 
     //Manually return Elevator to 0 
     public Trigger aroundElevatorZero()
     {
-      return new Trigger(() -> aroundHeight(0));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(0, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
     }           
   
 
     //Bump up height
     public Trigger aroundL4BumpUp()
     {
-      return new Trigger(() -> aroundHeight(ElevatorConstants.k_L4BumpUP));
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(ElevatorConstants.k_L4BumpUP, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
+      
     }           
   
 
