@@ -5,37 +5,70 @@
     "data": {
       "commands": [
         {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Inner Red Cage Start"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Drive to Pose Nearest Branch"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Elevator to L4"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Inner Red Cage Start"
+                  "name": "At Height Score L4 then Go to Right HP"
+                }
+              },
+              {
+                "type": "deadline",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Drive to Branch K"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Elevator to L4"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Drive to Pose Nearest Branch"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Auto Score L4 then Go to Right HP"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Drive to Branch K"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Score L4"
+                  "name": "At Height Score L4 Only"
                 }
               }
             ]
