@@ -74,8 +74,8 @@ public final class Constants
     
 
     public static final double k_AlgaeClawIntakeSpeed = 0.4;
-    public static final double k_AlgaeClawProcessorSpeed = 0.75;
-    public static final double k_AlgaeClawBargeSpeed = 0.25;
+    public static final double k_AlgaeClawProcessorSpeed = 0.65;
+    public static final double k_AlgaeClawBargeSpeed = 0.75;
     public static final double k_AlgaeClawRotateSpeed = .30;
 
 
@@ -181,7 +181,7 @@ public final class Constants
       {
     
         public static final double   kElevatorKp              = 22;
-        public static final double   kElevatorKi              = 0;
+        public static final double   kElevatorKi              = 0.5;
         public static final double   kElevatorKd              = 1.5;
         
         public static final double   kElevatorkS              = 0;//0.01964; // volts (V)
@@ -199,7 +199,7 @@ public final class Constants
         public static final double   kMaxElevatorHeightMeters = 10.25;
         public static final Distance kMinElevatorHeight      = Meters.of(kMinElevatorHeightMeters);
         public static final Distance kMaxElevatorHeight      = Meters.of(kMaxElevatorHeightMeters);
-        public static final double   kElevatorAllowableError = .06;  //.04
+        public static final double   kElevatorAllowableError = .04;  //.04
         public static final double   kLowerToScoreHeight     = Units.inchesToMeters(6);
         
         public static       double   kElevatorRampRate       = 0.1;
@@ -210,7 +210,7 @@ public final class Constants
 
 
 
-        public static final double k_FeederStation = Units.inchesToMeters(17.375);
+        public static final double k_FeederStation = Units.inchesToMeters(17);//17.375
         public static final double k_L1 = Units.inchesToMeters(0);
         public static final double k_L2 = Units.inchesToMeters(27.75);
         public static final double k_L3 = Units.inchesToMeters(43.625);

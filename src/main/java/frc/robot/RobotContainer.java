@@ -15,6 +15,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -462,33 +463,33 @@ public class RobotContainer {
 
     //Algae Auto Ground Intake Command 
     JoystickButton algaeGroundButton = new JoystickButton(elevatorBoard, 10);
-    algaeGroundButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Processor).withTimeout(1)
-                            .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
-                            s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1.5)
-                            .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                            new WaitCommand(.25).andThen(s_Elevator.setElevatoorZero())).withTimeout(1.5))));
+    algaeGroundButton.whileTrue(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
+                            s_AlgaeClaw.c_getAlgaeIntakeCommand()));
+    algaeGroundButton.onFalse(s_AlgaeRotator.c_GetAlgeaRotateDownCommand().withTimeout(1.5));
 
     //Algae Auto Dunk Command
     JoystickButton algaeNetButton = new JoystickButton(elevatorBoard, 9);
-    algaeNetButton.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_Net).withTimeout(2)
+    algaeNetButton.onTrue(s_Elevator.setElevatorUntilNet(Constants.ElevatorConstants.k_Net)
                           .andThen(new WaitCommand(0.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(3)
-                          .andThen(s_Elevator.setElevatoorZero()).withTimeout(5.5));
+                          .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+
 
     //Algae retrival from A2                                          
     JoystickButton a2Button = new JoystickButton(elevatorBoard, 8);
-    a2Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A2).withTimeout(1.5)
+    a2Button.onTrue(s_Elevator.setElevatorUntilA2(Constants.ElevatorConstants.k_A2)
                     .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
                     s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
                     .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                    new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(3))));
+                    new WaitCommand(.65).andThen(s_Elevator.setElevatorUntilHeightZero(0))))));
 
     //Algae retrival from A1
     JoystickButton a1Button = new JoystickButton(elevatorBoard, 7);
-    a1Button.onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_A1).withTimeout(1.5)
+    a1Button.onTrue(s_Elevator.setElevatorUntilA1(Constants.ElevatorConstants.k_A1)
                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
                     s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
                     .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                    new WaitCommand(.65).andThen(s_Elevator.setElevatoorZero())).withTimeout(2.5))));
+                    new WaitCommand(.65).andThen(s_Elevator.setElevatorUntilHeightZero(0))))));
+
 
     //Algae Auto Processor Command 
     JoystickButton processorButton = new JoystickButton(elevatorBoard, 6);
@@ -536,7 +537,21 @@ public class RobotContainer {
     //Disable auto zero
     Trigger AZStop = new Trigger(() -> positioningBoard.getY() > 0.5);
     AZStop.onTrue(s_Elevator.autoZeroSwitchCommand());
-                                                      
+
+    //Rummble Commands
+    aPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    bPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    cPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    dPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    ePositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    fPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    gPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    hPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    iPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    jPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
+    kPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));   
+    lPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));                                               
+    closeBranchPositionButton.whileTrue(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 100))).whileFalse(new RunCommand(() -> driverXbox.setRumble(RumbleType.kBothRumble, 0)));
 
     //Operator 1 and 2 Xbox Controller Testing Buttons 
 
@@ -648,4 +663,5 @@ public Command driveToHumanPlayer1()
   {
     drivebase.setMotorBrake(brake);
   }
+
 }

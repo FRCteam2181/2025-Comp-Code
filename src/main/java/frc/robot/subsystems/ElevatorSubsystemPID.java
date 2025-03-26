@@ -369,6 +369,51 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
   }
 
+
+
+  public Command setElevatorUntilA1(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundAlgaeA1())
+          
+           .finallyDo(() -> {
+         
+           maintainFeeder();
+       });
+
+  }
+
+
+
+  public Command setElevatorUntilA2(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundAlgaeA2())
+          
+           .finallyDo(() -> {
+         
+           maintainFeeder();
+       });
+
+  }
+
+  public Command setElevatorUntilNet(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundAlgaeBarge())
+          
+           .finallyDo(() -> {
+         
+            maintainFeeder();
+       });
+
+  }
+
+
+
   /**
    * Stop the control loop and motor output.
    */
