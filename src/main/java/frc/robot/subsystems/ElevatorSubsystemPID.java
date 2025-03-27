@@ -369,7 +369,18 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
   }
 
+  public Command setElevatorUntilHeightTrueZero(double height)
+  {
+    
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundTrueElevatorZero())
+          
+           .finallyDo(() -> {
+         
+           stop();
+       });
 
+  }
 
   public Command setElevatorUntilA1(double height)
   {
@@ -527,10 +538,14 @@ public class ElevatorSubsystemPID extends SubsystemBase
     //Manually return Elevator to 0 
     public Trigger aroundElevatorZero()
     {
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(Units.inchesToMeters(6), getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
+    }           
+  
+    public Trigger aroundTrueElevatorZero()
+    {
       return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(0, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
     }           
   
-
     //Bump up height
     public Trigger aroundL4BumpUp()
     {
