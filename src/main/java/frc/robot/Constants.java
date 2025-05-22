@@ -74,8 +74,8 @@ public final class Constants
     
 
     public static final double k_AlgaeClawIntakeSpeed = 0.4;
-    public static final double k_AlgaeClawProcessorSpeed = 0.65;
-    public static final double k_AlgaeClawBargeSpeed = 0.75;
+    public static final double k_AlgaeClawProcessorSpeed = 1;
+    public static final double k_AlgaeClawBargeSpeed = 1;
     public static final double k_AlgaeClawRotateSpeed = .30;
 
 
