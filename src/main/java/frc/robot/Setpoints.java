@@ -27,7 +27,7 @@ public class Setpoints
                                                                     -Inches.of(1.5).in(Meters),
                                                                     Rotation2d.fromDegrees(180));
       public static final Transform2d algaeOffset = new Transform2d(Inches.of(18.5).in(Meters),
-                                                                    Inches.of(20).in(Meters),
+                                                                    Inches.of(4.97).in(Meters),
                                                                     Rotation2d.fromDegrees(180));
     }
 

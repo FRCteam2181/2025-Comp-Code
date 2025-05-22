@@ -5,8 +5,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 // import com.revrobotics.spark.config.SparkFlexConfig;
 // import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkFlex;
-import com.playingwithfusion.TimeOfFlight;
-import com.playingwithfusion.TimeOfFlight.RangingMode;
+
+//import com.playingwithfusion.TimeOfFlight;
+//import com.playingwithfusion.TimeOfFlight.RangingMode;
+
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
@@ -30,7 +32,7 @@ public class CoralFunnel extends SubsystemBase {
   SparkFlex m_CoralFunnelWheel;
   SparkFlex m_FunnelRotator;
 
-  private final TimeOfFlight coralSensor;
+  //private final TimeOfFlight coralSensor;
     private boolean scoreReady;
     private Debouncer risingDebouncer;
 
@@ -55,13 +57,13 @@ public class CoralFunnel extends SubsystemBase {
           PersistMode.kPersistParameters);
 
 
-      coralSensor = new TimeOfFlight(CoralFunnelConstants.coralSensorId);
-        scoreReady = false;
-        risingDebouncer = new Debouncer(0.01, DebounceType.kRising);
+      // coralSensor = new TimeOfFlight(CoralFunnelConstants.coralSensorId);
+      //   scoreReady = false;
+      //   risingDebouncer = new Debouncer(0.01, DebounceType.kRising);
 
-        coralSensor.setRangingMode(RangingMode.Medium, 24);
+      //   coralSensor.setRangingMode(RangingMode.Medium, 24);
 
-        coralInSensor().and(scoreReady().negate()).and(RobotModeTriggers.teleop()).whileTrue(loadCoral());
+      //   coralInSensor().and(scoreReady().negate()).and(RobotModeTriggers.teleop()).whileTrue(loadCoral());
 
 
     }
@@ -72,37 +74,37 @@ public class CoralFunnel extends SubsystemBase {
     }
 
 
-    public Trigger coralInSensor() {
-        if(Robot.isReal()) {
-            return new Trigger(() -> risingDebouncer.calculate(coralSensor.getRange() <= CoralFunnelConstants.coralDistanceThreshold));
-        }
-        return new Trigger(() -> false);
+    // public Trigger coralInSensor() {
+    //     if(Robot.isReal()) {
+    //         return new Trigger(() -> risingDebouncer.calculate(coralSensor.getRange() <= CoralFunnelConstants.coralDistanceThreshold));
+    //     }
+    //     return new Trigger(() -> false);
 
-    }
+    // }
 
-    public Trigger scoreReady() {
-        return new Trigger(() -> scoreReady || Robot.isSimulation());
-    }
-
-
-    public Command loadCoral() {
-      return Commands.run(() -> {
-          f_setFunnelWheel(k_CoralFunnelSpeed);
-      }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(coralInSensor()).finallyDo(() -> {
-          scoreReady = true;
-          f_stop();
-      });
-  }
+    // public Trigger scoreReady() {
+    //     return new Trigger(() -> scoreReady || Robot.isSimulation());
+    // }
 
 
-public Command unloadCoral() {
-  return Commands.run(() -> {
-      f_setFunnelWheel(k_CoralFunnelSpeed);
-  }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(coralInSensor().negate()).finallyDo(() -> {
-      scoreReady = false;
-      f_stop();
-  });
-}
+  //   public Command loadCoral() {
+  //     return Commands.run(() -> {
+  //         f_setFunnelWheel(k_CoralFunnelSpeed);
+  //     }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(coralInSensor()).finallyDo(() -> {
+  //         scoreReady = true;
+  //         f_stop();
+  //     });
+  // }
+
+
+// public Command unloadCoral() {
+//   return Commands.run(() -> {
+//       f_setFunnelWheel(k_CoralFunnelSpeed);
+//   }, this).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(coralInSensor().negate()).finallyDo(() -> {
+//       scoreReady = false;
+//       f_stop();
+//   });
+// }
 
 
 
