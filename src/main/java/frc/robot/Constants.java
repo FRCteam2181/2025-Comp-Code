@@ -199,7 +199,7 @@ public final class Constants
         public static final double   kMaxElevatorHeightMeters = 10.25;
         public static final Distance kMinElevatorHeight      = Meters.of(kMinElevatorHeightMeters);
         public static final Distance kMaxElevatorHeight      = Meters.of(kMaxElevatorHeightMeters);
-        public static final double   kElevatorAllowableError = .04;  //.04
+        public static final double   kElevatorAllowableError = .08;  //.04
         public static final double   kLowerToScoreHeight     = Units.inchesToMeters(6);
         
         public static       double   kElevatorRampRate       = 0.1;
@@ -220,7 +220,7 @@ public final class Constants
         public static final double k_AGround = 0;
         public static final double k_A1 = Units.inchesToMeters(15.5);
         public static final double k_A2 = Units.inchesToMeters(31);
-        public static final double k_Net = Units.inchesToMeters(73.875);
+        public static final double k_Net = Units.inchesToMeters(54);
         public static final double k_L4BumpUP = Units.inchesToMeters(73.5);
 
 
