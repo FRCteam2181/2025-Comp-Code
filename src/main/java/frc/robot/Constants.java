@@ -199,7 +199,7 @@ public final class Constants
         public static final double   kMaxElevatorHeightMeters = 10.25;
         public static final Distance kMinElevatorHeight      = Meters.of(kMinElevatorHeightMeters);
         public static final Distance kMaxElevatorHeight      = Meters.of(kMaxElevatorHeightMeters);
-        public static final double   kElevatorAllowableError = .08;  //.04
+        public static final double   kElevatorAllowableError = .04;  //.08
         public static final double   kLowerToScoreHeight     = Units.inchesToMeters(6);
         
         public static       double   kElevatorRampRate       = 0.1;
