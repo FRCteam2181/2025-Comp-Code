@@ -214,7 +214,8 @@ public final class Constants
         public static final double k_L1 = Units.inchesToMeters(0);
         public static final double k_L2 = Units.inchesToMeters(27.75);
         public static final double k_L3 = Units.inchesToMeters(43.625);
-        public static final double k_L4 = Units.inchesToMeters(68.875);
+        public static final double k_L4 = Units.inchesToMeters(68.875); // DON'T CHANGE WITHOUT CHANGING BUMP UP
+        // Max is 80 inches
 
         public static final double k_Processor = 0;
         public static final double k_AGround = 0;
