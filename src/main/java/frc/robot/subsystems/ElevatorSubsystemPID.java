@@ -342,6 +342,27 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
   }
 
+
+  public Command setElevatorHeightUntilDesired(double height)
+  {
+    if (height>ElevatorConstants.k_L4) {
+      height = ElevatorConstants.k_L4;
+        }
+
+    else if(height<Units.inchesToMeters(6)) {
+      height = Units.inchesToMeters(6);
+    }
+        
+    return 
+          setGoal(height).withInterruptBehavior(InterruptionBehavior.kCancelIncoming).until(aroundCoralDesired(height))
+          
+           .finallyDo(() -> {
+         
+           maintainFeeder();
+       });
+
+  }
+
   public Command setElevatorHeightUntilBumpUp(double height)
   {
     
@@ -520,6 +541,13 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
     }
     
+
+    public Trigger aroundCoralDesired(double desired)
+    {
+
+      return new Trigger(() -> risingDebouncer.calculate(MathUtil.isNear(desired, getHeightMeters(), ElevatorConstants.kElevatorAllowableError)));
+
+    }
 
     //L3 Auto Score
     public Trigger aroundCoralL3()
