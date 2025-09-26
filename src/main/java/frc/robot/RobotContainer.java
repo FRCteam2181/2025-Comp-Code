@@ -510,21 +510,21 @@ public class RobotContainer {
 
     //L4 Auto Score
     JoystickButton L4Button = new JoystickButton(elevatorBoard, 4);
-    L4Button.onTrue(s_Elevator.setElevatorHeightUntilDesired(0.5)
+    L4Button.onTrue(s_Elevator.setElevatorHeightUntilDesired(10)
                     
                     .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
-
+//hi
 
     //L3 Auto Score
     JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);
-    L3Button.onTrue(s_Elevator.setElevatorHeightUntilL3(34)
+    L3Button.onTrue(s_Elevator.setElevatorHeightUntilDesired(45)
                      
                      .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
 
     //L2 Auto Score
     JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);
-    L2Button.onTrue(s_Elevator.setElevatorHeightUntilL2(75)
+    L2Button.onTrue(s_Elevator.setElevatorHeightUntilDesired(46)
                      
                      .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 

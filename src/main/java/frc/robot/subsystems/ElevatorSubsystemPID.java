@@ -345,6 +345,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
   public Command setElevatorHeightUntilDesired(double height)
   {
+    height = Units.inchesToMeters(height);
     if (height>ElevatorConstants.k_L4) {
       height = ElevatorConstants.k_L4;
         }
