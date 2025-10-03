@@ -7,8 +7,6 @@ package frc.robot.systems;
 // import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 // import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 // import frc.robot.Constants;
-import frc.robot.subsystems.AlgaeRotator;
-import frc.robot.subsystems.AlgaeClaw;
 import frc.robot.subsystems.CoralPlacer;
 import frc.robot.subsystems.CoralFunnel;
 //import frc.robot.subsystems.ElevatorSubsystem;
@@ -52,10 +50,8 @@ public class ScoringSystem
 {
 
   private CoralPlacer          m_coralPlacer;
-  private AlgaeClaw            m_algaeIntake;
   private ElevatorSubsystemPID    m_elevator;
   private SwerveSubsystem      m_drivebase;
-  private AlgaeRotator         m_algaeArm;
   private TargetingSystem      m_targetSystem;
   private CoralFunnel          m_coralFunnel;
   private Climber              m_climber;
@@ -64,8 +60,6 @@ public class ScoringSystem
       CoralPlacer coralPlacer,
       ElevatorSubsystemPID elevator,
       SwerveSubsystem drivebase,
-      AlgaeClaw algaeIntake,
-      AlgaeRotator algaeArm,
       TargetingSystem targeting,
       CoralFunnel coralFunnel,
       Climber climber)
@@ -73,8 +67,7 @@ public class ScoringSystem
     m_coralPlacer = coralPlacer;
     m_elevator = elevator;
     m_drivebase = drivebase;
-    m_algaeIntake = algaeIntake;
-    m_algaeArm = algaeArm;
+
     m_targetSystem = targeting;
     m_coralFunnel = coralFunnel;
     m_climber = climber;
