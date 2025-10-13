@@ -81,23 +81,14 @@ public class ScoringSystem
 
   }
 
+  public Command scoreAlgae() {
+    return m_targetSystem.driveToAlgaeTarget(m_drivebase);
+  }
+
   public Command scoreCoral()
   {
-
-    
-     if (m_targetSystem.targetReefSide == ReefSide.Middle)
-    {
-
-      return m_targetSystem.driveToAlgaeTarget(m_drivebase);
-    
-    }
-
-    else 
-    {
       
-      return m_targetSystem.driveToCoralTarget(m_drivebase);
-
-    }
+    return m_targetSystem.driveToCoralTarget(m_drivebase);
 
   }
 

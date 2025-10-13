@@ -5,21 +5,46 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "Inner Blue Cage Start"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Drive to Branch E"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Score L4"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Inner Blue Cage Start"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Branch E"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score L4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Pose LeftHP"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake from HP Station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Branch C"
+                }
+              }
+            ]
           }
         }
       ]

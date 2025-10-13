@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.307798378593303,
-        "y": 1.9158068070213485
+        "x": 5.655557379843737,
+        "y": 1.6598318469825102
       },
       "isLocked": false,
       "linkedName": "Red Inner Cage Start"
     },
     {
       "anchor": {
-        "x": 5.694734589041096,
-        "y": 2.206892123287671
+        "x": 3.604423076923076,
+        "y": 2.1053846153846156
       },
       "prevControl": {
-        "x": 5.944524972249131,
-        "y": 2.217127574268591
+        "x": 3.984284728849553,
+        "y": 2.1279060662386047
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 130.0
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": null,

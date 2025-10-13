@@ -74,7 +74,7 @@ public class RobotContainer {
   final Joystick positioningBoard = new Joystick(1);
   final Joystick elevatorBoard = new Joystick(2);
   
-  final CommandXboxController opperatorXbox = new CommandXboxController(3);
+  //final CommandXboxController opperatorXbox = new CommandXboxController(3);
   // final CommandXboxController opperatorXbox2 = new CommandXboxController(4);
 
   // The robot's subsystems are defined here
@@ -166,20 +166,22 @@ public class RobotContainer {
     
 
     //Register NamedCommands to add to PathPlannerAdd all actions to PathPlanner
+
+    NamedCommands.registerCommand("Zero Elevator", s_Elevator.setElevatorHeight(0));
     NamedCommands.registerCommand("Score L4", s_Elevator.setElevatorHeightUntilL4(Constants.ElevatorConstants.k_L4)
                                                    .andThen(new ParallelDeadlineGroup(new WaitCommand(.6)
                                                                                      .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
                                                                                     .andThen(new WaitCommand(.1)),
                                                    s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
     NamedCommands.registerCommand("Auto Score L4 then Go to Right HP", s_Elevator.setElevatorHeightUntilL4(Constants.ElevatorConstants.k_L4)
                                                    .andThen(new ParallelDeadlineGroup(new WaitCommand(.6)
                                                                                      .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
                                                                                     .andThen(new WaitCommand(.1)),
                                                    s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
-                                                                                      s_Elevator.setElevatorUntilHeightZero(0)
+                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.c_getFunnelWheelCommand(),//
+                                                                                      s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))
                                                                                           .andThen(s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)),
                                                                                       scoringSystem.collectRightHP())));
 
@@ -200,8 +202,8 @@ public class RobotContainer {
                                                                                      .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
                                                                                      .andThen(new WaitCommand(.1)),
                                                                 s_CoralPlacer.c_getCoralPlacerGenCommand())
-                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
-                                                                                      s_Elevator.setElevatorUntilHeightZero(0)
+                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.c_getFunnelWheelCommand(),//
+                                                                                      s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))
                                                                                           .andThen(s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)),
                                                                                       scoringSystem.collectRightHP())));
 
@@ -218,17 +220,17 @@ public class RobotContainer {
      NamedCommands.registerCommand("At Height Score L4 Only", new ParallelDeadlineGroup(new WaitCommand(.6)
                                                                                      .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
                                                                                      .andThen(new WaitCommand(.1)),
-                                                                s_CoralPlacer.c_getCoralPlacerGenCommand()).andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+                                                                s_CoralPlacer.c_getCoralPlacerGenCommand()).andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
     NamedCommands.registerCommand("Score L3", s_Elevator.setElevatorHeightUntilL3(Constants.ElevatorConstants.k_L3)
-                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.c_getFunnelWheelCommand().withTimeout(1.5),//
                                                    s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
     NamedCommands.registerCommand("Score L2", s_Elevator.setElevatorHeightUntilL2(Constants.ElevatorConstants.k_L2)
-                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.c_getFunnelWheelCommand().withTimeout(1.5),//
                                                    s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+                                                   .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
 
     //These need testing
@@ -254,7 +256,7 @@ public class RobotContainer {
 
     //All of these are tested and will work
     NamedCommands.registerCommand("Intake from HP Station", new ParallelDeadlineGroup(
-                                                                    s_CoralFunnel.loadCoral(),
+                                                                    s_CoralFunnel.c_getFunnelWheelCommand(),//
                                                                     s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)));
 
     NamedCommands.registerCommand("Drive to Pose Nearest Branch", targetingSystem.autoTargetCommand(drivebase::getPose)
@@ -313,6 +315,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("Drive to Branch L", targetingSystem.manualTargetCommand(drivebase::getPose, 10)
                                                             .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
                                                             .andThen(scoringSystem.scoreCoral()));
+
+    // NamedCommands.registerCommand("Drive back", null);
+
+    // NamedCommands.registerCommand("Drive to Algae", targetingSystem.manualTargetCommand(drivebase::getPose, 6)
+    //                                                      .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1))
+    //                                                      .andThen(scoringSystem.scoreAlgae()));
 
 
 
@@ -393,13 +401,13 @@ public class RobotContainer {
     //Position Board Commands    
 
     // Reef A
-    JoystickButton aPositionButton = new JoystickButton(positioningBoard, 1);
+    JoystickButton aPositionButton = new JoystickButton(positioningBoard, 2);
     aPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 1)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
 
     // Reef B         
-    JoystickButton bPositionButton = new JoystickButton(positioningBoard, 2);
+    JoystickButton bPositionButton = new JoystickButton(positioningBoard, 1);
     bPositionButton.whileTrue(targetingSystem.manualTargetCommand(drivebase::getPose, 0)
     .andThen(targetingSystem.setBranchLevel(ReefBranchLevel.L1)).andThen(scoringSystem.scoreCoral())
     );
@@ -492,7 +500,7 @@ public class RobotContainer {
     JoystickButton algaeNetButton = new JoystickButton(elevatorBoard, 9);
     algaeNetButton.onTrue(s_Elevator.setElevatorUntilNet(Constants.ElevatorConstants.k_Net)
                           .andThen(new WaitCommand(0.5).andThen(s_AlgaeClaw.c_getAlgaeBargeCommand())).withTimeout(3)
-                          .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+                          .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
 
     //Algae retrival from A2                                          
@@ -501,7 +509,7 @@ public class RobotContainer {
                     .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
                     s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
                     .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                    new WaitCommand(.65).andThen(s_Elevator.setElevatorUntilHeightZero(0))))));
+                    new WaitCommand(.65).andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6)))))));
 
     //Algae retrival from A1
     JoystickButton a1Button = new JoystickButton(elevatorBoard, 7);
@@ -509,7 +517,7 @@ public class RobotContainer {
                    .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateUpCommand(),
                     s_AlgaeClaw.c_getAlgaeIntakeCommand()).withTimeout(1)
                     .andThen(new ParallelCommandGroup(s_AlgaeRotator.c_GetAlgeaRotateDownCommand(),
-                    new WaitCommand(.65).andThen(s_Elevator.setElevatorUntilHeightZero(0))))));
+                    new WaitCommand(.65).andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6)))))));
 
 
     //Algae Auto Processor Command 
@@ -528,28 +536,28 @@ public class RobotContainer {
                                                       .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
                                                       .andThen(new WaitCommand(.1)),
                     s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                    .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+                    .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
 
     //L3 Auto Score
     JoystickButton L3Button = new JoystickButton(elevatorBoard, 3);
     L3Button.onTrue(s_Elevator.setElevatorHeightUntilL3(Constants.ElevatorConstants.k_L3)
-                     .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+                     .andThen(new ParallelDeadlineGroup(s_CoralFunnel.c_getFunnelWheelCommand().withTimeout(.5),//
                      s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                     .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+                     .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
 
     //L2 Auto Score
     JoystickButton L2Button = new JoystickButton(elevatorBoard, 2);
     L2Button.onTrue(s_Elevator.setElevatorHeightUntilL2(Constants.ElevatorConstants.k_L2)
-                     .andThen(new ParallelDeadlineGroup(s_CoralFunnel.unloadCoral(),
+                     .andThen(new ParallelDeadlineGroup(s_CoralFunnel.c_getFunnelWheelCommand().withTimeout(.5),//
                      s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                     .andThen(s_Elevator.setElevatorUntilHeightZero(0)));
+                     .andThen(s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))));
 
 
     //Manually return Elevator to 0            
     JoystickButton ZeroButton = new JoystickButton(elevatorBoard, 1);
-    ZeroButton.onTrue(s_Elevator.setElevatorUntilHeightZero(0));
+    ZeroButton.onTrue(s_Elevator.setElevatorUntilHeightTrueZero(0));
    
     //Shoot Out Coral
     Trigger ShootCoralButton = new Trigger(() -> elevatorBoard.getX() < -0.5);
@@ -582,14 +590,14 @@ public class RobotContainer {
     //                                         );
     
 
-      opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(1.7)
-                    .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral().andThen(new WaitCommand(1)),
-                                                       s_CoralPlacer.c_getCoralPlacerGenCommand(),
-                                                      new WaitCommand(.6).andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4BumpUP)))
-                                                          .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
-                                                                          s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation),
-                                                                          scoringSystem.collectRightHP()
-                                                                          ))));
+      // opperatorXbox.a().onTrue(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4).withTimeout(1.7)
+      //               .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral().andThen(new WaitCommand(1)),
+      //                                                  s_CoralPlacer.c_getCoralPlacerGenCommand(),
+      //                                                 new WaitCommand(.6).andThen(s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_L4BumpUP)))
+      //                                                     .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
+      //                                                                     s_Elevator.setElevatorHeight(Constants.ElevatorConstants.k_FeederStation),
+      //                                                                     scoringSystem.collectRightHP()
+      //                                                                     ))));
                     
 
 
