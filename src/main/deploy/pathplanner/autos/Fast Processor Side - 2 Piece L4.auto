@@ -21,7 +21,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Drive to Branch J"
+                        "name": "Drive to Pose Nearest Branch"
                       }
                     }
                   ]
@@ -43,7 +43,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Auto Score L4 then Go to Right HP"
+                  "name": "At Height Score L4 then Go to Right HP"
                 }
               },
               {
@@ -68,7 +68,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Score L4"
+                  "name": "At Height Score L4 Only"
                 }
               }
             ]

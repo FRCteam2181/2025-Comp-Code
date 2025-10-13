@@ -184,18 +184,7 @@ public class RobotContainer {
                                                                                       s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))
                                                                                           .andThen(s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)),
                                                                                       scoringSystem.collectRightHP())));
-
-    NamedCommands.registerCommand("Auto Score L4 then Go to Left HP", s_Elevator.setElevatorHeightUntilL4(Constants.ElevatorConstants.k_L4)
-                                                   .andThen(new ParallelDeadlineGroup(new WaitCommand(.6)
-                                                                                     .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
-                                                                                    .andThen(new WaitCommand(.1)),
-                                                   s_CoralPlacer.c_getCoralPlacerGenCommand()))
-                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
-                                                                                      s_Elevator.setElevatorUntilHeightZero(0)
-                                                                                          .andThen(s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)),
-                                                                                      scoringSystem.collectLeftHP())));
-
-
+    
     NamedCommands.registerCommand("Elevator to L4", s_Elevator.setElevatorHeightUntilL4(Constants.ElevatorConstants.k_L4));                                                                                  
 
     NamedCommands.registerCommand("At Height Score L4 then Go to Right HP", new ParallelDeadlineGroup(new WaitCommand(.6)
@@ -206,16 +195,6 @@ public class RobotContainer {
                                                                                       s_Elevator.setElevatorUntilHeightZero(Units.inchesToMeters(6))
                                                                                           .andThen(s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)),
                                                                                       scoringSystem.collectRightHP())));
-
-    NamedCommands.registerCommand("At Height Score L4 then Go to Left HP", new ParallelDeadlineGroup(new WaitCommand(.6)
-                                                                                     .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))
-                                                                                     .andThen(new WaitCommand(.1)),
-                                                                s_CoralPlacer.c_getCoralPlacerGenCommand())
-                                                   .andThen(new ParallelDeadlineGroup(s_CoralFunnel.loadCoral(),
-                                                                                      s_Elevator.setElevatorUntilHeightZero(0)
-                                                                                          .andThen(s_Elevator.setElevatorHeightUntilFeeder(Constants.ElevatorConstants.k_FeederStation)),
-                                                                                      scoringSystem.collectLeftHP())));
-
 
      NamedCommands.registerCommand("At Height Score L4 Only", new ParallelDeadlineGroup(new WaitCommand(.6)
                                                                                      .andThen(s_Elevator.setElevatorHeightUntilBumpUp(Constants.ElevatorConstants.k_L4BumpUP))

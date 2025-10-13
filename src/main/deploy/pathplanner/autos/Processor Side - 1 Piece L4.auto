@@ -5,21 +5,28 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "Inner Red Cage Start"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Drive to Branch J"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Score L4"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Inner Red Cage Start"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Drive to Pose Nearest Branch"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score L4"
+                }
+              }
+            ]
           }
         }
       ]
