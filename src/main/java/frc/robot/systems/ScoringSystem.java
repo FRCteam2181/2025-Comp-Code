@@ -10,7 +10,7 @@ package frc.robot.systems;
 import frc.robot.subsystems.CoralPlacer;
 import frc.robot.subsystems.CoralFunnel;
 //import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.ElevatorSubsystemPID;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 // import com.pathplanner.lib.auto.AutoBuilder;
@@ -50,7 +50,7 @@ public class ScoringSystem
 {
 
   private CoralPlacer          m_coralPlacer;
-  private ElevatorSubsystemPID    m_elevator;
+  private Elevator             m_elevator;
   private SwerveSubsystem      m_drivebase;
   private TargetingSystem      m_targetSystem;
   private CoralFunnel          m_coralFunnel;
@@ -58,7 +58,7 @@ public class ScoringSystem
 
   public ScoringSystem(
       CoralPlacer coralPlacer,
-      ElevatorSubsystemPID elevator,
+      Elevator elevator,
       SwerveSubsystem drivebase,
       TargetingSystem targeting,
       CoralFunnel coralFunnel,
@@ -108,10 +108,5 @@ public class ScoringSystem
       return m_targetSystem.autoDriveToProcessor(m_drivebase);
    
   }
-
-
-  
-
-  
 
 }

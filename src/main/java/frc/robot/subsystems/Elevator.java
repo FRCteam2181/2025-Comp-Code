@@ -39,14 +39,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Configs;
-import frc.robot.RobotMath.Elevator;
+import frc.robot.RobotMath.ElevatorMath;
 import frc.robot.Setpoints;
+import frc.robot.Configs.ElevatorConfigs;
 import frc.robot.Constants.ElevatorConstants;
-
 import edu.wpi.first.math.filter.Debouncer;
 
-public class ElevatorSubsystemPID extends SubsystemBase
+public class Elevator extends SubsystemBase
 {
 
   // This gearbox represents a gearbox containing 1 Neo
@@ -96,7 +95,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
   /**
    * Subsystem constructor.
    */
-  public ElevatorSubsystemPID() {
+  public Elevator() {
 
     m_ElevatorLeft = new SparkMax(ElevatorConstants.k_ElevatorLeftID, MotorType.kBrushless);
     m_ElevatorRight = new SparkMax(ElevatorConstants.k_ElevatorRightID, MotorType.kBrushless);
@@ -104,12 +103,12 @@ public class ElevatorSubsystemPID extends SubsystemBase
 
 
     m_ElevatorRight.configure(
-            Configs.ElevatorConfigs.elevatorFollowerConfig.follow(ElevatorConstants.k_ElevatorLeftID), 
+            ElevatorConfigs.elevatorFollowerConfig.follow(ElevatorConstants.k_ElevatorLeftID), 
             ResetMode.kResetSafeParameters, 
             PersistMode.kPersistParameters);
 
     m_ElevatorLeft.configure( 
-            Configs.ElevatorConfigs.elevatorConfig, 
+            ElevatorConfigs.elevatorConfig, 
             ResetMode.kResetSafeParameters, 
             PersistMode.kPersistParameters);
   
@@ -163,7 +162,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
         seedMeasurement = m_elevatorLaserCan.getMeasurement();
       }
 
-      elevatorEncoder.setPosition(Elevator.convertDistanceToRotations(Millimeters.of(
+      elevatorEncoder.setPosition(ElevatorMath.convertDistanceToRotations(Millimeters.of(
                                         m_elevatorLaserCan.getMeasurement().distance_mm - ElevatorConstants.kLaserCANOffset.in(Millimeters)))
                                     .in(Rotations));
   
@@ -182,7 +181,7 @@ public class ElevatorSubsystemPID extends SubsystemBase
         ReseedMeasurement = m_elevatorLaserCan.getMeasurement();
       }
 
-      elevatorEncoder.setPosition(Elevator.convertDistanceToRotations(Millimeters.of(
+      elevatorEncoder.setPosition(ElevatorMath.convertDistanceToRotations(Millimeters.of(
                                         m_elevatorLaserCan.getMeasurement().distance_mm - ElevatorConstants.kLaserCANOffset.in(Millimeters)))
                                     .in(Rotations));
   

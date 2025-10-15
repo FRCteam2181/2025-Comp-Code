@@ -6,14 +6,13 @@ import static edu.wpi.first.units.Units.Rotations;
 // import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
-// import frc.robot.Constants.AlgaeRotatorConstants;
 import frc.robot.Constants.ElevatorConstants;
 
 
 public class RobotMath
 {
 
-  public static class Elevator
+  public static class ElevatorMath
   {
 
     /**

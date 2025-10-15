@@ -1,9 +1,11 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.CoralPlacerConstants.*;
 import com.revrobotics.spark.config.*;
 // import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import static frc.robot.Constants.CoralPlacerConstants.*;
+
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -11,7 +13,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Configs;
+import frc.robot.Configs.CoralPlacerConfigs;
 import edu.wpi.first.math.filter.LinearFilter;
 
 
@@ -28,7 +30,7 @@ public class CoralPlacer extends SubsystemBase{
         m_CorPWheelLeft = new SparkFlex(k_CoralWheelLeftID, MotorType.kBrushless);
 
         m_CorPWheelLeft.configure(
-            Configs.CoralPlacerConfigs.baseCoralPlacerConfig,
+            CoralPlacerConfigs.baseCoralPlacerConfig,
             ResetMode.kResetSafeParameters, 
             PersistMode.kPersistParameters);
         

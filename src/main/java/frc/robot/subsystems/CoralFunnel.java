@@ -1,9 +1,8 @@
 package frc.robot.subsystems;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import static frc.robot.Constants.CoralFunnelConstants.*;
 
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-// import com.revrobotics.spark.config.SparkFlexConfig;
-// import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkFlex;
 
 //import com.playingwithfusion.TimeOfFlight;
@@ -20,12 +19,10 @@ import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.math.filter.LinearFilter;
-import frc.robot.Constants.CoralFunnelConstants;
-import frc.robot.Configs;
 import frc.robot.Robot;
-
-
-
+import frc.robot.Configs.CoralFunnelConfigs;
+import frc.robot.Configs.FunnelRotatorConfigs;
+//import frc.robot.Constants.Constants.CoralFunnelConstants;
 import edu.wpi.first.math.filter.Debouncer;
 
 public class CoralFunnel extends SubsystemBase {
@@ -47,12 +44,12 @@ public class CoralFunnel extends SubsystemBase {
         m_FunnelRotator = new SparkFlex(k_CoralRotatorID, MotorType.kBrushless);
 
         m_CoralFunnelWheel.configure(
-          Configs.CoralFunnelConfigs.coralIntakeConfig, 
+          CoralFunnelConfigs.coralIntakeConfig, 
           ResetMode.kResetSafeParameters, 
           PersistMode.kPersistParameters);
           
         m_FunnelRotator.configure(
-          Configs.CoralFunnelConfigs.funnelRotatorConfig, 
+          FunnelRotatorConfigs.funnelRotatorConfig, 
           ResetMode.kResetSafeParameters, 
           PersistMode.kPersistParameters);
 
